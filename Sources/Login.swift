@@ -119,8 +119,8 @@ public class Login {
 
     /// Only valid for 3 minutes
     public struct LoginURL: Codable {
-        let url: String
-        let oauthKey: String
+        public let url: String
+        public let oauthKey: String
 
         struct Wrapper: Codable {
             let data: LoginURL

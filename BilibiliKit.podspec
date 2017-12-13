@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "BilibiliKit"
   s.version      = "0.1"
-  s.summary      = ""
+  s.summary      = "Bilibili related core functions."
   s.description  = <<-DESC
     Your description here.
   DESC
