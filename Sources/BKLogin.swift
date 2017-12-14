@@ -29,12 +29,12 @@ public class BKLogin {
         self.identifier = identifier
         self.cookie = cookie
     }
-    
+
     public func logout() {
         timer = nil
         cookie = nil
     }
-    
+
     public func login(withCookie cookie: BKCookie) {
         self.cookie = cookie
     }
@@ -42,7 +42,7 @@ public class BKLogin {
     public func interruptLogin() {
         timer = nil
     }
-    
+
     private var timer: Timer? {
         willSet {
             timer?.invalidate()
@@ -195,14 +195,13 @@ public class BKLogin {
         /// Content-Type: application/x-www-form-urlencoded
         request.httpBody = "oauthKey=\(oauthKey)".data(using: .utf8)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let response = response as? HTTPURLResponse {
-                if let headerFields = response.allHeaderFields as? [String: String],
-                    let cookies = headerFields["Set-Cookie"] {
-                    guard let cookie = BKCookie(headerField: cookies) else { fatalError("Logic Error") }
-                    return handler(.success(result: .succeeded(cookie: cookie)))
-                }
-            } else if let data = data,
-                let info = try? JSONDecoder().decode(LoginInfo.self, from: data) {
+            if let response = response as? HTTPURLResponse,
+                let headerFields = response.allHeaderFields as? [String: String],
+                let cookies = headerFields["Set-Cookie"] {
+                guard let cookie = BKCookie(headerField: cookies) else { fatalError("Logic Error") }
+                return handler(.success(result: .succeeded(cookie: cookie)))
+            }
+            if let data = data, let info = try? JSONDecoder().decode(LoginInfo.self, from: data) {
                 return handler(.success(result: LoginState.of(info)))
             } else {
                 return handler(.errored(response: response, error: error))
@@ -221,3 +220,4 @@ public class BKLogin {
         return request
     }
 }
+
