@@ -12,13 +12,11 @@ import Foundation
 #endif
 
 public class BKLogin {
-    //    private  var _cookie: Cookie?
     public var cookie: BKCookie? {
         get {
             return  UserDefaults.standard.object(forKey: cacheKey) as? BKCookie
         }
         set {
-            //            _cookie = newValue
             UserDefaults.standard.set(newValue, forKey: cacheKey)
         }
     }
@@ -60,7 +58,7 @@ public class BKLogin {
             func loop() {
                 DispatchQueue.global(qos: .userInteractive)
                     .asyncAfter(deadline: DispatchTime.now() + 1)
-                    { [weak self] in if self?.timer != nil { loop() } }
+                    { [weak self] in if self?.timer != nil { execute();loop() } }
             }
             loop()
         }
@@ -185,7 +183,6 @@ public class BKLogin {
         }
     }
 
-
     /// <#Description#>
     /// Needs to be constantly checked.
     ///
@@ -214,7 +211,6 @@ public class BKLogin {
         task.resume()
     }
 
-
     private func postRequest(to url: URL, cookie: BKCookie? = nil) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -224,5 +220,4 @@ public class BKLogin {
         }
         return request
     }
-
 }
