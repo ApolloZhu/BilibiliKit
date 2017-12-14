@@ -14,10 +14,11 @@ import Foundation
 public class BKLogin {
     public var cookie: BKCookie? {
         get {
-            return  UserDefaults.standard.object(forKey: cacheKey) as? BKCookie
+            guard let cached = UserDefaults.standard.data(forKey: cacheKey) else { return nil }
+            return try? JSONDecoder().decode(BKCookie.self, from: cached)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: cacheKey)
+            UserDefaults.standard.set(try? JSONEncoder().encode(newValue), forKey: cacheKey)
         }
     }
 
@@ -220,4 +221,3 @@ public class BKLogin {
         return request
     }
 }
-
