@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Dispatch
 
 #if os(iOS) || os(tvOS) || os(watchOS)
     import UIKit
@@ -44,6 +45,12 @@ public class BKLogin {
         timer = nil
     }
 
+    #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
+    private static let dummyTimer = Timer()
+    #else
+    private static let dummyTimer = Timer(timeInterval: 0, repeats: false) { _ in }
+    #endif
+
     private var timer: Timer? {
         willSet {
             timer?.invalidate()
@@ -55,7 +62,7 @@ public class BKLogin {
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in execute() }
             timer?.fire()
         } else {
-            timer = Timer() // dummy timer
+            timer = BKLogin.dummyTimer
             func loop() {
                 DispatchQueue.global(qos: .userInteractive)
                     .asyncAfter(deadline: DispatchTime.now() + 1)
