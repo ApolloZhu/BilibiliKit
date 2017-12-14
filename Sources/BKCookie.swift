@@ -1,5 +1,5 @@
 //
-//  Cookie.swift
+//  BKCookie.swift
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 7/9/17.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// Cookie required to post danmaku
-public struct Cookie: Codable, CustomDebugStringConvertible {
+public struct BKCookie: Codable, CustomDebugStringConvertible {
 
     #if os(iOS) || os(watchOS) || os(tvOS)
     // We don't have a thing here.
@@ -62,7 +62,7 @@ public struct Cookie: Codable, CustomDebugStringConvertible {
     ///           where `bilicookies` file is stored.
     public init?(path: String? = nil) {
         guard let string = try? String(contentsOfFile: path ??
-            "\(FileManager.default.currentDirectoryPath)/\(Cookie.filename)"
+            "\(FileManager.default.currentDirectoryPath)/\(BKCookie.filename)"
             ) else { return nil }
         var dict = [String:String]()
         for part in string
