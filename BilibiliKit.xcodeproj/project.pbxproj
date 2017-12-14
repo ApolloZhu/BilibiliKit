@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52B3EDDF1FE1D0AA004F4E23 /* Cookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* Cookie.swift */; };
-		52B3EDE01FE1D5EF004F4E23 /* Cookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* Cookie.swift */; };
-		52B3EDE11FE1D5F0004F4E23 /* Cookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* Cookie.swift */; };
-		52B3EDE21FE1D5F0004F4E23 /* Cookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* Cookie.swift */; };
-		52B3EDE41FE1D681004F4E23 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* Login.swift */; };
-		52B3EDE51FE1D681004F4E23 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* Login.swift */; };
-		52B3EDE61FE1D681004F4E23 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* Login.swift */; };
-		52B3EDE71FE1D681004F4E23 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* Login.swift */; };
+		52B3EDDF1FE1D0AA004F4E23 /* BKCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */; };
+		52B3EDE01FE1D5EF004F4E23 /* BKCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */; };
+		52B3EDE11FE1D5F0004F4E23 /* BKCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */; };
+		52B3EDE21FE1D5F0004F4E23 /* BKCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */; };
+		52B3EDE41FE1D681004F4E23 /* BKLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLogin.swift */; };
+		52B3EDE51FE1D681004F4E23 /* BKLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLogin.swift */; };
+		52B3EDE61FE1D681004F4E23 /* BKLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLogin.swift */; };
+		52B3EDE71FE1D681004F4E23 /* BKLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLogin.swift */; };
 		52D6D9871BEFF229002C0205 /* BilibiliKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D97C1BEFF229002C0205 /* BilibiliKit.framework */; };
 		8933C78E1EB5B82C000D00A4 /* BilibiliKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7891EB5B82A000D00A4 /* BilibiliKitTests.swift */; };
 		8933C78F1EB5B82C000D00A4 /* BilibiliKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7891EB5B82A000D00A4 /* BilibiliKitTests.swift */; };
@@ -48,8 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		52B3EDDE1FE1D0AA004F4E23 /* Cookie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cookie.swift; sourceTree = "<group>"; };
-		52B3EDE31FE1D681004F4E23 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKCookie.swift; sourceTree = "<group>"; };
+		52B3EDE31FE1D681004F4E23 /* BKLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKLogin.swift; sourceTree = "<group>"; };
 		52D6D97C1BEFF229002C0205 /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9861BEFF229002C0205 /* BilibiliKit-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BilibiliKit-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9E21BEFFF6E002C0205 /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,8 +154,8 @@
 		8933C7811EB5B7E0000D00A4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				52B3EDDE1FE1D0AA004F4E23 /* Cookie.swift */,
-				52B3EDE31FE1D681004F4E23 /* Login.swift */,
+				52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */,
+				52B3EDE31FE1D681004F4E23 /* BKLogin.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -465,8 +465,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52B3EDE41FE1D681004F4E23 /* Login.swift in Sources */,
-				52B3EDDF1FE1D0AA004F4E23 /* Cookie.swift in Sources */,
+				52B3EDE41FE1D681004F4E23 /* BKLogin.swift in Sources */,
+				52B3EDDF1FE1D0AA004F4E23 /* BKCookie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,8 +482,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52B3EDE61FE1D681004F4E23 /* Login.swift in Sources */,
-				52B3EDE11FE1D5F0004F4E23 /* Cookie.swift in Sources */,
+				52B3EDE61FE1D681004F4E23 /* BKLogin.swift in Sources */,
+				52B3EDE11FE1D5F0004F4E23 /* BKCookie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,8 +491,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52B3EDE71FE1D681004F4E23 /* Login.swift in Sources */,
-				52B3EDE21FE1D5F0004F4E23 /* Cookie.swift in Sources */,
+				52B3EDE71FE1D681004F4E23 /* BKLogin.swift in Sources */,
+				52B3EDE21FE1D5F0004F4E23 /* BKCookie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,8 +500,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52B3EDE51FE1D681004F4E23 /* Login.swift in Sources */,
-				52B3EDE01FE1D5EF004F4E23 /* Cookie.swift in Sources */,
+				52B3EDE51FE1D681004F4E23 /* BKLogin.swift in Sources */,
+				52B3EDE01FE1D5EF004F4E23 /* BKCookie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

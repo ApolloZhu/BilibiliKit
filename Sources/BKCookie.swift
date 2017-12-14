@@ -16,7 +16,7 @@ public struct BKCookie: Codable, CustomDebugStringConvertible {
     /// Default Cookie as saved in a file named `bilicookies`
     /// at current working directory, which can be retrieved
     /// using https://github.com/dantmnf/biliupload/blob/master/getcookie.py .
-    public static var `default`: Cookie! = Cookie()
+    public static var `default`: BKCookie! = BKCookie()
     #endif
 
     /// File name which stores cookie as and loads from.
