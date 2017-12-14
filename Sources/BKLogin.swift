@@ -1,5 +1,5 @@
 //
-//  Login.swift
+//  BKLogin.swift
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 9/30/17.
@@ -11,11 +11,11 @@ import Foundation
     import UIKit
 #endif
 
-public class Login {
+public class BKLogin {
     //    private  var _cookie: Cookie?
-    public var cookie: Cookie? {
+    public var cookie: BKCookie? {
         get {
-            return  UserDefaults.standard.object(forKey: cacheKey) as? Cookie
+            return  UserDefaults.standard.object(forKey: cacheKey) as? BKCookie
         }
         set {
             //            _cookie = newValue
@@ -23,11 +23,11 @@ public class Login {
         }
     }
 
-    private var cacheKey: String { return "\(Cookie.filename)-\(identifier)" }
+    private var cacheKey: String { return "\(BKCookie.filename)-\(identifier)" }
 
     public let identifier: String
-    public static let `default` = Login(identifier: "DEFAULT")
-    public init(identifier: String, cookie: Cookie? = nil) {
+    public static let `default` = BKLogin(identifier: "DEFAULT")
+    public init(identifier: String, cookie: BKCookie? = nil) {
         self.identifier = identifier
         self.cookie = cookie
     }
@@ -37,7 +37,7 @@ public class Login {
         cookie = nil
     }
     
-    public func login(withCookie cookie: Cookie) {
+    public func login(withCookie cookie: BKCookie) {
         self.cookie = cookie
     }
 
@@ -170,7 +170,7 @@ public class Login {
     public enum LoginState {
         case started
         case needsConfirmation
-        case succeeded(cookie: Cookie)
+        case succeeded(cookie: BKCookie)
         case expired
         case missingOAuthKey
         case unknown(status: Int)
@@ -201,7 +201,7 @@ public class Login {
             if let response = response as? HTTPURLResponse {
                 if let headerFields = response.allHeaderFields as? [String: String],
                     let cookies = headerFields["Set-Cookie"] {
-                    guard let cookie = Cookie(headerField: cookies) else { fatalError("Logic Error") }
+                    guard let cookie = BKCookie(headerField: cookies) else { fatalError("Logic Error") }
                     return handler(.success(result: .succeeded(cookie: cookie)))
                 }
             } else if let data = data,
@@ -215,7 +215,7 @@ public class Login {
     }
 
 
-    private func postRequest(to url: URL, cookie: Cookie? = nil) -> URLRequest {
+    private func postRequest(to url: URL, cookie: BKCookie? = nil) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("io.github.apollozhu.bilibilikit", forHTTPHeaderField: "User-Agent")
