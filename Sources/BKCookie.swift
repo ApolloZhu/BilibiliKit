@@ -83,7 +83,7 @@ public struct BKCookie: Codable, CustomDebugStringConvertible {
 
     public init?(headerField: String) {
         var dict = [String:String]()
-        for part in headerField.split(separator: ";") {
+        for part in headerField.split(whereSeparator: { "; ".contains($0) }) {
             let parts = part
                 .split(separator: "=")
                 .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
