@@ -1,5 +1,5 @@
 //
-//  BKLogin.swift
+//  BKLoginHelper.swift
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 9/30/17.
@@ -12,85 +12,81 @@ import Dispatch
     import UIKit
 #endif
 
-public class BKLogin {
-    public var cookie: BKCookie? {
-        get {
-            guard let cached = UserDefaults.standard.data(forKey: cacheKey) else { return nil }
-            return try? JSONDecoder().decode(BKCookie.self, from: cached)
-        }
-        set {
-            UserDefaults.standard.set(try? JSONEncoder().encode(newValue), forKey: cacheKey)
-        }
-    }
+public class BKLoginHelper {
+    /// <#Description#>
+    public static let `default` = BKLoginHelper()
 
-    private var cacheKey: String { return "\(BKCookie.filename)-\(identifier)" }
-
-    public let identifier: String
-    public static let `default` = BKLogin(identifier: "DEFAULT")
-    public init(identifier: String, cookie: BKCookie? = nil) {
-        self.identifier = identifier
-        self.cookie = cookie
-    }
-
-    public func logout() {
-        timer = nil
-        cookie = nil
-    }
-
-    public func login(withCookie cookie: BKCookie) {
-        self.cookie = cookie
-    }
-
-    public func interruptLogin() {
-        timer = nil
-    }
+    /// <#Description#>
+    public init() { }
 
     #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
+    /// <#Description#>
     private static let dummyTimer = Timer()
     #else
+    /// <#Description#>
     private static let dummyTimer = Timer(timeInterval: 0, repeats: false) { _ in }
     #endif
 
+    /// <#Description#>
     private var timer: Timer? {
         willSet {
             timer?.invalidate()
         }
     }
 
+    public var isActive: Bool {
+        get {
+            return timer != nil
+        }
+        set {
+            if !newValue { timer = nil }
+        }
+    }
+
+    /// Run code to execute every second.
+    ///
+    /// - Parameter execute: code to run.
     private func everySecond(execute: @escaping () -> Void) {
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, watchOS 3.0, *) {
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in execute() }
             timer?.fire()
         } else {
-            timer = BKLogin.dummyTimer
+            timer = BKLoginHelper.dummyTimer
             func loop() {
                 DispatchQueue.global(qos: .userInteractive)
                     .asyncAfter(deadline: DispatchTime.now() + 1)
-                    { [weak self] in if self?.timer != nil { execute();loop() } }
+                    { [weak self] in if self?.isActive == true { execute();loop() } }
             }
             loop()
         }
     }
 
-    public func login(handleLoginInfo: @escaping (LoginURL) -> Void, handleLoginState: @escaping (LoginState) -> Void) {
+    /// <#Description#>
+    ///
+    /// - Parameters:
+    ///   - session: <#session description#>
+    ///   - handleLoginInfo: <#handleLoginInfo description#>
+    ///   - handleLoginState: <#handleLoginState description#>
+    public func login(session: BKSession = .shared,
+                      handleLoginInfo: @escaping (LoginURL) -> Void,
+                      handleLoginState: @escaping (LoginState) -> Void) {
         fetchLoginURL { [weak self] result in
+            guard let `self` = self, self.isActive == true else { return }
             switch result {
             case .success(let url):
                 handleLoginInfo(url)
-                func process() {
-                    func heartbeat() {
-                        DispatchQueue.global(qos: .userInitiated)
-                            .asyncAfter(deadline: DispatchTime.now() + 3, execute: process)
-                    }
-                    self?.fetchLoginInfo(oauthKey: url.oauthKey) { result in
+                var process: () -> Void = { [weak self] in
+                    guard let `self` = self, self.isActive else { return }
+                    self.fetchLoginInfo(oauthKey: url.oauthKey) { [weak self] result in
+                        guard let `self` = self, self.isActive else { return }
                         switch result {
                         case .success(let state):
                             switch state {
                             case .succeeded(cookie: let cookie):
-                                self?.timer = nil
-                                self?.login(withCookie: cookie)
+                                self.isActive = false
+                                session.cookie = cookie
                             case .expired:
-                                self?.timer = nil
+                                self.isActive = false
                             default:
                                 heartbeat()
                             }
@@ -104,12 +100,19 @@ public class BKLogin {
                         }
                     }
                 }
-                self?.everySecond(execute: process)
+                func heartbeat() {
+                    DispatchQueue.global(qos: .userInitiated)
+                        .asyncAfter(deadline: DispatchTime.now() + 3,
+                                    execute: process)
+                }
+                self.everySecond(execute: process)
             case .errored(response: let response, error: let error):
-                fatalError("""
+                self.isActive = false
+                debugPrint("""
                     Response: \(response?.description ?? "No Response")
                     Error: \(error?.localizedDescription ?? "No Error")
                     """)
+                handleLoginState(.errored)
             }
         }
     }
@@ -125,29 +128,18 @@ public class BKLogin {
 
     /// Only valid for 3 minutes
     public struct LoginURL: Codable {
+        /// This url directs user to the confirmation page.
         public let url: String
+        /// This oauthKey keeps track of the current session.
         public let oauthKey: String
 
         struct Wrapper: Codable {
             let data: LoginURL
         }
-
-        /*
-         func qrCode(inputCorrectionLevel: QRErrorCorrectLevel) -> UIImage? {
-         let data = url.data(using: .utf8)
-         guard let filter = CIFilter(name: "CIQRCodeGenerator")
-         else { return nil }
-         filter.setValue(data, forKey: "inputMessage")
-         filter.setValue(inputCorrectionLevel.ciQRCodeGeneratorInputCorrectionLevel,
-         forKey: "inputCorrectionLevel")
-         guard let ciimage = filter.outputImage else { return nil }
-         return UIImage(ciImage: ciimage)
-         }
-         */
     }
 
     private  func fetchLoginURL(handler: @escaping FetchResultHandler<LoginURL>) {
-        let url = URL(string: "https://passport.bilibili.com/qrcode/getLoginUrl")!
+        let url: URL = "https://passport.bilibili.com/qrcode/getLoginUrl"
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data,
                 let wrapper = try? JSONDecoder().decode(LoginURL.Wrapper.self, from: data)
@@ -164,16 +156,14 @@ public class BKLogin {
         /// Set-Cookie if true.
         let status: Bool
         /// Login process status.
-        /// -4: not scaned.
-        /// -5: not confirmed.
-        /// -2: expired.
-        /// -1: no auth key present.
+        /// - See: LoginState.of(_:).
         let data: Int
         /// Login process status explaination.
         let message: String
     }
 
     public enum LoginState {
+        case errored
         case started
         case needsConfirmation
         case succeeded(cookie: BKCookie)
@@ -197,9 +187,11 @@ public class BKLogin {
     /// - Parameters:
     ///   - oauthKey: <#oauthKey description#>
     ///   - handler: <#handler description#>
-    private func fetchLoginInfo(oauthKey: String, handler: @escaping FetchResultHandler<LoginState>) {
-        let url = URL(string: "https://passport.bilibili.com/qrcode/getLoginInfo")!
-        var request = postRequest(to: url)
+    private func fetchLoginInfo(session: BKSession = .shared,
+                                oauthKey: String,
+                                handler: @escaping FetchResultHandler<LoginState>) {
+        let url: URL = "https://passport.bilibili.com/qrcode/getLoginInfo"
+        var request = session.postRequest(to: url)
         /// Content-Type: application/x-www-form-urlencoded
         request.httpBody = "oauthKey=\(oauthKey)".data(using: .utf8)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -216,15 +208,5 @@ public class BKLogin {
             }
         }
         task.resume()
-    }
-
-    private func postRequest(to url: URL, cookie: BKCookie? = nil) -> URLRequest {
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("io.github.apollozhu.bilibilikit", forHTTPHeaderField: "User-Agent")
-        if let cookieHeader = (cookie ?? self.cookie)?.asHeaderField {
-            request.addValue(cookieHeader, forHTTPHeaderField: "Cookie")
-        }
-        return request
     }
 }
