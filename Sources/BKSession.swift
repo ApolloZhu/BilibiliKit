@@ -29,6 +29,8 @@ public class BKSession {
         self.identifier = identifier
         self.cookie = cookie
     }
+
+    public var isLoggedIn: Bool { return cookie != nil }
     
     public func postRequest(to url: URL) -> URLRequest {
         var request = URLRequest(url: url)

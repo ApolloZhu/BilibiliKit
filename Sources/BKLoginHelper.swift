@@ -202,12 +202,15 @@ public class BKLoginHelper {
         var request = session.postRequest(to: url)
         /// Content-Type: application/x-www-form-urlencoded
         request.httpBody = "oauthKey=\(oauthKey)".data(using: .utf8)
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            guard self?.isRunLoopActive == true else { return }
             if let response = response as? HTTPURLResponse,
                 let headerFields = response.allHeaderFields as? [String: String],
                 let cookies = headerFields["Set-Cookie"] {
-                guard let cookie = BKCookie(headerField: cookies)
-                    else { fatalError("BilibiliKit Cookie Login Logic Error") }
+                guard let cookie = BKCookie(headerField: cookies) else {
+                    debugPrint("Inconsistent Login Cookie State")
+                    return handler(.errored(data: data, response: response, error: error))
+                }
                 return handler(.success(result: .succeeded(cookie: cookie)))
             }
             if let data = data, let info = try? JSONDecoder().decode(LoginInfo.self, from: data) {
