@@ -11,11 +11,15 @@
 		52B3EDE01FE1D5EF004F4E23 /* BKCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */; };
 		52B3EDE11FE1D5F0004F4E23 /* BKCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */; };
 		52B3EDE21FE1D5F0004F4E23 /* BKCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */; };
-		52B3EDE41FE1D681004F4E23 /* BKLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLogin.swift */; };
-		52B3EDE51FE1D681004F4E23 /* BKLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLogin.swift */; };
-		52B3EDE61FE1D681004F4E23 /* BKLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLogin.swift */; };
-		52B3EDE71FE1D681004F4E23 /* BKLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLogin.swift */; };
+		52B3EDE41FE1D681004F4E23 /* BKLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLoginHelper.swift */; };
+		52B3EDE51FE1D681004F4E23 /* BKLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLoginHelper.swift */; };
+		52B3EDE61FE1D681004F4E23 /* BKLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLoginHelper.swift */; };
+		52B3EDE71FE1D681004F4E23 /* BKLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B3EDE31FE1D681004F4E23 /* BKLoginHelper.swift */; };
 		52D6D9871BEFF229002C0205 /* BilibiliKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D97C1BEFF229002C0205 /* BilibiliKit.framework */; };
+		52DE07351FE48CDF00F4D6F6 /* BKSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DE07341FE48CDF00F4D6F6 /* BKSession.swift */; };
+		52DE07361FE48CDF00F4D6F6 /* BKSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DE07341FE48CDF00F4D6F6 /* BKSession.swift */; };
+		52DE07371FE48CDF00F4D6F6 /* BKSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DE07341FE48CDF00F4D6F6 /* BKSession.swift */; };
+		52DE07381FE48CDF00F4D6F6 /* BKSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DE07341FE48CDF00F4D6F6 /* BKSession.swift */; };
 		8933C78E1EB5B82C000D00A4 /* BilibiliKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7891EB5B82A000D00A4 /* BilibiliKitTests.swift */; };
 		8933C78F1EB5B82C000D00A4 /* BilibiliKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7891EB5B82A000D00A4 /* BilibiliKitTests.swift */; };
 		8933C7901EB5B82D000D00A4 /* BilibiliKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7891EB5B82A000D00A4 /* BilibiliKitTests.swift */; };
@@ -49,12 +53,13 @@
 
 /* Begin PBXFileReference section */
 		52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKCookie.swift; sourceTree = "<group>"; };
-		52B3EDE31FE1D681004F4E23 /* BKLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKLogin.swift; sourceTree = "<group>"; };
+		52B3EDE31FE1D681004F4E23 /* BKLoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKLoginHelper.swift; sourceTree = "<group>"; };
 		52D6D97C1BEFF229002C0205 /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9861BEFF229002C0205 /* BilibiliKit-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BilibiliKit-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9E21BEFFF6E002C0205 /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9F01BEFFFBE002C0205 /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6DA0F1BF000BD002C0205 /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52DE07341FE48CDF00F4D6F6 /* BKSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSession.swift; sourceTree = "<group>"; };
 		8933C7891EB5B82A000D00A4 /* BilibiliKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BilibiliKitTests.swift; sourceTree = "<group>"; };
 		AD2FAA261CD0B6D800659CF4 /* BilibiliKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BilibiliKit.plist; sourceTree = "<group>"; };
 		AD2FAA281CD0B6E100659CF4 /* BilibiliKitTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BilibiliKitTests.plist; sourceTree = "<group>"; };
@@ -155,7 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				52B3EDDE1FE1D0AA004F4E23 /* BKCookie.swift */,
-				52B3EDE31FE1D681004F4E23 /* BKLogin.swift */,
+				52B3EDE31FE1D681004F4E23 /* BKLoginHelper.swift */,
+				52DE07341FE48CDF00F4D6F6 /* BKSession.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -465,7 +471,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52B3EDE41FE1D681004F4E23 /* BKLogin.swift in Sources */,
+				52DE07351FE48CDF00F4D6F6 /* BKSession.swift in Sources */,
+				52B3EDE41FE1D681004F4E23 /* BKLoginHelper.swift in Sources */,
 				52B3EDDF1FE1D0AA004F4E23 /* BKCookie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,7 +489,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52B3EDE61FE1D681004F4E23 /* BKLogin.swift in Sources */,
+				52DE07371FE48CDF00F4D6F6 /* BKSession.swift in Sources */,
+				52B3EDE61FE1D681004F4E23 /* BKLoginHelper.swift in Sources */,
 				52B3EDE11FE1D5F0004F4E23 /* BKCookie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,7 +499,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52B3EDE71FE1D681004F4E23 /* BKLogin.swift in Sources */,
+				52DE07381FE48CDF00F4D6F6 /* BKSession.swift in Sources */,
+				52B3EDE71FE1D681004F4E23 /* BKLoginHelper.swift in Sources */,
 				52B3EDE21FE1D5F0004F4E23 /* BKCookie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,7 +509,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52B3EDE51FE1D681004F4E23 /* BKLogin.swift in Sources */,
+				52DE07361FE48CDF00F4D6F6 /* BKSession.swift in Sources */,
+				52B3EDE51FE1D681004F4E23 /* BKLoginHelper.swift in Sources */,
 				52B3EDE01FE1D5EF004F4E23 /* BKCookie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

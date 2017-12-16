@@ -11,7 +11,7 @@ import Foundation
 public struct BKCookie: Codable, CustomDebugStringConvertible {
 
     #if os(iOS) || os(watchOS) || os(tvOS)
-    // We don't have a thing here.
+    // We are supposed to have nothing here.
     #else
     /// Default Cookie as saved in a file named `bilicookies`
     /// at current working directory, which can be retrieved
