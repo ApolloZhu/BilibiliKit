@@ -15,10 +15,10 @@ import Dispatch
 public class BKLoginHelper {
     /// <#Description#>
     public static let `default` = BKLoginHelper()
-    
+
     /// <#Description#>
     public init() { }
-    
+
     #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
     /// <#Description#>
     private static let dummyTimer = Timer()
@@ -26,23 +26,18 @@ public class BKLoginHelper {
     /// <#Description#>
     private static let dummyTimer = Timer(timeInterval: 0, repeats: false) { _ in }
     #endif
-    
+
     /// <#Description#>
     private var timer: Timer? {
         willSet {
             timer?.invalidate()
         }
     }
-    
-    public var isActive: Bool {
-        get {
-            return timer != nil
-        }
-        set {
-            if !newValue { timer = nil }
-        }
-    }
-    
+
+    private var isRunLoopActive: Bool { return timer != nil }
+
+    public func interrupt() { timer = nil }
+
     /// Run code to execute every second.
     ///
     /// - Parameter execute: code to run.
@@ -55,12 +50,12 @@ public class BKLoginHelper {
             func loop() {
                 DispatchQueue.global(qos: .userInteractive)
                     .asyncAfter(deadline: DispatchTime.now() + 1)
-                    { [weak self] in if self?.isActive == true { execute();loop() } }
+                    { [weak self] in if self?.isRunLoopActive == true { execute();loop() } }
             }
             loop()
         }
     }
-    
+
     /// <#Description#>
     ///
     /// - Parameters:
@@ -71,22 +66,21 @@ public class BKLoginHelper {
                       handleLoginInfo: @escaping (LoginURL) -> Void,
                       handleLoginState: @escaping (LoginState) -> Void) {
         fetchLoginURL { [weak self] result in
-            guard let `self` = self, self.isActive == true else { return }
             switch result {
             case .success(let url):
                 handleLoginInfo(url)
                 var process: () -> Void = { [weak self] in
-                    guard let `self` = self, self.isActive else { return }
+                    guard let `self` = self, self.isRunLoopActive else { return }
                     self.fetchLoginInfo(oauthKey: url.oauthKey) { [weak self] result in
-                        guard let `self` = self, self.isActive else { return }
+                        guard let `self` = self, self.isRunLoopActive else { return }
                         switch result {
                         case .success(let state):
                             switch state {
                             case .succeeded(cookie: let cookie):
-                                self.isActive = false
+                                self.interrupt()
                                 session.cookie = cookie
                             case .expired:
-                                self.isActive = false
+                                self.interrupt()
                             default:
                                 heartbeat()
                             }
@@ -102,15 +96,14 @@ public class BKLoginHelper {
                         .asyncAfter(deadline: DispatchTime.now() + 3,
                                     execute: process)
                 }
-                self.everySecond(execute: process)
+                self?.everySecond(execute: process)
             case .errored:
-                self.isActive = false
                 debugPrint(result)
                 handleLoginState(.errored)
             }
         }
     }
-    
+
     private enum FetchResult<E>: CustomDebugStringConvertible {
         case success(result: E)
         case errored(data: Data?, response: URLResponse?, error: Swift.Error?)
@@ -134,23 +127,23 @@ public class BKLoginHelper {
             }
         }
     }
-    
+
     private typealias FetchResultHandler<E> = (_ result: FetchResult<E>) -> Void
-    
+
     // MARK: Login URL Fetching
-    
+
     /// Only valid for 3 minutes
     public struct LoginURL: Codable {
         /// This url directs user to the confirmation page.
         public let url: String
         /// This oauthKey keeps track of the current session.
         public let oauthKey: String
-        
+
         struct Wrapper: Codable {
             let data: LoginURL
         }
     }
-    
+
     private  func fetchLoginURL(handler: @escaping FetchResultHandler<LoginURL>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginUrl"
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
@@ -163,9 +156,9 @@ public class BKLoginHelper {
         }
         task.resume()
     }
-    
+
     // MARK: Login Info Fetching
-    
+
     fileprivate struct LoginInfo: Codable {
         /// If has login info.
         /// Set-Cookie if true.
@@ -176,7 +169,7 @@ public class BKLoginHelper {
         /// Login process status explaination.
         let message: String
     }
-    
+
     public enum LoginState {
         case errored
         case started
@@ -195,7 +188,7 @@ public class BKLoginHelper {
             }
         }
     }
-    
+
     /// <#Description#>
     /// Needs to be constantly called when active.
     ///
@@ -226,3 +219,4 @@ public class BKLoginHelper {
         task.resume()
     }
 }
+
