@@ -8,8 +8,8 @@
 import Foundation
 
 /// Cookie required to post danmaku
-public struct BKCookie: Codable, CustomDebugStringConvertible {
-
+public struct BKCookie: Codable {
+    
     #if os(iOS) || os(watchOS) || os(tvOS)
     // We are supposed to have nothing here.
     #else
@@ -18,17 +18,22 @@ public struct BKCookie: Codable, CustomDebugStringConvertible {
     /// using https://github.com/dantmnf/biliupload/blob/master/getcookie.py .
     public static var `default`: BKCookie! = BKCookie()
     #endif
-
+    
     /// File name which stores cookie as and loads from.
     public static let filename = "bilicookies"
-
+    
+    /// Default path for cookies to load from and save to.
+    public static var defaultPath: String {
+        return "\(FileManager.default.currentDirectoryPath)/\(BKCookie.filename)"
+    }
+    
     /// DedeUserID
     private let mid: Int
     /// DedeUserID__ckMd5
     private let md5Sum: String
     /// SESSDATA
     private let sessionData: String
-
+    
     /// Keys to use when encoding to other formats
     ///
     /// - mid: DedeUserID
@@ -39,7 +44,7 @@ public struct BKCookie: Codable, CustomDebugStringConvertible {
         case md5Sum = "DedeUserID__ckMd5"
         case sessionData = "SESSDATA"
     }
-
+    
     /// Initialize a Cookie with required cookie value,
     /// available after login a bilibili account.
     ///
@@ -52,7 +57,7 @@ public struct BKCookie: Codable, CustomDebugStringConvertible {
         md5Sum = DedeUserID__ckMd5
         sessionData = SESSDATA
     }
-
+    
     /// Initialize a Cookie with a file at path,
     /// whose contents are of format
     /// `DedeUserID=xx;DedeUserID__ckMd5=xx;SESSDATA=xx`
@@ -80,7 +85,7 @@ public struct BKCookie: Codable, CustomDebugStringConvertible {
             else { return nil }
         self.init(DedeUserID: mid, DedeUserID__ckMd5: sum, SESSDATA: data)
     }
-
+    
     public init?(headerField: String) {
         var dict = [String:String]()
         for part in headerField.split(whereSeparator: { "; ".contains($0) }) {
@@ -96,13 +101,19 @@ public struct BKCookie: Codable, CustomDebugStringConvertible {
             else { return nil }
         self.init(DedeUserID: mid, DedeUserID__ckMd5: sum, SESSDATA: data)
     }
-
+    
     /// Cookie in format of request header
     public var asHeaderField: String {
         return "\(CodingKeys.mid.stringValue)=\(mid);\(CodingKeys.md5Sum.stringValue)=\(md5Sum);\(CodingKeys.sessionData.stringValue)=\(sessionData)"
     }
-
-    public var debugDescription: String {
-        return asHeaderField
+    
+    @discardableResult
+    public func save(toPath path: String =  BKCookie.defaultPath) -> Bool {
+        do {
+            try asHeaderField.write(toFile: path, atomically: false, encoding: .utf8)
+            return true
+        } catch {
+            return false
+        }
     }
 }

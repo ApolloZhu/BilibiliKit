@@ -15,10 +15,10 @@ import Dispatch
 public class BKLoginHelper {
     /// <#Description#>
     public static let `default` = BKLoginHelper()
-
+    
     /// <#Description#>
     public init() { }
-
+    
     #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
     /// <#Description#>
     private static let dummyTimer = Timer()
@@ -26,14 +26,14 @@ public class BKLoginHelper {
     /// <#Description#>
     private static let dummyTimer = Timer(timeInterval: 0, repeats: false) { _ in }
     #endif
-
+    
     /// <#Description#>
     private var timer: Timer? {
         willSet {
             timer?.invalidate()
         }
     }
-
+    
     public var isActive: Bool {
         get {
             return timer != nil
@@ -42,7 +42,7 @@ public class BKLoginHelper {
             if !newValue { timer = nil }
         }
     }
-
+    
     /// Run code to execute every second.
     ///
     /// - Parameter execute: code to run.
@@ -60,7 +60,7 @@ public class BKLoginHelper {
             loop()
         }
     }
-
+    
     /// <#Description#>
     ///
     /// - Parameters:
@@ -91,11 +91,8 @@ public class BKLoginHelper {
                                 heartbeat()
                             }
                             handleLoginState(state)
-                        case .errored(response: let response, error: let error):
-                            debugPrint("""
-                                Response: \(response?.description ?? "No Response")
-                                Error: \(error?.localizedDescription ?? "No Error")
-                                """)
+                        case .errored:
+                            debugPrint(result)
                             heartbeat()
                         }
                     }
@@ -106,51 +103,69 @@ public class BKLoginHelper {
                                     execute: process)
                 }
                 self.everySecond(execute: process)
-            case .errored(response: let response, error: let error):
+            case .errored:
                 self.isActive = false
-                debugPrint("""
-                    Response: \(response?.description ?? "No Response")
-                    Error: \(error?.localizedDescription ?? "No Error")
-                    """)
+                debugPrint(result)
                 handleLoginState(.errored)
             }
         }
     }
-
-    private enum FetchResult<E> {
+    
+    private enum FetchResult<E>: CustomDebugStringConvertible {
         case success(result: E)
-        case errored(response: URLResponse?, error: Swift.Error?)
+        case errored(data: Data?, response: URLResponse?, error: Swift.Error?)
+        var debugDescription: String {
+            switch self {
+            case .success(result: let result): return "\(result)"
+            case .errored(data: let data, response: let response, error: let error):
+                var description = "Data: "
+                if let data = data {
+                    if let str = String(data: data, encoding: .utf8) {
+                        description += str
+                    } else {
+                        description += "\(data)"
+                    }
+                } else {
+                    description += "No Data"
+                }
+                description += "\nResponse: \(response?.description ?? "No Response")"
+                description += "\nError: \(error?.localizedDescription ?? "No Error")"
+                return description
+            }
+        }
     }
-
+    
     private typealias FetchResultHandler<E> = (_ result: FetchResult<E>) -> Void
-
+    
     // MARK: Login URL Fetching
-
+    
     /// Only valid for 3 minutes
     public struct LoginURL: Codable {
         /// This url directs user to the confirmation page.
         public let url: String
         /// This oauthKey keeps track of the current session.
         public let oauthKey: String
-
+        
         struct Wrapper: Codable {
             let data: LoginURL
         }
     }
-
+    
     private  func fetchLoginURL(handler: @escaping FetchResultHandler<LoginURL>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginUrl"
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data,
-                let wrapper = try? JSONDecoder().decode(LoginURL.Wrapper.self, from: data)
-                else { return handler(.errored(response: response, error: error)) }
+            guard let body = data,
+                let wrapper = try? JSONDecoder().decode(LoginURL.Wrapper.self, from: body)
+                else { return handler(.errored(data: data,
+                                               response: response,
+                                               error: error)) }
             return handler(.success(result: wrapper.data))
         }
         task.resume()
     }
-
+    
     // MARK: Login Info Fetching
-
+    
     fileprivate struct LoginInfo: Codable {
         /// If has login info.
         /// Set-Cookie if true.
@@ -161,7 +176,7 @@ public class BKLoginHelper {
         /// Login process status explaination.
         let message: String
     }
-
+    
     public enum LoginState {
         case errored
         case started
@@ -180,13 +195,13 @@ public class BKLoginHelper {
             }
         }
     }
-
+    
     /// <#Description#>
-    /// Needs to be constantly checked.
+    /// Needs to be constantly called when active.
     ///
     /// - Parameters:
-    ///   - oauthKey: <#oauthKey description#>
-    ///   - handler: <#handler description#>
+    ///   - oauthKey: oauthKey indicating the current session.
+    ///   - handler: code handling fetched login state.
     private func fetchLoginInfo(session: BKSession = .shared,
                                 oauthKey: String,
                                 handler: @escaping FetchResultHandler<LoginState>) {
@@ -198,13 +213,14 @@ public class BKLoginHelper {
             if let response = response as? HTTPURLResponse,
                 let headerFields = response.allHeaderFields as? [String: String],
                 let cookies = headerFields["Set-Cookie"] {
-                guard let cookie = BKCookie(headerField: cookies) else { fatalError("Logic Error") }
+                guard let cookie = BKCookie(headerField: cookies)
+                    else { fatalError("BilibiliKit Cookie Login Logic Error") }
                 return handler(.success(result: .succeeded(cookie: cookie)))
             }
             if let data = data, let info = try? JSONDecoder().decode(LoginInfo.self, from: data) {
                 return handler(.success(result: LoginState.of(info)))
             } else {
-                return handler(.errored(response: response, error: error))
+                return handler(.errored(data: data, response: response, error: error))
             }
         }
         task.resume()
