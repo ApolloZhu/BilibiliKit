@@ -10,14 +10,16 @@ import Foundation
 
 public class BKSession {
     public let identifier: String
+    private let userDefaults: UserDefaults
     
     public var cookie: BKCookie? {
         get {
-            guard let cached = UserDefaults.standard.data(forKey: cacheKey) else { return nil }
+            guard let cached = userDefaults.data(forKey: cacheKey) else { return nil }
             return try? JSONDecoder().decode(BKCookie.self, from: cached)
         }
         set {
-            UserDefaults.standard.set(try? JSONEncoder().encode(newValue), forKey: cacheKey)
+            userDefaults.set(try? JSONEncoder().encode(newValue), forKey: cacheKey)
+            userDefaults.synchronize()
         }
     }
     
@@ -25,19 +27,29 @@ public class BKSession {
     
     public static let shared = BKSession(identifier: "__BILIBILI_KIT_DEFAULT_SESSION__")
     
-    public init(identifier: String, cookie: BKCookie? = nil) {
+    public init(identifier: String, cookie: BKCookie? = nil, userDefaults: UserDefaults = .standard) {
         self.identifier = identifier
+        self.userDefaults = userDefaults
         self.cookie = cookie
     }
 
     public var isLoggedIn: Bool { return cookie != nil }
+
+    public func logout() { cookie = nil }
     
     public func postRequest(to url: URL) -> URLRequest {
+        var mutableRequest = request(to: url)
+        mutableRequest.httpMethod = "POST"
+        return mutableRequest
+    }
+
+    public func request(to url: URL) -> URLRequest {
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("io.github.apollozhu.bilibilikit", forHTTPHeaderField: "User-Agent")
+        request.addValue("io.github.apollozhu.bilibilikit",
+                         forHTTPHeaderField: "User-Agent")
         if let cookieHeader = cookie?.asHeaderField {
-            request.addValue(cookieHeader, forHTTPHeaderField: "Cookie")
+            request.addValue(cookieHeader,
+                             forHTTPHeaderField: "Cookie")
         }
         return request
     }
