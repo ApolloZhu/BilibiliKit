@@ -146,7 +146,7 @@ public class BKLoginHelper {
 
     private  func fetchLoginURL(handler: @escaping FetchResultHandler<LoginURL>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginUrl"
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.bk.dataTask(with: url) { data, response, error in
             guard let body = data,
                 let wrapper = try? JSONDecoder().decode(LoginURL.Wrapper.self, from: body)
                 else { return handler(.errored(data: data,
@@ -202,7 +202,7 @@ public class BKLoginHelper {
         var request = session.postRequest(to: url)
         /// Content-Type: application/x-www-form-urlencoded
         request.httpBody = "oauthKey=\(oauthKey)".data(using: .utf8)
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+        let task = URLSession.bk.dataTask(with: request) { [weak self] data, response, error in
             guard self?.isRunLoopActive == true else { return }
             if let response = response as? HTTPURLResponse,
                 let headerFields = response.allHeaderFields as? [String: String],

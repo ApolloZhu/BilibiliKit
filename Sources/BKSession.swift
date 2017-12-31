@@ -32,9 +32,9 @@ public class BKSession {
         self.userDefaults = userDefaults
         self.cookie = cookie
     }
-
+    
     public var isLoggedIn: Bool { return cookie != nil }
-
+    
     public func logout() { cookie = nil }
     
     public func postRequest(to url: URL) -> URLRequest {
@@ -42,7 +42,7 @@ public class BKSession {
         mutableRequest.httpMethod = "POST"
         return mutableRequest
     }
-
+    
     public func request(to url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         request.addValue("io.github.apollozhu.bilibilikit",
@@ -52,13 +52,5 @@ public class BKSession {
                              forHTTPHeaderField: "Cookie")
         }
         return request
-    }
-}
-
-extension URL: ExpressibleByStringLiteral {
-    public typealias StringLiteralType = String
-
-    public init(stringLiteral value: StringLiteralType) {
-        self.init(string: value)!
     }
 }
