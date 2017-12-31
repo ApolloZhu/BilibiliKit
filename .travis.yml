@@ -14,7 +14,7 @@ script:
 
 before_deploy:
   - swift package generate-xcodeproj
-  - jazzy
+  - jazzy --root-url https://apollozhu.github.io/BilibiliKit/ --github-file-prefix https://github.com/ApolloZhu/BilibiliKit/blob/master
 deploy:
   provider: pages
   skip_cleanup: true
