@@ -1,0 +1,25 @@
+os:
+  - osx
+  - linux
+language: generic
+osx_image: xcode9
+# blog.travis-ci.com/2017-07-11-trusty-as-default-linux-is-coming
+# sudo: required
+dist: trusty
+
+before_script:
+  - eval "$(curl -sL https://raw.githubusercontent.com/ApolloZhu/script/master/swift/install/4)"
+script:
+  - eval "$(curl -sL https://raw.githubusercontent.com/ApolloZhu/script/master/swift/ci)"
+
+before_deploy:
+  - swift package generate-xcodeproj
+  - jazzy
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: docs
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
+    condition: $TRAVIS_OS_NAME = osx
