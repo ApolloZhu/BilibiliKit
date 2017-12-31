@@ -6,17 +6,48 @@
 //  Copyright © 2017 BilibiliKit. All rights reserved.
 //
 
-import Foundation
 import XCTest
-import BilibiliKit
+@testable import BilibiliKit
 
 class BilibiliKitTests: XCTestCase {
-    func testExample() {
+    func testAppkeyFetching() {
+        let goal = expectation(description: "Appkey fetch")
+        BKApp.fetchKey {
+            XCTAssertNotNil($0, "No Appkey")
+            print("\n\($0!)\n")
+            goal.fulfill()
+        }
+        waitForExpectations(timeout: 20, handler: nil)
+    }
+
+    func testVideoInfoFetching() {
+        let goal = expectation(description: "Appkey fetch")
+        BKVideo(av: 17794568).getInfo {
+            XCTAssertNotNil($0, "No info")
+            print()
+            dump($0!)
+            print()
+            goal.fulfill()
+        }
+        waitForExpectations(timeout: 20, handler: nil)
+    }
+
+    func testVideoPageFetching() {
         // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // Use XCTAssert and related functions to verify your tests produce the correct
+        // results.
+        let goal = expectation(description: "Video page information fetch")
+        BKVideo(av: 8993458).p1 { page in
+            XCTAssertNotNil(page, "Failed to fetch pages of video")
+            XCTAssertEqual(page!.cid, 14848859, "Wrong cid")
+            goal.fulfill()
+        }
+        waitForExpectations(timeout: 20, handler: nil)
     }
     
     static var allTests = [
-        ("testExample", testExample),
+        ("testAppkeyFetching", testAppkeyFetching),
+        ("testVideoInfoFetching", testVideoInfoFetching),
+        ("testVideoPageFetching", testVideoPageFetching)
     ]
 }
