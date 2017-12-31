@@ -13,6 +13,7 @@ script:
   - eval "$(curl -sL https://raw.githubusercontent.com/ApolloZhu/script/master/swift/ci)"
 
 before_deploy:
+  - sudo gem install jazzy
   - swift package generate-xcodeproj
   - jazzy --root-url https://apollozhu.github.io/BilibiliKit/ --github-file-prefix https://github.com/ApolloZhu/BilibiliKit/blob/master
 deploy:
