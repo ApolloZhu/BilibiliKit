@@ -11,10 +11,14 @@ import Foundation
 extension URL: ExpressibleByStringLiteral {
     public typealias StringLiteralType = Swift.StringLiteralType
     
+    /// Initialize url with string literals.
+    ///
+    /// - Parameter value: url.
     public init(stringLiteral value: StringLiteralType) {
         self.init(string: value)!
     }
-
+    
+    /// Convert this url's scheme to https
     var inHttps: URL? {
         var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
         if let scheme = components?.scheme {

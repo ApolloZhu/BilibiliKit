@@ -13,29 +13,31 @@ import Dispatch
 #endif
 
 public class BKLoginHelper {
-    /// <#Description#>
+    /// Default login helper
     public static let `default` = BKLoginHelper()
 
-    /// <#Description#>
+    /// Initialize a new login helper.
     public init() { }
 
     #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
-    /// <#Description#>
+    /// A dummpy helper that does nothing but indicating an internal state.
     private static let dummyTimer = Timer()
     #else
-    /// <#Description#>
+    /// A dummpy helper that does nothing but indicating an internal state.
     private static let dummyTimer = Timer(timeInterval: 0, repeats: false) { _ in }
     #endif
 
-    /// <#Description#>
+    /// Schedule events to check current attempt's stage.
     private var timer: Timer? {
         willSet {
             timer?.invalidate()
         }
     }
 
+    /// If an attempt is active.
     private var isRunLoopActive: Bool { return timer != nil }
 
+    /// Interrupt current attempt.
     public func interrupt() { timer = nil }
 
     /// Run code to execute every second.
@@ -56,12 +58,12 @@ public class BKLoginHelper {
         }
     }
 
-    /// <#Description#>
+    /// Start an attempt to login.
     ///
     /// - Parameters:
-    ///   - session: <#session description#>
-    ///   - handleLoginInfo: <#handleLoginInfo description#>
-    ///   - handleLoginState: <#handleLoginState description#>
+    ///   - session: session to login into, default to `.shared`.
+    ///   - handleLoginInfo: to display `LoginURL` to user.
+    ///   - handleLoginState: to handle different stages in this process.
     public func login(session: BKSession = .shared,
                       handleLoginInfo: @escaping (LoginURL) -> Void,
                       handleLoginState: @escaping (LoginState) -> Void) {
@@ -71,7 +73,8 @@ public class BKLoginHelper {
                 handleLoginInfo(url)
                 var process: () -> Void = { [weak self] in
                     guard let `self` = self, self.isRunLoopActive else { return }
-                    self.fetchLoginInfo(oauthKey: url.oauthKey) { [weak self] result in
+                    self.fetchLoginInfo(oauthKey: url.oauthKey)
+                    { [weak self] result in
                         guard let `self` = self, self.isRunLoopActive else { return }
                         switch result {
                         case .success(let state):
@@ -144,11 +147,11 @@ public class BKLoginHelper {
         }
     }
 
-    private  func fetchLoginURL(handler: @escaping FetchResultHandler<LoginURL>) {
+    private func fetchLoginURL(handler: @escaping FetchResultHandler<LoginURL>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginUrl"
         let task = URLSession.bk.dataTask(with: url) { data, response, error in
-            guard let body = data,
-                let wrapper = try? JSONDecoder().decode(LoginURL.Wrapper.self, from: body)
+            guard let body = data
+                , let wrapper = try? JSONDecoder().decode(LoginURL.Wrapper.self, from: body)
                 else { return handler(.errored(data: data,
                                                response: response,
                                                error: error)) }
@@ -189,10 +192,11 @@ public class BKLoginHelper {
         }
     }
 
-    /// <#Description#>
-    /// Needs to be constantly called when active.
+    /// Fetchs the current stage during an attempt,
+    /// needs to be regularly invoked during that process.
     ///
     /// - Parameters:
+    ///   - session: session to login to, default to `.shared`.
     ///   - oauthKey: oauthKey indicating the current session.
     ///   - handler: code handling fetched login state.
     private func fetchLoginInfo(session: BKSession = .shared,
@@ -202,7 +206,8 @@ public class BKLoginHelper {
         var request = session.postRequest(to: url)
         /// Content-Type: application/x-www-form-urlencoded
         request.httpBody = "oauthKey=\(oauthKey)".data(using: .utf8)
-        let task = URLSession.bk.dataTask(with: request) { [weak self] data, response, error in
+        let task = URLSession.bk.dataTask(with: request)
+        { [weak self] data, response, error in
             guard self?.isRunLoopActive == true else { return }
             if let response = response as? HTTPURLResponse,
                 let headerFields = response.allHeaderFields as? [String: String],
