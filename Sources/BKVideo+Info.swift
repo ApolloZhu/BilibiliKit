@@ -29,6 +29,7 @@ extension BKVideo {
         let allow_feed: Int
         /// 目前只看到 0
         let allow_download: Int
+        /// 视频简介
         let description: String
         // let tag: Any? // null
         /// 封面
@@ -80,6 +81,9 @@ extension BKVideo {
         }
     }
     
+    /// Fetchs and passes this video's info to `handler`
+    ///
+    /// - Parameter handler: code to process optional `Info`.
     public func getInfo(_ handler: @escaping (Info?) -> Void) {
         let base = "https://api.bilibili.com/view?id=\(aid)&appkey="
         BKApp.fetchKey {

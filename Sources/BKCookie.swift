@@ -9,7 +9,6 @@ import Foundation
 
 /// Cookie required to post danmaku
 public struct BKCookie: Codable {
-    
     #if os(iOS) || os(watchOS) || os(tvOS)
     // We are supposed to have nothing here.
     #else
@@ -69,35 +68,38 @@ public struct BKCookie: Codable {
         guard let string = try? String(contentsOfFile: path ??
             "\(FileManager.default.currentDirectoryPath)/\(BKCookie.filename)"
             ) else { return nil }
-        var dict = [String:String]()
-        for part in string
+        let splited = string
             .trimmingCharacters(in: .whitespacesAndNewlines)
-            .split(separator: ";") {
-                let parts = part
-                    .split(separator: "=")
-                    .map { "\($0)".trimmingCharacters(in: .whitespacesAndNewlines) }
-                if parts.count == 2 { dict[parts[0]] = parts[1] }
-        }
-        guard let str = dict[CodingKeys.mid.stringValue],
-            let mid = Int(str),
-            let sum = dict[CodingKeys.md5Sum.stringValue],
-            let data = dict[CodingKeys.sessionData.stringValue]
-            else { return nil }
-        self.init(DedeUserID: mid, DedeUserID__ckMd5: sum, SESSDATA: data)
+            .split(separator: ";")
+        self.init(array: splited)
     }
     
+    /// Initialize a Cookie based on raw cookie, preferably
+    /// HTTPURLResponse.allHeaderFields["Set-Cookie"].
+    ///
+    /// - Parameter headerField: raw cookie.
     public init?(headerField: String) {
+        let separator = CharacterSet(charactersIn: "; ")
+        let splited = headerField.components(separatedBy: separator)
+        self.init(array: splited)
+    }
+
+    init?<AnyString: StringProtocol>(array: [AnyString]) {
         var dict = [String:String]()
-        for part in headerField.split(whereSeparator: { "; ".contains($0) }) {
+        for part in array {
             let parts = part
                 .split(separator: "=")
-                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .map { "\($0)".trimmingCharacters(in: .whitespacesAndNewlines) }
             if parts.count == 2 { dict[parts[0]] = parts[1] }
         }
-        guard let str = dict[CodingKeys.mid.stringValue],
-            let mid = Int(str),
-            let sum = dict[CodingKeys.md5Sum.stringValue],
-            let data = dict[CodingKeys.sessionData.stringValue]
+        self.init(dictionary: dict)
+    }
+
+    init?(dictionary: [String:String]) {
+        guard let str = dictionary[CodingKeys.mid.stringValue]
+            , let mid = Int(str)
+            , let sum = dictionary[CodingKeys.md5Sum.stringValue]
+            , let data = dictionary[CodingKeys.sessionData.stringValue]
             else { return nil }
         self.init(DedeUserID: mid, DedeUserID__ckMd5: sum, SESSDATA: data)
     }
@@ -106,11 +108,14 @@ public struct BKCookie: Codable {
     public var asHeaderField: String {
         return "\(CodingKeys.mid.stringValue)=\(mid);\(CodingKeys.md5Sum.stringValue)=\(md5Sum);\(CodingKeys.sessionData.stringValue)=\(sessionData)"
     }
-    
-    @discardableResult
-    public func save(toPath path: String =  BKCookie.defaultPath) -> Bool {
+
+    /// Save this cookie to file.
+    ///
+    /// - Parameter path: path to save the cookie, default to `BKCookie.defaultPath`.
+    /// - Returns: discardable, if saved successfully.
+    @discardableResult public func save(toPath path: String = BKCookie.defaultPath) -> Bool {
         do {
-            try asHeaderField.write(toFile: path, atomically: false, encoding: .utf8)
+            try asHeaderField.write(toFile: path, atomically: true, encoding: .utf8)
             return true
         } catch {
             return false

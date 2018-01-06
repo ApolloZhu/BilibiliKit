@@ -10,7 +10,10 @@ import Foundation
 enum BKApp {
     private static let regex = try? NSRegularExpression(pattern: "appkey=(.*?)&")
     private static let playerURL: URL = "https://www.bilibili.com/blackboard/player.html"
-    static func fetchKey(_ handler: @escaping (String?) -> Void) {
+    /// Fetch a valid appkey from bilibili.
+    ///
+    /// - Parameter handler: code to run with fetched appkey.
+    public static func fetchKey(_ handler: @escaping (String?) -> Void) {
         guard let regex = regex else { return handler(nil) }
         let task = URLSession.bk.dataTask(with: playerURL)
         { data,_,_ in
