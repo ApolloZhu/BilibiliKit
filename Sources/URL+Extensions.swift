@@ -9,6 +9,7 @@
 import Foundation
 
 extension URL: ExpressibleByStringLiteral {
+    /// `Swift.StringLiteralType`
     public typealias StringLiteralType = Swift.StringLiteralType
     
     /// Initialize url with string literals.
@@ -18,8 +19,8 @@ extension URL: ExpressibleByStringLiteral {
         self.init(string: value)!
     }
     
-    /// Convert this url's scheme to https
-    var inHttps: URL? {
+    /// Set this url's scheme to https, if in http or no scheme.
+    public var inHttps: URL? {
         var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
         if let scheme = components?.scheme {
             if scheme == "http" {
