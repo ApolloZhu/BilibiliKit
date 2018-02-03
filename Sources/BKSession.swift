@@ -22,9 +22,13 @@ public class BKSession {
         }
         set {
             userDefaults.set(try? JSONEncoder().encode(newValue), forKey: cacheKey)
+            csrf = newValue?.csrf
             userDefaults.synchronize()
         }
     }
+
+    /// Same as `BKCookie.csrf` in `cookie`.
+    public private(set) var csrf: String?
     
     /// For user defaults.
     private var cacheKey: String { return "\(BKCookie.filename)-\(identifier)" }

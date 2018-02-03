@@ -8,10 +8,7 @@
 
 import Foundation
 
-extension URL: ExpressibleByStringLiteral {
-    /// `Swift.StringLiteralType`
-    public typealias StringLiteralType = Swift.StringLiteralType
-    
+extension URL: ExpressibleByStringLiteral {    
     /// Initialize url with string literals.
     ///
     /// - Parameter value: url.
