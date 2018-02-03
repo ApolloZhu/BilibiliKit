@@ -55,11 +55,14 @@ extension BKVideo {
         let task = URLSession.bk.dataTask(with: pagesInfoURL!)
         { data,_,_ in
             guard let data = data,
-                let pages = try? JSONDecoder().decode([Page].self, from: data),
+                var pages = try? JSONDecoder().decode([Page].self, from: data),
                 pages.count > 0
                 else { return code(nil) }
-            for var page in pages {
+            // FIXME: A better syntax for this?
+            pages = pages.map {
+                var page = $0
                 page.aid = self.aid
+                return page
             }
             code(pages)
         }
