@@ -81,19 +81,37 @@ extension BKVideo {
         }
     }
     
-    /// Fetchs and passes this video's info to `handler`
+    /// Handler type for information about a video fetched.
+    ///
+    /// - Parameter info: info fetched, nil if failed.
+    public typealias InfoHandler = (_ info: Info?) -> Void
+    
+    /// Fetchs and passes this video's info to `handler`.
     ///
     /// - Parameter handler: code to process optional `Info`.
-    public func getInfo(_ handler: @escaping (Info?) -> Void) {
-        let base = "https://api.bilibili.com/view?id=\(aid)&appkey="
-        BKApp.fetchKey {
-            guard let key = $0 else { return handler(nil) }
-            let task = URLSession.bk.dataTask(with: URL(string: base + key)!)
-            { data,_,_ in
-                guard let data = data else { return handler(nil) }
-                handler(try? JSONDecoder().decode(Info.self, from: data))
+    public func getInfo(then handler: @escaping InfoHandler) {
+        BKVideo.getInfo(of: aid, withAppkey: BKApp.appkey) { [aid] info in
+            guard info == nil else { return handler(info!) }
+            BKApp.fetchKey {
+                guard let key = $0 else { return handler(nil) }
+                BKVideo.getInfo(of: aid, withAppkey: key, then: handler)
             }
-            task.resume()
         }
+    }
+    
+    /// Fetchs and passes a video's info to `handler`.
+    ///
+    /// - Parameters:
+    ///   - aid: av number of the video.
+    ///   - key: APPKEY from bilibili.
+    ///   - handler: code to process optional `Info`.
+    public static func getInfo(of aid: Int, withAppkey key: String, then handler: @escaping InfoHandler) {
+        let base = "https://api.bilibili.com/view?id=\(aid)&appkey=\(key)"
+        let task = URLSession.bk.dataTask(with: URL(string: base + key)!)
+        { data, _, _ in
+            guard let data = data else { return handler(nil) }
+            handler(try? JSONDecoder().decode(Info.self, from: data))
+        }
+        task.resume()
     }
 }

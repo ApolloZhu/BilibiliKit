@@ -53,16 +53,13 @@ extension BKVideo {
     public func pages(code: @escaping PagesHandler) {
         let pagesInfoURL = URL(string: "https://www.bilibili.com/widget/getPageList?aid=\(aid)")
         let task = URLSession.bk.dataTask(with: pagesInfoURL!)
-        { data,_,_ in
-            guard let data = data,
-                var pages = try? JSONDecoder().decode([Page].self, from: data),
-                pages.count > 0
+        { [aid] data,_,_ in
+            guard let data = data
+                , var pages = try? JSONDecoder().decode([Page].self, from: data)
+                , pages.count > 0
                 else { return code(nil) }
-            // FIXME: A better syntax for this?
-            pages = pages.map {
-                var page = $0
-                page.aid = self.aid
-                return page
+            for index in pages.indices {
+                pages[index].aid = aid
             }
             code(pages)
         }
@@ -89,7 +86,9 @@ extension BKVideo {
     public func page(_ index: Int, code: @escaping PageHandler) {
         guard index > 0 else { return code(nil) }
         pages {
-            guard let pages = $0, index <= pages.count else { return code(nil) }
+            guard let pages = $0
+                , index <= pages.count
+                else { return code(nil) }
             code(pages[index - 1])
         }
     }

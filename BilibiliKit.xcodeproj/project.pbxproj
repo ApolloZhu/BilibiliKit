@@ -53,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		52B82BAF204B5276001B4D27 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../apollonian/Documents/Git-Repo/BilibiliKit/README.md"; sourceTree = "<group>"; };
+		52B82BB0204B58DE001B4D27 /* BilibiliKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = BilibiliKit.podspec; path = "../../../../apollonian/Documents/Git-Repo/BilibiliKit/BilibiliKit.podspec"; sourceTree = "<group>"; };
 		"BilibiliKit::BilibiliKit::Product" /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"BilibiliKit::BilibiliKitTests::Product" /* BilibiliKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = BilibiliKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* BKLoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLoginHelper.swift; sourceTree = "<group>"; };
@@ -114,16 +116,17 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
+				52B82BAF204B5276001B4D27 /* README.md */,
+				52B82BB0204B58DE001B4D27 /* BilibiliKit.podspec */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_17 /* Tests */,
 				OBJ_20 /* Configs */,
 				OBJ_21 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -207,7 +210,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_21 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
