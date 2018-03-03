@@ -26,7 +26,7 @@ public class BKSession {
             userDefaults.synchronize()
         }
     }
-
+    
     /// Same as `BKCookie.csrf` in `cookie`.
     public private(set) var csrf: String?
     

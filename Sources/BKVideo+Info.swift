@@ -107,7 +107,7 @@ extension BKVideo {
     ///   - handler: code to process optional `Info`.
     public static func getInfo(of aid: Int, withAppkey key: String, then handler: @escaping InfoHandler) {
         let base = "https://api.bilibili.com/view?id=\(aid)&appkey=\(key)"
-        let task = URLSession.bk.dataTask(with: URL(string: base + key)!)
+        let task = URLSession.bk.dataTask(with: URL(string: base)!)
         { data, _, _ in
             guard let data = data else { return handler(nil) }
             handler(try? JSONDecoder().decode(Info.self, from: data))

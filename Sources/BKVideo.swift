@@ -3,7 +3,6 @@
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 7/9/17.
-//  Copyright © 2017 BilibiliKit. All rights reserved.
 //
 
 /// Bilibili video, identified by unique av number (aid).
@@ -28,5 +27,3 @@ public struct BKVideo: Equatable {
         return lhs.aid == rhs.aid
     }
 }
-
-
