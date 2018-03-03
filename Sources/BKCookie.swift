@@ -24,7 +24,7 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
             else { fatalError("Missing components from BKCookie dictionary literal") }
         self.init(DedeUserID: mid, DedeUserID__ckMd5: sum, SESSDATA: data, bili_jct: csrf)
     }
-
+    
     #if os(iOS) || os(watchOS) || os(tvOS)
     // We are supposed to have nothing here.
     #else
@@ -106,7 +106,7 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
         let splited = headerField.components(separatedBy: separator)
         self.init(array: splited)
     }
-
+    
     init?<AnyString: StringProtocol>(array: [AnyString]) {
         var dict = [String:String]()
         for part in array {
@@ -117,8 +117,8 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
         }
         self.init(dictionary: dict)
     }
-
-
+    
+    
     /// Initialize a Cookie from contents of a dictionary.
     ///
     /// - Parameter dictionary: with keys in CodingKeys and their values.
@@ -136,7 +136,7 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
     public var asHeaderField: String {
         return "\(CodingKeys.mid.stringValue)=\(mid);\(CodingKeys.md5Sum.stringValue)=\(md5Sum);\(CodingKeys.sessionData.stringValue)=\(sessionData);\(CodingKeys.csrf.stringValue)=\(csrf)"
     }
-
+    
     /// Save this cookie to file.
     ///
     /// - Parameter path: path to save the cookie, default to `BKCookie.defaultPath`.

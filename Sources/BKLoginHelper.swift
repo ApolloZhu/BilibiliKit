@@ -9,16 +9,16 @@ import Foundation
 import Dispatch
 
 #if os(iOS) || os(tvOS) || os(watchOS)
-    import UIKit
+import UIKit
 #endif
 
 public class BKLoginHelper {
     /// Default login helper
     public static let `default` = BKLoginHelper()
-
+    
     /// Initialize a new login helper.
     public init() { }
-
+    
     #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
     /// A dummpy helper that does nothing but indicating an internal state.
     private static let dummyTimer = Timer()
@@ -26,20 +26,20 @@ public class BKLoginHelper {
     /// A dummpy helper that does nothing but indicating an internal state.
     private static let dummyTimer = Timer(timeInterval: 0, repeats: false) { _ in }
     #endif
-
+    
     /// Schedule events to check current attempt's stage.
     private var timer: Timer? {
         willSet {
             timer?.invalidate()
         }
     }
-
+    
     /// If an attempt is active.
     private var isRunLoopActive: Bool { return timer != nil }
-
+    
     /// Interrupt current attempt.
     public func interrupt() { timer = nil }
-
+    
     /// Run code to execute every second.
     ///
     /// - Parameter execute: code to run.
@@ -57,7 +57,7 @@ public class BKLoginHelper {
             loop()
         }
     }
-
+    
     /// Start an attempt to login.
     ///
     /// - Parameters:
@@ -106,7 +106,7 @@ public class BKLoginHelper {
             }
         }
     }
-
+    
     private enum FetchResult<E>: CustomDebugStringConvertible {
         case success(result: E)
         case errored(data: Data?, response: URLResponse?, error: Swift.Error?)
@@ -130,23 +130,23 @@ public class BKLoginHelper {
             }
         }
     }
-
+    
     private typealias FetchResultHandler<E> = (_ result: FetchResult<E>) -> Void
-
+    
     // MARK: Login URL Fetching
-
+    
     /// Only valid for 3 minutes
     public struct LoginURL: Codable {
         /// This url directs user to the confirmation page.
         public let url: String
         /// This oauthKey keeps track of the current session.
         public let oauthKey: String
-
+        
         struct Wrapper: Codable {
             let data: LoginURL
         }
     }
-
+    
     private func fetchLoginURL(handler: @escaping FetchResultHandler<LoginURL>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginUrl"
         let task = URLSession.bk.dataTask(with: url) { data, response, error in
@@ -159,9 +159,9 @@ public class BKLoginHelper {
         }
         task.resume()
     }
-
+    
     // MARK: Login Info Fetching
-
+    
     fileprivate struct LoginInfo: Codable {
         /// If has login info.
         /// Set-Cookie if true.
@@ -172,7 +172,7 @@ public class BKLoginHelper {
         /// Login process status explaination.
         let message: String
     }
-
+    
     public enum LoginState {
         case errored
         case started
@@ -191,7 +191,7 @@ public class BKLoginHelper {
             }
         }
     }
-
+    
     /// Fetchs the current stage during an attempt,
     /// needs to be regularly invoked during that process.
     ///
