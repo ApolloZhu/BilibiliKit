@@ -12,6 +12,7 @@ import Dispatch
 import UIKit
 #endif
 
+/// Manage login through QRCode
 public class BKLoginHelper {
     /// Default login helper
     public static let `default` = BKLoginHelper()

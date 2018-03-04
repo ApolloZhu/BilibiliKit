@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Stores cookies of a session.
 public class BKSession {
     /// To identify this session.
     public let identifier: String
