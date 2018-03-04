@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum BKApp {
+/// APPKEY associated operations
+public enum BKApp {
     /// APPKEY from bilibili website.
     public static let appkey = "8e9fc618fbd41e28"
     
