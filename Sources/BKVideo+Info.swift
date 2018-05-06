@@ -12,45 +12,45 @@ extension BKVideo {
     public struct Info: Codable {
         // let tid: Int
         /// 分区
-        let type: String
+        public let type: String
         // let arctype: String // Copy
         /// 播放次数
-        let playTimesCount: Int
+        public let playTimesCount: Int
         /// 评论数
-        let reviewCount: Int
+        public let reviewCount: Int
         /// 弹幕数
-        let danmakuCount: Int
+        public let danmakuCount: Int
         /// 收藏数
-        let favoritesCount: Int
-        let title: String
+        public let favoritesCount: Int
+        public let title: String
         /// 番剧为 1，普通为 0
-        let allow_bp: Int
+        public let allow_bp: Int
         /// 目前只看到 0
-        let allow_feed: Int
+        public let allow_feed: Int
         /// 目前只看到 0
-        let allow_download: Int
+        public let allow_download: Int
         /// 视频简介
-        let description: String
+        public let description: String
         // let tag: Any? // null
         /// 封面
-        let coverImageURL: URL
+        public let coverImageURL: URL
         
         /// UP 主名字
-        let author: String
+        public let author: String
         /// UP 主 mid
-        let mid: Int
+        public let mid: Int
         /// UP 主头像
-        let authorFaceURL: URL
+        public let authorFaceURL: URL
         
         /// 分 p 数量
-        let pagesCount: Int
+        public let pagesCount: Int
         // let instant_server: URL
         // let created: Int
         /// yyyy-MM-dd HH:mm
-        let creatAtTimestamp: String
+        public let creatAtTimestamp: String
         // let credit: String // --
         /// 硬币数
-        let coinsCount: Int
+        public let coinsCount: Int
         // let spid: Any? // null
         // let src: String // c
         // Page specific, skip: let cid: Int
