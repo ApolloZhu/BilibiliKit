@@ -9,6 +9,7 @@ import Foundation
 
 extension BKVideo {
     /// 视频相关信息
+    /// - Warning: 不支持番剧
     public struct Info: Codable {
         // let tid: Int
         /// 分区
