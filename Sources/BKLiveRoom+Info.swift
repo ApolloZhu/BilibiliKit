@@ -31,7 +31,7 @@ extension BKLiveRoom {
         public let background: String
         public let title: String
         /// Might be empty string.
-        public let userChosenCoverImageURL: URL?
+        public let userChosenCoverImageURL: String
         public let keyframeSnapshotURL: URL
         // let is_strict_room: Bool
         /// When started. e.g. 2018-05-12 00:00:00
@@ -89,7 +89,7 @@ extension BKLiveRoom {
 extension BKLiveRoom.Info {
     /// The actual cover image in use.
     public var coverImageURL: URL {
-        return userChosenCoverImageURL ?? keyframeSnapshotURL
+        return URL(string: userChosenCoverImageURL) ?? keyframeSnapshotURL
     }
 }
 
