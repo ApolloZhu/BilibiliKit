@@ -21,8 +21,8 @@ class BilibiliKitTests: XCTestCase {
     }
 
     func testVideoInfoFetching() {
-        let goal = expectation(description: "Appkey fetch")
-        BKVideo(av: 17794568).getInfo {
+        let goal = expectation(description: "Video info fetch")
+        BKVideo(av: 170001).getInfo {
             XCTAssertNotNil($0, "No info")
             print()
             dump($0!)
