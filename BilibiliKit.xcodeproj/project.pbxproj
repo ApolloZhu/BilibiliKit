@@ -150,9 +150,9 @@
 				5281D87B20A6670400F6AFF5 /* BKLiveRoom+Info.swift */,
 				OBJ_10 /* BKLoginHelper.swift */,
 				OBJ_11 /* BKSession.swift */,
+				OBJ_14 /* BKVideo.swift */,
 				OBJ_12 /* BKVideo+Info.swift */,
 				OBJ_13 /* BKVideo+Page.swift */,
-				OBJ_14 /* BKVideo.swift */,
 				OBJ_15 /* URL+Extensions.swift */,
 				OBJ_16 /* URLSession+Extensions.swift */,
 			);

@@ -33,7 +33,7 @@ extension BKArticle {
         /// Title of the article.
         public let title: String
         /// Cover image url.
-        public let coverImageURL: URL
+        public let bannerURL: URL?
         /// Author id.
         public let mid: Int
         /// Author's name.
@@ -58,7 +58,7 @@ extension BKArticle {
             // case like, attention, favorite, coin
             case statistics = "stats"
             case title
-            case coverImageURL = "banner_url"
+            case bannerURL = "banner_url"
             case mid
             case author = "author_name"
             case isAuthor = "is_author"
@@ -66,6 +66,16 @@ extension BKArticle {
             case originalImageURLs = "origin_image_urls"
             // case shareable, show_later_watch, show_small_window, in_list
         }
+    }
+}
+
+extension BKArticle.Info {
+    /// The actual cover image used.
+    var coverImageURL: URL {
+        return bannerURL
+            ?? originalImageURLs.first
+            ?? croppedImageURLs.first
+            ?? .notFound
     }
 }
 
