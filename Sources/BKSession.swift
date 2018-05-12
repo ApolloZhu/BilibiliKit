@@ -24,7 +24,7 @@ public class BKSession {
         set {
             userDefaults.set(try? JSONEncoder().encode(newValue), forKey: cacheKey)
             csrf = newValue?.csrf
-            userDefaults.synchronize()
+            _ = userDefaults.synchronize()
         }
     }
     

@@ -17,7 +17,7 @@ class BilibiliKitTests: XCTestCase {
             print("\n\($0!)\n")
             goal.fulfill()
         }
-        waitForExpectations(timeout: 20, handler: nil)
+        waitForExpectations(timeout: 60, handler: nil)
     }
 
     func testVideoInfoFetching() {
@@ -29,7 +29,7 @@ class BilibiliKitTests: XCTestCase {
             print()
             goal.fulfill()
         }
-        waitForExpectations(timeout: 20, handler: nil)
+        waitForExpectations(timeout: 60, handler: nil)
     }
 
     func testVideoPageFetching() {
@@ -42,7 +42,7 @@ class BilibiliKitTests: XCTestCase {
             XCTAssertEqual(page!.cid, 14848859, "Wrong cid")
             goal.fulfill()
         }
-        waitForExpectations(timeout: 20, handler: nil)
+        waitForExpectations(timeout: 60, handler: nil)
     }
     
     static var allTests = [
