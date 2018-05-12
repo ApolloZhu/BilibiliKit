@@ -21,6 +21,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		5281D87620A6666900F6AFF5 /* BKArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87520A6666900F6AFF5 /* BKArticle.swift */; };
+		5281D87820A6668E00F6AFF5 /* BKArticle+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87720A6668E00F6AFF5 /* BKArticle+Info.swift */; };
+		5281D87A20A666DE00F6AFF5 /* BKLiveRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87920A666DE00F6AFF5 /* BKLiveRoom.swift */; };
+		5281D87C20A6670400F6AFF5 /* BKLiveRoom+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87B20A6670400F6AFF5 /* BKLiveRoom+Info.swift */; };
 		OBJ_29 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_35 /* BilibiliKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* BilibiliKitTests.swift */; };
 		OBJ_37 /* BilibiliKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "BilibiliKit::BilibiliKit::Product" /* BilibiliKit.framework */; };
@@ -53,6 +57,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5281D87520A6666900F6AFF5 /* BKArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKArticle.swift; sourceTree = "<group>"; };
+		5281D87720A6668E00F6AFF5 /* BKArticle+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKArticle+Info.swift"; sourceTree = "<group>"; };
+		5281D87920A666DE00F6AFF5 /* BKLiveRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLiveRoom.swift; sourceTree = "<group>"; };
+		5281D87B20A6670400F6AFF5 /* BKLiveRoom+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKLiveRoom+Info.swift"; sourceTree = "<group>"; };
 		52B82BAF204B5276001B4D27 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../apollonian/Documents/Git-Repo/BilibiliKit/README.md"; sourceTree = "<group>"; };
 		52B82BB0204B58DE001B4D27 /* BilibiliKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = BilibiliKit.podspec; path = "../../../../apollonian/Documents/Git-Repo/BilibiliKit/BilibiliKit.podspec"; sourceTree = "<group>"; };
 		52B82BB2204B5F51001B4D27 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = "../../../../apollonian/Documents/Git-Repo/BilibiliKit/LICENSE"; sourceTree = "<group>"; };
@@ -135,7 +143,11 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_8 /* BKApp.swift */,
+				5281D87520A6666900F6AFF5 /* BKArticle.swift */,
+				5281D87720A6668E00F6AFF5 /* BKArticle+Info.swift */,
 				OBJ_9 /* BKCookie.swift */,
+				5281D87920A666DE00F6AFF5 /* BKLiveRoom.swift */,
+				5281D87B20A6670400F6AFF5 /* BKLiveRoom+Info.swift */,
 				OBJ_10 /* BKLoginHelper.swift */,
 				OBJ_11 /* BKSession.swift */,
 				OBJ_12 /* BKVideo+Info.swift */,
@@ -253,6 +265,10 @@
 				OBJ_48 /* BKVideo+Info.swift in Sources */,
 				OBJ_49 /* BKVideo+Page.swift in Sources */,
 				OBJ_50 /* BKVideo.swift in Sources */,
+				5281D87820A6668E00F6AFF5 /* BKArticle+Info.swift in Sources */,
+				5281D87620A6666900F6AFF5 /* BKArticle.swift in Sources */,
+				5281D87C20A6670400F6AFF5 /* BKLiveRoom+Info.swift in Sources */,
+				5281D87A20A666DE00F6AFF5 /* BKLiveRoom.swift in Sources */,
 				OBJ_51 /* URL+Extensions.swift in Sources */,
 				OBJ_52 /* URLSession+Extensions.swift in Sources */,
 			);

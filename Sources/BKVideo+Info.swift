@@ -80,6 +80,11 @@ extension BKVideo {
             case coinsCount = "coins"
         }
     }
+}
+
+// MARK: - Networking
+
+extension BKVideo {
     
     /// Handler type for information about a video fetched.
     ///
