@@ -72,7 +72,6 @@ extension BKArticle {
 // MARK: - Networking
 
 extension BKArticle {
-    
     private struct Wrapper: Codable {
         /// Error code or 0.
         let code: Int

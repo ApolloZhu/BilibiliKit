@@ -84,7 +84,6 @@ extension BKLiveRoom {
             case verifiedIdentity = "verify"
         }
     }
-    
 }
 
 extension BKLiveRoom.Info {

@@ -5,7 +5,7 @@
 //  Created by Apollo Zhu on 5/11/18.
 //
 
-struct BKLiveRoom {
+public struct BKLiveRoom {
     /// Either the short or actual id.
     public let id: Int
     
