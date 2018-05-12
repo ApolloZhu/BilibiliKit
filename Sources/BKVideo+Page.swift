@@ -41,7 +41,11 @@ extension BKVideo {
             return lhs.cid == rhs.cid
         }
     }
-    
+}
+
+// MARK: - Networking
+
+extension BKVideo {
     /// Handler type for all pages fetched.
     ///
     /// - Parameter pages: pages fetched, nil if failed or the video has no sub pages.
