@@ -33,7 +33,7 @@ extension BKArticle {
         /// Title of the article.
         public let title: String
         /// Cover image url.
-        public let bannerURL: URL?
+        public let bannerURL: String
         /// Author id.
         public let mid: Int
         /// Author's name.
@@ -72,7 +72,7 @@ extension BKArticle {
 extension BKArticle.Info {
     /// The actual cover image used.
     public var coverImageURL: URL {
-        return bannerURL
+        return URL(string: bannerURL)
             ?? originalImageURLs.first
             ?? croppedImageURLs.first
             ?? .notFound
