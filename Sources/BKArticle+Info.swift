@@ -71,7 +71,7 @@ extension BKArticle {
 
 extension BKArticle.Info {
     /// The actual cover image used.
-    var coverImageURL: URL {
+    public var coverImageURL: URL {
         return bannerURL
             ?? originalImageURLs.first
             ?? croppedImageURLs.first

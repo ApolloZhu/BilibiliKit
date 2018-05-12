@@ -88,7 +88,7 @@ extension BKLiveRoom {
 
 extension BKLiveRoom.Info {
     /// The actual cover image in use.
-    var coverImageURL: URL {
+    public var coverImageURL: URL {
         return userChosenCoverImageURL ?? keyframeSnapshotURL
     }
 }
