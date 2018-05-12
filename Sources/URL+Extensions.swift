@@ -27,4 +27,6 @@ extension URL: ExpressibleByStringLiteral {
         }
         return components?.url
     }
+    
+    public static let notFound: URL = "https://static.hdslb.com/images/akari.jpg"
 }
