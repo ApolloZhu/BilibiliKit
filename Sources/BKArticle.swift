@@ -6,7 +6,7 @@
 //
 
 /// Bilibili article, identified by unique id.
-struct BKArticle: Equatable {
+public struct BKArticle: Equatable {
     /// The unique identifier of the article.
     public let id: Int
     
