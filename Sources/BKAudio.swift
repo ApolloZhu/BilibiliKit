@@ -19,12 +19,12 @@ public struct BKAudio {
 
 extension BKAudio {
     /// Wrapper for making network requests.
-    struct Wrapper<Type>: BKWrapper, Codable where Type: Codable {
+    struct Wrapper<Wrapped: Codable>: BKWrapper, Codable {
         /// 0 or error code.
         let code: Int
         /// "success" or error message.
         let msg: String
         /// Info or empty array.
-        let data: Type?
+        let data: Wrapped?
     }
 }

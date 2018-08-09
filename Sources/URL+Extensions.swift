@@ -15,7 +15,7 @@ extension URL: ExpressibleByStringLiteral {
         self.init(string: value)!
     }
 
-    @available(swift, deprecated: 4.1, obsoleted: 5.0, renamed: "inHTTPS")
+    @available(*, deprecated: 1.1.5, obsoleted: 2.0.0, renamed: "inHTTPS")
     /// Deprecated, use `inHTTPS` instead.
     public var inHttps: URL? { return inHTTPS }
 
