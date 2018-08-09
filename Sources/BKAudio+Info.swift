@@ -23,8 +23,8 @@ extension BKAudio {
         public let cover: URL
         /// Description
         public let intro: String
-        /// Lyrics URL
-        public let lyric: URL
+        /// Raw lyrics URL
+        let lyric: String
         // let crtype: Int
         /// Length in seconds
         public let duration: Int
@@ -49,6 +49,13 @@ extension BKAudio {
         }
         public let statistic: Statistic
         // let coin_num: Int?
+    }
+}
+
+extension BKAudio.Info {
+    /// Lyrics URL
+    public var lyrics: URL? {
+        return URL(string: lyric)
     }
 }
 

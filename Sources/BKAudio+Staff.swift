@@ -33,6 +33,21 @@ extension BKAudio {
     }
 }
 
+extension BKAudio.Staff {
+    public var isEmpty: Bool {
+        return singer.isEmpty
+            && play.isEmpty
+            && bands.isEmpty
+            && source.isEmpty
+            && tuner.isEmpty
+            && composer.isEmpty
+            && lyric.isEmpty
+            && arranger.isEmpty
+            && post.isEmpty
+            && cover.isEmpty
+    }
+}
+
 extension BKAudio {
     /// Handler type for participants of a song fetched.
     ///
