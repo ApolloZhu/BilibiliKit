@@ -64,6 +64,7 @@ class BilibiliKitTests: XCTestCase {
             urls.fulfill()
         }
         waitForExpectations(timeout: 60, handler: nil)
+        print()
     }
 
     func testAudioSingleFetching() {
@@ -71,7 +72,8 @@ class BilibiliKitTests: XCTestCase {
         let info = expectation(description: "Single audio info fetch")
         audio.getInfo {
             XCTAssertNotNil($0)
-            dump($0)
+            print($0!)
+            dump($0!)
             XCTAssertNil($0?.lyrics)
             info.fulfill()
         }
@@ -84,10 +86,11 @@ class BilibiliKitTests: XCTestCase {
         let urls = expectation(description: "Single audio url fetch")
         audio.getURLs {
             XCTAssertNotNil($0)
-            dump($0)
+            dump($0!)
             urls.fulfill()
         }
         waitForExpectations(timeout: 60, handler: nil)
+        print()
     }
 
     func testCollaborativeAudioFetching() {
@@ -95,7 +98,7 @@ class BilibiliKitTests: XCTestCase {
         let info = expectation(description: "Collaborative audio info fetch")
         audio.getInfo {
             XCTAssertNotNil($0)
-            dump($0)
+            dump($0!)
             XCTAssertNotNil($0!.lyrics)
             print($0!.lyrics!)
             info.fulfill()
@@ -104,16 +107,17 @@ class BilibiliKitTests: XCTestCase {
         audio.getStaff {
             XCTAssertNotNil($0)
             XCTAssertFalse($0!.isEmpty)
-            dump($0)
+            dump($0!)
             staff.fulfill()
         }
         let urls = expectation(description: "Collaborative audio url fetch")
         audio.getURLs {
             XCTAssertNotNil($0)
-            dump($0)
+            dump($0!)
             urls.fulfill()
         }
         waitForExpectations(timeout: 60, handler: nil)
+        print()
     }
 
     static var allTests = [
