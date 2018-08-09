@@ -54,7 +54,8 @@ class BilibiliKitTests: XCTestCase {
         }
         let staff = expectation(description: "Nonexisting audio staff fetch")
         audio.getStaff {
-            XCTAssertNil($0)
+            XCTAssertNotNil($0)
+            XCTAssertTrue($0!.isEmpty)
             staff.fulfill()
         }
         let urls = expectation(description: "Nonexisting audio url fetch")
@@ -76,7 +77,7 @@ class BilibiliKitTests: XCTestCase {
         let staff = expectation(description: "Single audio staff fetch")
         audio.getStaff {
             XCTAssertNotNil($0)
-            dump($0)
+            XCTAssertTrue($0!.isEmpty)
             staff.fulfill()
         }
         let urls = expectation(description: "Single audio url fetch")
@@ -99,6 +100,7 @@ class BilibiliKitTests: XCTestCase {
         let staff = expectation(description: "Collaborative audio staff fetch")
         audio.getStaff {
             XCTAssertNotNil($0)
+            XCTAssertFalse($0!.isEmpty)
             dump($0)
             staff.fulfill()
         }
