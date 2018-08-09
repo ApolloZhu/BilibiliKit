@@ -45,32 +45,77 @@ class BilibiliKitTests: XCTestCase {
         waitForExpectations(timeout: 60, handler: nil)
     }
 
-    func testAudioFetching() {
-        [0, 195471, 418827].forEach {
-            let audio = BKAudio(au: $0)
-            let info = expectation(description: "Audio info fetch")
-            audio.getInfo {
-                dump($0)
-                info.fulfill()
-            }
-            let staff = expectation(description: "Audio staff fetch")
-            audio.getStaff {
-                dump($0)
-                staff.fulfill()
-            }
-            let urls = expectation(description: "Audio url fetch")
-            audio.getURLs {
-                dump($0)
-                urls.fulfill()
-            }
-            waitForExpectations(timeout: 120, handler: nil)
+    func testAudioFail() {
+        let audio = BKAudio(au: 0)
+        let info = expectation(description: "Nonexisting audio info fetch")
+        audio.getInfo {
+            XCTAssertNil($0)
+            info.fulfill()
         }
+        let staff = expectation(description: "Nonexisting audio staff fetch")
+        audio.getStaff {
+            XCTAssertNil($0)
+            staff.fulfill()
+        }
+        let urls = expectation(description: "Nonexisting audio url fetch")
+        audio.getURLs {
+            XCTAssertNil($0)
+            urls.fulfill()
+        }
+        waitForExpectations(timeout: 60, handler: nil)
+    }
+
+    func testAudioSingleFetching() {
+        let audio = BKAudio(au: 195471)
+        let info = expectation(description: "Single audio info fetch")
+        audio.getInfo {
+            XCTAssertNotNil($0)
+            dump($0)
+            info.fulfill()
+        }
+        let staff = expectation(description: "Single audio staff fetch")
+        audio.getStaff {
+            XCTAssertNotNil($0)
+            dump($0)
+            staff.fulfill()
+        }
+        let urls = expectation(description: "Single audio url fetch")
+        audio.getURLs {
+            XCTAssertNotNil($0)
+            dump($0)
+            urls.fulfill()
+        }
+        waitForExpectations(timeout: 60, handler: nil)
+    }
+
+    func testAudioFetching() {
+        let audio = BKAudio(au: 418827)
+        let info = expectation(description: "Collaborative audio info fetch")
+        audio.getInfo {
+            XCTAssertNotNil($0)
+            dump($0)
+            info.fulfill()
+        }
+        let staff = expectation(description: "Collaborative audio staff fetch")
+        audio.getStaff {
+            XCTAssertNotNil($0)
+            dump($0)
+            staff.fulfill()
+        }
+        let urls = expectation(description: "Collaborative audio url fetch")
+        audio.getURLs {
+            XCTAssertNotNil($0)
+            dump($0)
+            urls.fulfill()
+        }
+        waitForExpectations(timeout: 60, handler: nil)
     }
 
     static var allTests = [
         ("testAppkeyFetching", testAppkeyFetching),
         ("testVideoInfoFetching", testVideoInfoFetching),
         ("testVideoPageFetching", testVideoPageFetching),
+        ("testAudioFail", testAudioFail),
         ("testAudioFetching", testAudioFetching)
     ]
 }

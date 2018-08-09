@@ -2,7 +2,7 @@ os:
   - osx
   - linux
 language: generic
-osx_image: xcode9.3
+osx_image: xcode9.4.1
 # blog.travis-ci.com/2017-07-11-trusty-as-default-linux-is-coming
 # sudo: required
 dist: trusty
