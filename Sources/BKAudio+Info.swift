@@ -24,7 +24,7 @@ extension BKAudio {
         /// Description
         public let intro: String
         /// Raw lyrics URL
-        let lyric: String
+        private let lyric: String
         // let crtype: Int
         /// Length in seconds
         public let duration: Int

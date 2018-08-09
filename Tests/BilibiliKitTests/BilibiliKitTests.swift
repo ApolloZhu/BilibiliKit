@@ -72,6 +72,7 @@ class BilibiliKitTests: XCTestCase {
         audio.getInfo {
             XCTAssertNotNil($0)
             dump($0)
+            XCTAssertNil($0?.lyrics)
             info.fulfill()
         }
         let staff = expectation(description: "Single audio staff fetch")
@@ -89,12 +90,14 @@ class BilibiliKitTests: XCTestCase {
         waitForExpectations(timeout: 60, handler: nil)
     }
 
-    func testAudioFetching() {
+    func testCollaborativeAudioFetching() {
         let audio = BKAudio(au: 418827)
         let info = expectation(description: "Collaborative audio info fetch")
         audio.getInfo {
             XCTAssertNotNil($0)
             dump($0)
+            XCTAssertNotNil($0!.lyrics)
+            print($0!.lyrics!)
             info.fulfill()
         }
         let staff = expectation(description: "Collaborative audio staff fetch")
@@ -118,6 +121,7 @@ class BilibiliKitTests: XCTestCase {
         ("testVideoInfoFetching", testVideoInfoFetching),
         ("testVideoPageFetching", testVideoPageFetching),
         ("testAudioFail", testAudioFail),
-        ("testAudioFetching", testAudioFetching)
+        ("testAudioSingleFetching", testAudioSingleFetching),
+        ("testCollaborativeAudioFetching", testCollaborativeAudioFetching)
     ]
 }
