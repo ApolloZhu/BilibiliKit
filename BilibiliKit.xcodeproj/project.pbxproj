@@ -29,6 +29,11 @@
 		52D5BB43211C04BC00965E88 /* BKAudio+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB42211C04BC00965E88 /* BKAudio+Info.swift */; };
 		52D5BB45211C095800965E88 /* BKAudio+URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB44211C095800965E88 /* BKAudio+URLs.swift */; };
 		52D5BB47211C12E900965E88 /* BKAudio+Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB46211C12E900965E88 /* BKAudio+Staff.swift */; };
+		52D5BB49211CB55B00965E88 /* BKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB48211CB55B00965E88 /* BKUser.swift */; };
+		52D5BB4F211CDD0500965E88 /* BKUpUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB4E211CDD0500965E88 /* BKUpUser.swift */; };
+		52D5BB51211CDE3B00965E88 /* BKUpUser+Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB50211CDE3B00965E88 /* BKUpUser+Stat.swift */; };
+		52D5BB53211CE2F400965E88 /* BKCurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB52211CE2F400965E88 /* BKCurrentUser.swift */; };
+		52D5BB55211CEBB800965E88 /* BKUser+Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB54211CEBB800965E88 /* BKUser+Relationship.swift */; };
 		OBJ_29 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_35 /* BilibiliKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* BilibiliKitTests.swift */; };
 		OBJ_37 /* BilibiliKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "BilibiliKit::BilibiliKit::Product" /* BilibiliKit.framework */; };
@@ -72,6 +77,11 @@
 		52D5BB42211C04BC00965E88 /* BKAudio+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKAudio+Info.swift"; sourceTree = "<group>"; };
 		52D5BB44211C095800965E88 /* BKAudio+URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKAudio+URLs.swift"; sourceTree = "<group>"; };
 		52D5BB46211C12E900965E88 /* BKAudio+Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKAudio+Staff.swift"; sourceTree = "<group>"; };
+		52D5BB48211CB55B00965E88 /* BKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKUser.swift; sourceTree = "<group>"; };
+		52D5BB4E211CDD0500965E88 /* BKUpUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKUpUser.swift; sourceTree = "<group>"; };
+		52D5BB50211CDE3B00965E88 /* BKUpUser+Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKUpUser+Stat.swift"; sourceTree = "<group>"; };
+		52D5BB52211CE2F400965E88 /* BKCurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKCurrentUser.swift; sourceTree = "<group>"; };
+		52D5BB54211CEBB800965E88 /* BKUser+Relationship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKUser+Relationship.swift"; sourceTree = "<group>"; };
 		"BilibiliKit::BilibiliKit::Product" /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"BilibiliKit::BilibiliKitTests::Product" /* BilibiliKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = BilibiliKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* BKLoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLoginHelper.swift; sourceTree = "<group>"; };
@@ -162,6 +172,11 @@
 				5281D87B20A6670400F6AFF5 /* BKLiveRoom+Info.swift */,
 				OBJ_10 /* BKLoginHelper.swift */,
 				OBJ_11 /* BKSession.swift */,
+				52D5BB48211CB55B00965E88 /* BKUser.swift */,
+				52D5BB54211CEBB800965E88 /* BKUser+Relationship.swift */,
+				52D5BB52211CE2F400965E88 /* BKCurrentUser.swift */,
+				52D5BB4E211CDD0500965E88 /* BKUpUser.swift */,
+				52D5BB50211CDE3B00965E88 /* BKUpUser+Stat.swift */,
 				OBJ_14 /* BKVideo.swift */,
 				OBJ_12 /* BKVideo+Info.swift */,
 				OBJ_13 /* BKVideo+Page.swift */,
@@ -271,14 +286,19 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_44 /* BKApp.swift in Sources */,
+				52D5BB53211CE2F400965E88 /* BKCurrentUser.swift in Sources */,
 				OBJ_45 /* BKCookie.swift in Sources */,
 				OBJ_46 /* BKLoginHelper.swift in Sources */,
+				52D5BB49211CB55B00965E88 /* BKUser.swift in Sources */,
 				52D5BB41211C037900965E88 /* BKAudio.swift in Sources */,
 				OBJ_47 /* BKSession.swift in Sources */,
+				52D5BB4F211CDD0500965E88 /* BKUpUser.swift in Sources */,
+				52D5BB51211CDE3B00965E88 /* BKUpUser+Stat.swift in Sources */,
 				OBJ_48 /* BKVideo+Info.swift in Sources */,
 				OBJ_49 /* BKVideo+Page.swift in Sources */,
 				OBJ_50 /* BKVideo.swift in Sources */,
 				5281D87820A6668E00F6AFF5 /* BKArticle+Info.swift in Sources */,
+				52D5BB55211CEBB800965E88 /* BKUser+Relationship.swift in Sources */,
 				5281D87620A6666900F6AFF5 /* BKArticle.swift in Sources */,
 				52D5BB47211C12E900965E88 /* BKAudio+Staff.swift in Sources */,
 				52D5BB43211C04BC00965E88 /* BKAudio+Info.swift in Sources */,
