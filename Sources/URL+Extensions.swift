@@ -7,16 +7,21 @@
 
 import Foundation
 
-extension URL: ExpressibleByStringLiteral {    
+extension URL: ExpressibleByStringLiteral {
     /// Initialize url with string literals.
     ///
     /// - Parameter value: url.
     public init(stringLiteral value: StringLiteralType) {
         self.init(string: value)!
     }
-    
-    /// Set this url's scheme to https, if in http or no scheme.
-    public var inHttps: URL? {
+
+    @available(swift, deprecated: 4.1, obsoleted: 5.0, renamed: "inHTTPS")
+    /// Deprecated, use `inHTTPS` instead.
+    public var inHttps: URL? { return inHTTPS }
+
+    /// Returns a new url with this url's scheme set to https,
+    /// if the current url scheme is "http" or no scheme at all.
+    public var inHTTPS: URL? {
         var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
         if let scheme = components?.scheme {
             if scheme == "http" {
@@ -27,6 +32,6 @@ extension URL: ExpressibleByStringLiteral {
         }
         return components?.url
     }
-    
+
     public static let notFound: URL = "https://static.hdslb.com/images/akari.jpg"
 }

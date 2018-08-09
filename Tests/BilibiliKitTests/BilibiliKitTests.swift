@@ -44,7 +44,7 @@ class BilibiliKitTests: XCTestCase {
         }
         waitForExpectations(timeout: 60, handler: nil)
     }
-    
+
     static var allTests = [
         ("testAppkeyFetching", testAppkeyFetching),
         ("testVideoInfoFetching", testVideoInfoFetching),
