@@ -45,9 +45,32 @@ class BilibiliKitTests: XCTestCase {
         waitForExpectations(timeout: 60, handler: nil)
     }
 
+    func testAudioFetching() {
+        [0, 195471, 418827].forEach {
+            let audio = BKAudio(au: $0)
+            let info = expectation(description: "Audio info fetch")
+            audio.getInfo {
+                dump($0)
+                info.fulfill()
+            }
+            let staff = expectation(description: "Audio staff fetch")
+            audio.getStaff {
+                dump($0)
+                staff.fulfill()
+            }
+            let urls = expectation(description: "Audio url fetch")
+            audio.getURLs {
+                dump($0)
+                urls.fulfill()
+            }
+            waitForExpectations(timeout: 120, handler: nil)
+        }
+    }
+
     static var allTests = [
         ("testAppkeyFetching", testAppkeyFetching),
         ("testVideoInfoFetching", testVideoInfoFetching),
-        ("testVideoPageFetching", testVideoPageFetching)
+        ("testVideoPageFetching", testVideoPageFetching),
+        ("testAudioFetching", testAudioFetching)
     ]
 }

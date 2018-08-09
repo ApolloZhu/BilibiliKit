@@ -8,6 +8,7 @@
 import Foundation
 
 extension BKLiveRoom {
+    /// Information of a live room.
     public struct Info: Codable {
         /// Author id.
         public let mid: Int
@@ -96,7 +97,7 @@ extension BKLiveRoom.Info {
 // MARK: - Networking
 
 extension BKLiveRoom {
-    private struct Wrapper: Codable {
+    private struct Wrapper: BKWrapper, Codable {
         /// 0 or error code.
         let code: Int
         /// "ok" or error message.
@@ -106,27 +107,19 @@ extension BKLiveRoom {
         /// Info or empty array.
         let data: Info?
     }
-    
+
     /// Handler type for information of a live room fetched.
     ///
     /// - Parameter info: info fetched, `nil` if failed.
     public typealias InfoHandler = (_ info: Info?) -> Void
-    
-    /// Fetchs and passes a live room's info to `handler`.
+
+    /// Fetchs and passes this live room's info to `handler`.
     ///
     /// - Parameters:
     ///   - handler: code to process an optional `Info`.
     public func getInfo(then handler: @escaping InfoHandler) {
         let url = "https://api.live.bilibili.com/room/v1/Room/get_info?room_id=\(id)"
-        let task = URLSession.bk.dataTask(with: URL(string: url)!)
-        { data, _, _ in
-            guard let data = data
-                , let wrapper = try? JSONDecoder().decode(Wrapper.self, from: data)
-                , let info = wrapper.data
-                else { return handler(nil) }
-            handler(info)
-        }
-        task.resume()
+        URLSession.get(url, unwrap: Wrapper.self, then: handler)
     }
 }
 
