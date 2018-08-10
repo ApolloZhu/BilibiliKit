@@ -33,5 +33,6 @@ extension URL: ExpressibleByStringLiteral {
         return components?.url
     }
 
+    /// `nil` value for URL where a non-optional URL is required
     public static let notFound: URL = "https://static.hdslb.com/images/akari.jpg"
 }

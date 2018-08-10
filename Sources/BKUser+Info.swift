@@ -8,17 +8,19 @@
 import Foundation
 
 extension BKUser {
+    /// Complete public user info.
     public struct Info: Codable {
         // let mid: Int
         private let name: String
+        // Might be in HTTP
         private let face: URL
         private let sign: String
-        // Test case: 110352985
         /// 男，女，保密, ""
+        ///
+        /// - Note: 110352985 is an interesting test case
         private let sex: String
-        // 10000 for normal, 20000 for bishi
+        // 10000 for normal, 20000 for bishi, 5000 for 0
         // let rank: Int
-        // Might be in HTTP
         // Registration time
         private let regtime: Int
         // let spacesta: Int
@@ -49,14 +51,17 @@ extension BKUser {
 }
 
 extension BKUser.Info {
+    /// Basic info.
     public var basic: Basic {
         return Basic(name: name, avaterURL: face, bio: sign)
     }
-    
+
+    /// 性别：男，女，保密, 或者没填写
     public var biologicalSex: BiologicalSex? {
         return BiologicalSex(rawValue: sex)
     }
-    
+
+    /// 注册日期
     public var registrationTime: Date {
         return Date(timeIntervalSince1970: TimeInterval(regtime))
     }
@@ -66,15 +71,18 @@ extension BKUser.Info {
         formatter.dateFormat = "MM-dd"
         return formatter
     }()
-    
+
+    /// 生日（月-日）
     public var birthdate: Date {
         return BKUser.Info.formatter.date(from: birthday)!
     }
-    
+
+    /// 用户等级
     public var currentLevel: Int {
         return level_info.current
     }
-    
+
+    /// 小号头图
     public var coverImageSmall: URL {
         return URL(string: "https://i0.hdslb.com/\(toutu)")!
     }

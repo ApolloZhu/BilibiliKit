@@ -71,7 +71,7 @@ class BilibiliKitTests: XCTestCase {
         let audio = BKAudio(au: 195471)
         let info = expectation(description: "Single audio info fetch")
         audio.getInfo {
-            XCTAssertNotNil($0)
+            XCTAssertNotNil($0, "Failed to fetch audio info of \(audio.sid)")
             print($0!)
             dump($0!)
             XCTAssertNil($0?.lyrics)
@@ -79,13 +79,13 @@ class BilibiliKitTests: XCTestCase {
         }
         let staff = expectation(description: "Single audio staff fetch")
         audio.getStaff {
-            XCTAssertNotNil($0)
-            XCTAssertTrue($0!.isEmpty)
+            XCTAssertNotNil($0, "Failed to fetch audio \(audio.sid) staff")
+            XCTAssertTrue($0!.isEmpty, "Random participants")
             staff.fulfill()
         }
         let urls = expectation(description: "Single audio url fetch")
         audio.getURLs {
-            XCTAssertNotNil($0)
+            XCTAssertNotNil($0, "Can't download \(audio.sid)")
             dump($0!)
             urls.fulfill()
         }
@@ -97,7 +97,7 @@ class BilibiliKitTests: XCTestCase {
         let audio = BKAudio(au: 418827)
         let info = expectation(description: "Collaborative audio info fetch")
         audio.getInfo {
-            XCTAssertNotNil($0)
+            XCTAssertNotNil($0, "Failed to fetch audio info of \(audio.sid)")
             dump($0!)
             XCTAssertNotNil($0!.lyrics)
             print($0!.lyrics!)
@@ -105,14 +105,14 @@ class BilibiliKitTests: XCTestCase {
         }
         let staff = expectation(description: "Collaborative audio staff fetch")
         audio.getStaff {
-            XCTAssertNotNil($0)
-            XCTAssertFalse($0!.isEmpty)
+            XCTAssertNotNil($0, "Failed to fetch audio \(audio.sid) staff")
+            XCTAssertFalse($0!.isEmpty, "Collaborators disappeared")
             dump($0!)
             staff.fulfill()
         }
         let urls = expectation(description: "Collaborative audio url fetch")
         audio.getURLs {
-            XCTAssertNotNil($0)
+            XCTAssertNotNil($0, "Can't download \(audio.sid)")
             dump($0!)
             urls.fulfill()
         }

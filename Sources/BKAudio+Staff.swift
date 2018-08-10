@@ -34,6 +34,7 @@ extension BKAudio {
 }
 
 extension BKAudio.Staff {
+    /// If the staff list returned from bilibili API is valid.
     public var isEmpty: Bool {
         return singer.isEmpty
             && play.isEmpty
