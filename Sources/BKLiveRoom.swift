@@ -5,7 +5,7 @@
 //  Created by Apollo Zhu on 5/11/18.
 //
 
-public struct BKLiveRoom {
+public struct BKLiveRoom: Equatable {
     /// Either the short or actual id.
     public let id: Int
     

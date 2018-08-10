@@ -120,12 +120,62 @@ class BilibiliKitTests: XCTestCase {
         print()
     }
 
+    func testUserInfoFetching() {
+        [0, 110352985, 14767902, 2].forEach { mid in
+            print("BEGIN \(mid)")
+            let user = BKUpUser(id: mid)
+            let basicInfo = expectation(description: "Basic Info of \(mid)")
+            user.getBasicInfo {
+                dump($0)
+                print()
+                basicInfo.fulfill()
+            }
+            let info = expectation(description: "Info of \(mid)")
+            user.getInfo {
+                defer {
+                    print()
+                    info.fulfill()
+                }
+                dump($0)
+                guard let i = $0 else { return }
+                print(i.biologicalSex ?? "No Sex")
+                print(i.birthdate)
+                print(i.coverImageSmall)
+                print(i.currentLevel)
+
+            }
+            let relation = expectation(description: "Relationship of \(mid)")
+            user.getRelationshipHandler {
+                dump($0)
+                print()
+                relation.fulfill()
+            }
+            let audioStat = expectation(description: "Audio stat of \(mid)")
+            user.getAudioStat {
+                dump($0)
+                print()
+                audioStat.fulfill()
+            }
+            let upStat = expectation(description: "Up stat of \(mid)")
+            user.getStat {
+                dump($0)
+                print()
+                upStat.fulfill()
+            }
+            waitForExpectations(timeout: 300, handler: nil)
+            print("--END \(mid)")
+            print()
+            print()
+        }
+    }
+
     static var allTests = [
         ("testAppkeyFetching", testAppkeyFetching),
         ("testVideoInfoFetching", testVideoInfoFetching),
         ("testVideoPageFetching", testVideoPageFetching),
         ("testAudioFail", testAudioFail),
         ("testAudioSingleFetching", testAudioSingleFetching),
-        ("testCollaborativeAudioFetching", testCollaborativeAudioFetching)
+        ("testCollaborativeAudioFetching", testCollaborativeAudioFetching),
+        ("testUserInfoFetching", testUserInfoFetching)
     ]
 }

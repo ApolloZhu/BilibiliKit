@@ -12,8 +12,6 @@ protocol BKWrapper: Codable {
     var data: Wrapped? { get }
 }
 
-//extension BKWrapper: Codable where Wrapped: Codable { }
-
 extension URLSession {
     #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
     /// Shared url session, alias of URLSession.shared
@@ -37,7 +35,16 @@ extension URLSession {
         then handler: @escaping (Wrapper.Wrapped?) -> Void
     ) {
         guard let url = URL(string: url) else { return handler(nil) }
-        let task = URLSession.bk.dataTask(with: url) { data, _, _ in
+        get(URLRequest(url: url), unwrap: wrapperType, then: handler)
+    }
+
+    class func get<Wrapper: BKWrapper>(
+        _ request: URLRequest,
+        unwrap wrapperType: Wrapper.Type,
+        validate isValid: @escaping (Wrapper.Wrapped) -> Bool = { _ in true },
+        then handler: @escaping (Wrapper.Wrapped?) -> Void
+    ) {
+        let task = URLSession.bk.dataTask(with: request) { data, _, _ in
             guard let data = data
                 , let wrapper = try? JSONDecoder().decode(wrapperType, from: data)
                 , let wrapped = wrapper.data

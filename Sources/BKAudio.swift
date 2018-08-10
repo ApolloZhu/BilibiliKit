@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct BKAudio {
+public struct BKAudio: Equatable {
     /// Song id.
     public let sid: Int
 
