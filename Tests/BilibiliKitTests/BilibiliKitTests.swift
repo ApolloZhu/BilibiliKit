@@ -121,7 +121,7 @@ class BilibiliKitTests: XCTestCase {
     }
 
     func testUserInfoFetching() {
-        [0, 110352985, 14767902, 2].forEach { mid in
+        [0, 639647, 110352985, 14767902, 2].forEach { mid in
             print("BEGIN \(mid)")
             let user = BKUpUser(id: mid)
             let basicInfo = expectation(description: "Basic Info of \(mid)")
@@ -149,10 +149,10 @@ class BilibiliKitTests: XCTestCase {
                 dump($0)
                 guard let i = $0 else { return }
                 print(i.biologicalSex ?? "No Sex")
-                print(i.birthdate)
+                print(i.birthdate ?? "No Birthday")
+                print(i.registrationTime ?? "Not registered normally")
                 print(i.coverImageSmall)
                 print(i.currentLevel)
-
             }
             let relation = expectation(description: "Relationship of \(mid)")
             user.getRelationship {

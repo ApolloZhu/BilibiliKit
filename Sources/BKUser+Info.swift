@@ -21,11 +21,11 @@ extension BKUser {
         private let sex: String
         // 10000 for normal, 20000 for bishi, 5000 for 0
         // let rank: Int
-        // Registration time
-        private let regtime: Int
+        // Registration time, optional?
+        private let regtime: Int?
         // let spacesta: Int
         /// MM-dd
-        public let birthday: String
+        public let birthday: String?
         private let level_info: BKUser.Info.Level.Simple
         public struct Official: Codable {
             public let type: Int
@@ -62,8 +62,11 @@ extension BKUser.Info {
     }
 
     /// 注册日期
-    public var registrationTime: Date {
-        return Date(timeIntervalSince1970: TimeInterval(regtime))
+    ///
+    /// - Note: HeadphoneTokyo 没有注册日期？
+    public var registrationTime: Date? {
+        guard let time = regtime else { return nil }
+        return Date(timeIntervalSince1970: TimeInterval(time))
     }
     
     private static let formatter: DateFormatter = {
@@ -73,7 +76,8 @@ extension BKUser.Info {
     }()
 
     /// 生日（月-日）
-    public var birthdate: Date {
+    public var birthdate: Date? {
+        guard let birthday = birthday else { return nil }
         return BKUser.Info.formatter.date(from: birthday)!
     }
 
