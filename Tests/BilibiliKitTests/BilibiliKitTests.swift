@@ -126,12 +126,22 @@ class BilibiliKitTests: XCTestCase {
             let user = BKUpUser(id: mid)
             let basicInfo = expectation(description: "Basic Info of \(mid)")
             user.getBasicInfo {
+                if (mid == 0) {
+                    XCTAssertNil($0)
+                } else {
+                    XCTAssertNotNil($0)
+                }
                 dump($0)
                 print()
                 basicInfo.fulfill()
             }
             let info = expectation(description: "Info of \(mid)")
             user.getInfo {
+                if (mid == 0) {
+                    XCTAssertNil($0)
+                } else {
+                    XCTAssertNotNil($0)
+                }
                 defer {
                     print()
                     info.fulfill()
@@ -146,6 +156,11 @@ class BilibiliKitTests: XCTestCase {
             }
             let relation = expectation(description: "Relationship of \(mid)")
             user.getRelationship {
+                if (mid == 0) {
+                    XCTAssertNil($0)
+                } else {
+                    XCTAssertNotNil($0)
+                }
                 dump($0)
                 print()
                 relation.fulfill()
@@ -158,6 +173,11 @@ class BilibiliKitTests: XCTestCase {
             }
             let upStat = expectation(description: "Up stat of \(mid)")
             user.getStat {
+                if (mid == 0) {
+                    XCTAssertNil($0)
+                } else {
+                    XCTAssertNotNil($0)
+                }
                 dump($0)
                 print()
                 upStat.fulfill()
