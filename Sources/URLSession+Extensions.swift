@@ -21,10 +21,11 @@ extension URLSession {
     static let bk = URLSession(configuration: .default)
     #endif
 
-    /// Fetches a decodable wrapper JSON and pass the wrapped to handler.
+    /// Fetches a decodable wrapper JSON and pass the unwrapped to handler.
     ///
     /// - Parameters:
     ///   - url: url to fetch.
+    ///   - session: session containing cookie identifying current user.
     ///   - wrapperType: type containing `Wrapped` data field.
     ///   - handler: code to process an optional `Wrapped` instance.
     public class func get<Wrapper: BKWrapper>(
@@ -38,9 +39,14 @@ extension URLSession {
         get(request, unwrap: wrapperType, then: handler)
     }
 
+    /// Sends the request, unwraps the JSON, and pass the unwrapped to handler.
+    ///
+    /// - Parameters:
+    ///   - request: request to complete.
+    ///   - wrapperType: type containing `Wrapped` data field.
+    ///   - handler: code to process an optional `Wrapped` instance.
     public class func get<Wrapper: BKWrapper>(
         _ request: URLRequest,
-        session: BKSession = .shared,
         unwrap wrapperType: Wrapper.Type,
         then handler: @escaping (Wrapper.Wrapped?) -> Void)
     {
