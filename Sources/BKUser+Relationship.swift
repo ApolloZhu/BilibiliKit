@@ -30,7 +30,7 @@ extension BKUser {
     /// Fetchs and passes this up's stat to `handler`.
     ///
     /// - Parameters:
-    ///   - handler: code to process an optional `Stat`.
+    ///   - handler: code to process an optional `Relationship`.
     public func getRelationship(session: BKSession = .shared,
                                 then handler: @escaping RelationshipHandler) {
         let url = "https://api.bilibili.com/x/relation/stat?vmid=\(mid)"

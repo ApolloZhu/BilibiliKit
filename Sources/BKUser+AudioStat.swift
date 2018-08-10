@@ -28,6 +28,8 @@ extension BKUser {
 
     /// Fetchs and passes this up's audio stat to `handler`.
     ///
+    /// - Important: Won't fail for invalid user.
+    ///
     /// - Parameters:
     ///   - handler: code to process an optional `AudioStat`.
     public func getAudioStat(then handler: @escaping AudioStatHandler) {
