@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BKWrapper: Codable {
+public protocol BKWrapper: Codable {
     associatedtype Wrapped: Codable
     var data: Wrapped? { get }
 }
@@ -26,29 +26,28 @@ extension URLSession {
     /// - Parameters:
     ///   - url: url to fetch.
     ///   - wrapperType: type containing `Wrapped` data field.
-    ///   - isValid: only process if passes this test. Defaults to true.
     ///   - handler: code to process an optional `Wrapped` instance.
-    class func get<Wrapper: BKWrapper>(
+    public class func get<Wrapper: BKWrapper>(
         _ url: String,
+        session: BKSession = .shared,
         unwrap wrapperType: Wrapper.Type,
-        validate isValid: @escaping (Wrapper.Wrapped) -> Bool = { _ in true },
-        then handler: @escaping (Wrapper.Wrapped?) -> Void
-    ) {
+        then handler: @escaping (Wrapper.Wrapped?) -> Void)
+    {
         guard let url = URL(string: url) else { return handler(nil) }
-        get(URLRequest(url: url), unwrap: wrapperType, then: handler)
+        let request = session.request(to: url)
+        get(request, unwrap: wrapperType, then: handler)
     }
 
-    class func get<Wrapper: BKWrapper>(
+    public class func get<Wrapper: BKWrapper>(
         _ request: URLRequest,
+        session: BKSession = .shared,
         unwrap wrapperType: Wrapper.Type,
-        validate isValid: @escaping (Wrapper.Wrapped) -> Bool = { _ in true },
-        then handler: @escaping (Wrapper.Wrapped?) -> Void
-    ) {
+        then handler: @escaping (Wrapper.Wrapped?) -> Void)
+    {
         let task = URLSession.bk.dataTask(with: request) { data, _, _ in
             guard let data = data
                 , let wrapper = try? JSONDecoder().decode(wrapperType, from: data)
                 , let wrapped = wrapper.data
-                , isValid(wrapped)
                 else { return handler(nil) }
             handler(wrapped)
         }

@@ -145,7 +145,7 @@ class BilibiliKitTests: XCTestCase {
 
             }
             let relation = expectation(description: "Relationship of \(mid)")
-            user.getRelationshipHandler {
+            user.getRelationship {
                 dump($0)
                 print()
                 relation.fulfill()

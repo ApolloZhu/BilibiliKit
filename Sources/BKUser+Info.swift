@@ -166,6 +166,6 @@ extension BKUser {
     ///   - handler: code to process an optional `Info.Basic`.
     public func getBasicInfo(then handler: @escaping BasicInfoHandler) {
         let url = "https://www.bilibili.com/audio/music-service-c/web/user/info?uid=\(mid)"
-        URLSession.get(url, unwrap: Wrapper<Info.Basic>.self, then: handler)
+        URLSession.get(url, unwrap: BKAudio.Wrapper<Info.Basic>.self, then: handler)
     }
 }

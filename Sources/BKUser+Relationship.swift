@@ -12,9 +12,9 @@ extension BKUser {
         // let mid: Int
         /// 关注数
         public let following: Int
-        /// 悄悄关注
+        /// 悄悄关注, only accurate if is current user
         public let whisper: Int
-        /// 黑名单
+        /// 黑名单, only accurate if is current user
         public let black: Int
         /// 粉丝数
         public let follower: Int
@@ -31,8 +31,11 @@ extension BKUser {
     ///
     /// - Parameters:
     ///   - handler: code to process an optional `Stat`.
-    public func getRelationshipHandler(then handler: @escaping RelationshipHandler) {
+    public func getRelationship(session: BKSession = .shared,
+                                then handler: @escaping RelationshipHandler) {
         let url = "https://api.bilibili.com/x/relation/stat?vmid=\(mid)"
-        URLSession.get(url, unwrap: Wrapper<Relationship>.self, then: handler)
+        URLSession.get(url, session: session,
+                       unwrap: Wrapper<Relationship>.self,
+                       then: handler)
     }
 }
