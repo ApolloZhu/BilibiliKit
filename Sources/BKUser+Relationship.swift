@@ -21,7 +21,7 @@ extension BKUser {
     }
 }
 
-extension BKUpUser {
+extension BKUser {
     /// Handler type for relationships of a user fetched.
     ///
     /// - Parameter relationship: relationship fetched, `nil` if failed.
