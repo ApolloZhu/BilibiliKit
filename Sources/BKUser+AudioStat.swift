@@ -32,6 +32,6 @@ extension BKUser {
     ///   - handler: code to process an optional `AudioStat`.
     public func getAudioStat(then handler: @escaping AudioStatHandler) {
         let url = "https://www.bilibili.com/audio/music-service-c/web/stat/user?uid=\(mid)"
-        URLSession.get(url, unwrap: Wrapper<AudioStat>.self, then: handler)
+        URLSession.get(url, unwrap: BKAudio.Wrapper<AudioStat>.self, then: handler)
     }
 }
