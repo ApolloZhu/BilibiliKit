@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Bilibili song, identified by unique sid.
 public struct BKAudio: Equatable {
     /// Song id.
     public let sid: Int

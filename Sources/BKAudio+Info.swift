@@ -34,12 +34,13 @@ extension BKAudio {
         public let aid: Int
         /// ID number for related video
         public let cid: Int
-        /*let msid: Int
-         let attr: Int
-         let limit: Int
-         let activityId: Int
-         let limitdesc: String
-         let ctime: Any?*/
+        // Not sure what these are
+        // let msid: Int
+        private let attr: Int
+        private let limit: Int
+        // let activityId: Int
+        private let limitdesc: String
+        // let ctime: Any?
         public struct Statistic: Codable {
             // let sid: Int
             public let play: Int
