@@ -148,8 +148,8 @@ class BilibiliKitTests: XCTestCase {
                 }
                 dump($0)
                 guard let i = $0 else { return }
-                print(i.biologicalSex ?? "No Sex")
-                print(i.birthdate ?? "No Birthday")
+                print(i.biologicalSex ?? "No biological sex")
+                print(i.birthdate ?? "No birthday")
                 print(i.registrationTime ?? "Not registered normally")
                 print(i.coverImageSmall)
                 print(i.currentLevel)

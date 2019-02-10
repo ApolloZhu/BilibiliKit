@@ -122,6 +122,3 @@ extension BKLiveRoom {
         URLSession.get(url, unwrap: Wrapper.self, then: handler)
     }
 }
-
-
-

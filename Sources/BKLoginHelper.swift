@@ -228,4 +228,3 @@ public class BKLoginHelper {
         task.resume()
     }
 }
-
