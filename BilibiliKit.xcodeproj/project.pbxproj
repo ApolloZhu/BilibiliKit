@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		525135D1220FF1A400D2C96A /* BKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525135CF220FF1A400D2C96A /* BKError.swift */; };
 		5281D87620A6666900F6AFF5 /* BKArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87520A6666900F6AFF5 /* BKArticle.swift */; };
 		5281D87820A6668E00F6AFF5 /* BKArticle+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87720A6668E00F6AFF5 /* BKArticle+Info.swift */; };
 		5281D87A20A666DE00F6AFF5 /* BKLiveRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87920A666DE00F6AFF5 /* BKLiveRoom.swift */; };
@@ -68,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		525135CF220FF1A400D2C96A /* BKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKError.swift; sourceTree = "<group>"; };
 		5281D87520A6666900F6AFF5 /* BKArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKArticle.swift; sourceTree = "<group>"; };
 		5281D87720A6668E00F6AFF5 /* BKArticle+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKArticle+Info.swift"; sourceTree = "<group>"; };
 		5281D87920A666DE00F6AFF5 /* BKLiveRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLiveRoom.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				525135CF220FF1A400D2C96A /* BKError.swift */,
 				OBJ_8 /* BKApp.swift */,
 				5281D87520A6666900F6AFF5 /* BKArticle.swift */,
 				5281D87720A6668E00F6AFF5 /* BKArticle+Info.swift */,
@@ -312,6 +315,7 @@
 				OBJ_45 /* BKCookie.swift in Sources */,
 				OBJ_46 /* BKLoginHelper.swift in Sources */,
 				52D5BB49211CB55B00965E88 /* BKUser.swift in Sources */,
+				525135D1220FF1A400D2C96A /* BKError.swift in Sources */,
 				52E75892211D02010065BCE7 /* BKUser+AudioStat.swift in Sources */,
 				52D5BB41211C037900965E88 /* BKAudio.swift in Sources */,
 				OBJ_47 /* BKSession.swift in Sources */,

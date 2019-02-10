@@ -96,7 +96,8 @@ extension BKArticle {
     /// Handler type for information of an article fetched.
     ///
     /// - Parameter info: info fetched, `nil` if failed.
-    public typealias InfoHandler = (_ info: Info?) -> Void
+    @available(swift, deprecated: 5.0)
+    public typealias InfoHandler = (Result<Info, BKError>) -> Void
     
     /// Fetchs and passes an article's info to `handler`.
     ///
@@ -104,16 +105,23 @@ extension BKArticle {
     ///   - session: BKSession to generate request. Default to `BKSession.shared`.
     ///   - handler: code to process an optional `Info`.
     public func getInfo(withSession session: BKSession = .shared,
-                        then handler: @escaping InfoHandler) {
+                        then handle: @escaping (Result<Info, BKError>) -> Void) {
         let baseURL = URL(string: "https://api.bilibili.com/x/article/viewinfo?id=\(id)")
         let request = session.request(to: baseURL!)
         let task = URLSession.bk.dataTask(with: request)
-        { data, _, _ in
-            guard let data = data
-                , let wrapper = try? JSONDecoder().decode(Wrapper.self, from: data)
-                , let info = wrapper.data
-                else { return handler(nil) }
-            handler(info)
+        { data, res, err in
+            guard let data = data else {
+                return handle(.failure(.responseError(
+                    reason: .urlSessionError(err, response: res))))
+            }
+            handle(Result { try JSONDecoder().decode(Wrapper.self, from: data) }
+                .mapError { BKError.parseError(reason: .jsonDecodeFailure($0)) }
+                .flatMap {
+                    if let info = $0.data {
+                        return .success(info)
+                    } else {
+                        return .failure(.responseError(reason: .reason($0.message)))
+                    }})
         }
         task.resume()
     }
