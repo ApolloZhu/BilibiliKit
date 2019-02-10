@@ -16,10 +16,12 @@ public enum BKError: Error {
     public enum ResponseErrorReason {
         case urlSessionError(Error?, response: URLResponse?)
         case reason(String)
+        case emptyJSONResponse
     }
     public enum ImplementationErrorReason {
         case invalidURL(String)
         case invalidRegex(Error)
+        case invalidIndex(Int)
     }
     
     case implementationError(reason: ImplementationErrorReason)

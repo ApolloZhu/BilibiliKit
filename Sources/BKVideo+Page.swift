@@ -46,54 +46,57 @@ extension BKVideo {
 // MARK: - Networking
 
 extension BKVideo {
-    /// Handler type for all pages fetched.
-    ///
-    /// - Parameter pages: pages fetched, nil if failed or the video has no sub pages.
-    public typealias PagesHandler = (_ pages: [Page]?) -> Void
-    
     /// Fetch all pages of video and perform action over.
     ///
-    /// - Parameter code: code to perform on the pages.
-    public func pages(code: @escaping PagesHandler) {
+    /// - Parameter handler: code to perform on the pages.
+    public func pages(handler: @escaping BKHandler<[Page]>) {
         let pagesInfoURL = URL(string: "https://www.bilibili.com/widget/getPageList?aid=\(aid)")
         let task = URLSession.bk.dataTask(with: pagesInfoURL!)
-        { [aid] data,_,_ in
-            guard let data = data
-                , var pages = try? JSONDecoder().decode([Page].self, from: data)
-                , pages.count > 0
-                else { return code(nil) }
-            for index in pages.indices {
-                pages[index].aid = aid
+        { [aid] data,res,err in
+            guard let data = data else {
+                return handler(.failure(.responseError(
+                    reason: .urlSessionError(err, response: res))))
             }
-            code(pages)
+            handler(Result { try JSONDecoder().decode([Page].self, from: data) }
+                .mapError { .parseError(reason: .jsonDecodeFailure($0)) }
+                .flatMap { var pages = $0
+                    guard !pages.isEmpty else {
+                        return .failure(.responseError(reason: .emptyJSONResponse))
+                    }
+                    for index in pages.indices {
+                        pages[index].aid = aid
+                    }
+                    return .success(pages)
+            })
         }
         task.resume()
     }
-    
-    /// Handler type for single page fetched.
-    ///
-    /// - Parameter page: page fetched, nil if failed.
-    public typealias PageHandler = (_ page: Page?) -> Void
-    
+
     /// Fetch the first page of video and perform action over.
     ///
-    /// - Parameter code: code to perform on the page.
-    public func p1(code: @escaping PageHandler) {
-        pages { code($0?.first) }
+    /// - Parameter handler: code to perform on the page.
+    public func p1(handler: @escaping BKHandler<Page>) {
+        pages { handler($0.map { $0.first! }) }
     }
     
     /// Fetch page of video at index and perform action over.
     ///
     /// - Parameters:
     ///   - index: **ONE** based index of the page to fetch.
-    ///   - code: code to perform on the page.
-    public func page(_ index: Int, code: @escaping PageHandler) {
-        guard index > 0 else { return code(nil) }
-        pages {
-            guard let pages = $0
-                , index <= pages.count
-                else { return code(nil) }
-            code(pages[index - 1])
+    ///   - handler: code to perform on the page.
+    public func page(_ index: Int, handler: @escaping BKHandler<Page>) {
+        guard index > 0 else {
+            return handler(.failure(.implementationError(
+                reason: .invalidIndex(index))))
+        }
+        pages { result in
+            handler(result.flatMap { pages in
+                if index <= pages.count {
+                    return .success(pages[index - 1])
+                } else {
+                    return .failure(.implementationError(reason: .invalidIndex(index)))
+                }
+            })
         }
     }
     
@@ -101,8 +104,8 @@ extension BKVideo {
     ///
     /// - Parameters:
     ///   - index: **ZERO** based index of the page to fetch.
-    ///   - code: code to perform on the page.
-    public subscript(index: Int, code: @escaping PageHandler) -> Void {
-        page(index + 1, code: code)
+    ///   - handler: code to perform on the page.
+    public subscript(index: Int, handler: @escaping BKHandler<Page>) -> Void {
+        page(index + 1, handler: handler)
     }
 }

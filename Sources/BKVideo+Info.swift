@@ -86,24 +86,20 @@ extension BKVideo {
 // MARK: - Networking
 
 extension BKVideo {
-    
-    /// Handler type for information about a video fetched.
-    ///
-    /// - Parameter info: info fetched, nil if failed.
-    public typealias InfoHandler = (_ info: Info?) -> Void
-    
     /// Fetchs and passes this video's info to `handler`.
     ///
     /// - Parameter handler: code to process optional `Info`.
-    public func getInfo(then handler: @escaping InfoHandler) {
-        BKVideo.getInfo(of: aid, withAppkey: BKApp.appkey) { [aid] info in
-            guard info == nil else { return handler(info!) }
+    public func getInfo(then handler: @escaping BKHandler<Info>) {
+        BKVideo.getInfo(of: aid, withAppkey: BKApp.appkey) { [aid] result in
+            guard case .failure = result else {
+                return handler(result)
+            }
             BKApp.fetchKey { result in
                 switch result {
                 case .success(let key):
                     BKVideo.getInfo(of: aid, withAppkey: key, then: handler)
-                case .failure:
-                    handler(nil)
+                case .failure(let error):
+                    handler(.failure(error))
                 }
             }
         }
@@ -115,12 +111,16 @@ extension BKVideo {
     ///   - aid: av number of the video.
     ///   - key: APPKEY from bilibili.
     ///   - handler: code to process optional `Info`.
-    public static func getInfo(of aid: Int, withAppkey key: String, then handler: @escaping InfoHandler) {
+    public static func getInfo(of aid: Int, withAppkey key: String, then handler: @escaping BKHandler<Info>) {
         let base = "https://api.bilibili.com/view?id=\(aid)&appkey=\(key)"
         let task = URLSession.bk.dataTask(with: URL(string: base)!)
-        { data, _, _ in
-            guard let data = data else { return handler(nil) }
-            handler(try? JSONDecoder().decode(Info.self, from: data))
+        { data, res, err in
+            guard let data = data else {
+                return handler(.failure(.responseError(
+                    reason: .urlSessionError(err, response: res))))
+            }
+            handler(Result { try JSONDecoder().decode(Info.self, from: data) }
+                .mapError { .parseError(reason: .jsonDecodeFailure($0)) })
         }
         task.resume()
     }

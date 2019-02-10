@@ -12,6 +12,8 @@ import Dispatch
 import UIKit
 #endif
 
+#warning("Use Result instead of custom result")
+
 /// Manage login through QRCode
 public class BKLoginHelper {
     /// Default login helper
