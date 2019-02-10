@@ -134,7 +134,8 @@ extension BKUser {
     /// - Parameters:
     ///   - handler: code to process an optional `Info`.
     public func getInfo(then handler: @escaping BKHandler<Info>) {
-        URLSession.get("http://api.bilibili.com/x/space/acc/info?mid=\(mid)&jsonp=jsonp", unwrap: BKWrapperMessage<Info>.self, then: handler)
+        URLSession.get("http://api.bilibili.com/x/space/acc/info?mid=\(mid)&jsonp=jsonp",
+            unwrap: BKWrapperMessage<Info>.self, then: handler)
     }
     
     /// Fetchs and passes this user's basic info to `handler`.
