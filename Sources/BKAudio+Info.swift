@@ -61,17 +61,14 @@ extension BKAudio.Info {
 }
 
 extension BKAudio {
-    /// Handler type for information of a song fetched.
-    ///
-    /// - Parameter info: info fetched, `nil` if failed.
-    public typealias InfoHandler = (_ info: Info?) -> Void
-
     /// Fetchs and passes this song's info to `handler`.
     ///
     /// - Parameters:
     ///   - handler: code to process an optional `Info`.
-    public func getInfo(then handler: @escaping InfoHandler) {
+    public func getInfo(then handler: @escaping BKHandler<Info>) {
         let url = "https://www.bilibili.com/audio/music-service-c/web/song/info?sid=\(sid)"
-        URLSession.get(url, unwrap: Wrapper<Info>.self, then: handler)
+        /// "success" or error message.
+        /// Info or empty array.
+        URLSession.get(url, unwrap: BKWrapperMsg<Info>.self, then: handler)
     }
 }

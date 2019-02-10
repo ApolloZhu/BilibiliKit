@@ -82,47 +82,16 @@ extension BKArticle.Info {
 // MARK: - Networking
 
 extension BKArticle {
-    private struct Wrapper: Codable {
-        /// Error code or 0.
-        let code: Int
-        /// Information if exists.
-        let data: Info?
-        /// Error description in Chinese.
-        let message: String
-        /// Usually 1.
-        // let ttl: Int
-    }
-    
-    /// Handler type for information of an article fetched.
-    ///
-    /// - Parameter info: info fetched, `nil` if failed.
-    @available(swift, deprecated: 5.0)
-    public typealias InfoHandler = (Result<Info, BKError>) -> Void
-    
     /// Fetchs and passes an article's info to `handler`.
     ///
     /// - Parameters:
     ///   - session: BKSession to generate request. Default to `BKSession.shared`.
     ///   - handler: code to process an optional `Info`.
     public func getInfo(withSession session: BKSession = .shared,
-                        then handle: @escaping (Result<Info, BKError>) -> Void) {
-        let baseURL = URL(string: "https://api.bilibili.com/x/article/viewinfo?id=\(id)")
-        let request = session.request(to: baseURL!)
-        let task = URLSession.bk.dataTask(with: request)
-        { data, res, err in
-            guard let data = data else {
-                return handle(.failure(.responseError(
-                    reason: .urlSessionError(err, response: res))))
-            }
-            handle(Result { try JSONDecoder().decode(Wrapper.self, from: data) }
-                .mapError { BKError.parseError(reason: .jsonDecodeFailure($0)) }
-                .flatMap {
-                    if let info = $0.data {
-                        return .success(info)
-                    } else {
-                        return .failure(.responseError(reason: .reason($0.message)))
-                    }})
-        }
-        task.resume()
+                        then handler: @escaping BKHandler<Info>) {
+        URLSession.get("https://api.bilibili.com/x/article/viewinfo?id=\(id)",
+            /// Error code or 0.
+            /// Error description in Chinese.
+            session: session, unwrap: BKWrapperMessage<Info>.self, then: handler)
     }
 }

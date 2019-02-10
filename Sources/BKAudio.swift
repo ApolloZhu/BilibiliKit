@@ -17,15 +17,3 @@ public struct BKAudio: Equatable {
         self.sid = sid
     }
 }
-
-extension BKAudio {
-    /// Wrapper for making network requests.
-    struct Wrapper<Wrapped: Codable>: BKWrapper, Codable {
-        /// 0 or error code.
-        let code: Int
-        /// "success" or error message.
-        let msg: String
-        /// Info or empty array.
-        let data: Wrapped?
-    }
-}
