@@ -98,9 +98,13 @@ extension BKVideo {
     public func getInfo(then handler: @escaping InfoHandler) {
         BKVideo.getInfo(of: aid, withAppkey: BKApp.appkey) { [aid] info in
             guard info == nil else { return handler(info!) }
-            BKApp.fetchKey {
-                guard let key = $0 else { return handler(nil) }
-                BKVideo.getInfo(of: aid, withAppkey: key, then: handler)
+            BKApp.fetchKey { result in
+                switch result {
+                case .success(let key):
+                    BKVideo.getInfo(of: aid, withAppkey: key, then: handler)
+                case .failure:
+                    handler(nil)
+                }
             }
         }
     }

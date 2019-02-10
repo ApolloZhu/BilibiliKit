@@ -12,10 +12,14 @@ import XCTest
 class BilibiliKitTests: XCTestCase {
     func testAppkeyFetching() {
         let goal = expectation(description: "Appkey fetch")
-        BKApp.fetchKey {
-            XCTAssertNotNil($0, "No Appkey")
-            print("\n\($0!)\n")
-            goal.fulfill()
+        BKApp.fetchKey { result in
+            switch result {
+            case .success(let key):
+                print("\n\(key)\n")
+                goal.fulfill()
+            case .failure(let error):
+                XCTFail("No appkey, error: \(error.localizedDescription)")
+            }
         }
         waitForExpectations(timeout: 60, handler: nil)
     }
