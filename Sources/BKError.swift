@@ -17,8 +17,12 @@ public enum BKError: Error {
         case urlSessionError(Error?, response: URLResponse?)
         case reason(String)
     }
+    public enum ImplementationErrorReason {
+        case invalidURL(String)
+        case invalidRegex(Error)
+    }
     
-    case implementationError(Error)
+    case implementationError(reason: ImplementationErrorReason)
     case parseError(reason: ParseErrorReason)
     case responseError(reason: ResponseErrorReason)
 }

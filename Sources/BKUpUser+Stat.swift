@@ -30,17 +30,12 @@ extension BKUpUser.Stat {
 }
 
 extension BKUpUser {
-    /// Handler type for stats of a up fetched.
-    ///
-    /// - Parameter stat: stat fetched, `nil` if failed.
-    public typealias StatHandler = (_ stat: Stat?) -> Void
-
     /// Fetchs and passes this up's stat to `handler`.
     ///
     /// - Parameters:
     ///   - handler: code to process an optional `Stat`.
-    public func getStat(then handler: @escaping StatHandler) {
+    public func getStat(then handler: @escaping BKHandler<Stat>) {
         let url = "https://api.bilibili.com/x/space/upstat?mid=\(mid)"
-        URLSession.get(url, unwrap: Wrapper<Stat>.self, then: handler)
+        URLSession.get(url, unwrap: BKWrapperMessage<Stat>.self, then: handler)
     }
 }

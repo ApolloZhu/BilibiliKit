@@ -50,17 +50,14 @@ extension BKAudio.Staff {
 }
 
 extension BKAudio {
-    /// Handler type for participants of a song fetched.
-    ///
-    /// - Parameter staff: info fetched, `nil` if failed.
-    public typealias StaffHandler = (_ staff: Staff?) -> Void
-
     /// Fetchs and passes this song's participants to `handler`.
     ///
     /// - Parameters:
     ///   - handler: code to process an optional `Staff`.
-    public func getStaff(then handler: @escaping StaffHandler) {
-        let url = "https://www.bilibili.com/audio/music-service-c/web/member/song?sid=\(sid)"
-        URLSession.get(url, unwrap: Wrapper<Staff>.self, then: handler)
+    public func getStaff(then handler: @escaping BKHandler<Staff>) {
+        fatalError("Not implemented")
+//        handler(.failure(.parseError(reason: .)))
+//        let url = "https://www.bilibili.com/audio/music-service-c/web/member/song?sid=\(sid)"
+//        URLSession.get(url, unwrap: Wrapper<Staff>.self, then: handler)
     }
 }
