@@ -12,8 +12,6 @@ import Dispatch
 import UIKit
 #endif
 
-#warning("Use Result instead of custom result")
-
 /// Manage login through QRCode
 public class BKLoginHelper {
     /// Default login helper
@@ -75,10 +73,10 @@ public class BKLoginHelper {
             case .success(let url):
                 handleLoginInfo(url)
                 var process: () -> Void = { [weak self] in
-                    guard let `self` = self, self.isRunLoopActive else { return }
+                    guard let self = self, self.isRunLoopActive else { return }
                     self.fetchLoginInfo(oauthKey: url.oauthKey)
                     { [weak self] result in
-                        guard let `self` = self, self.isRunLoopActive else { return }
+                        guard let self = self, self.isRunLoopActive else { return }
                         switch result {
                         case .success(let state):
                             switch state {
@@ -91,8 +89,8 @@ public class BKLoginHelper {
                                 heartbeat()
                             }
                             handleLoginState(state)
-                        case .errored:
-                            debugPrint(result)
+                        case .failure(let error):
+                            debugPrint(error)
                             heartbeat()
                         }
                     }
@@ -103,38 +101,12 @@ public class BKLoginHelper {
                                     execute: process)
                 }
                 self?.everySecond(execute: process)
-            case .errored:
-                debugPrint(result)
+            case .failure(let error):
+                debugPrint(error)
                 handleLoginState(.errored)
             }
         }
     }
-    
-    private enum FetchResult<E>: CustomDebugStringConvertible {
-        case success(result: E)
-        case errored(data: Data?, response: URLResponse?, error: Swift.Error?)
-        var debugDescription: String {
-            switch self {
-            case .success(result: let result): return "\(result)"
-            case .errored(data: let data, response: let response, error: let error):
-                var description = "Data: "
-                if let data = data {
-                    if let str = String(data: data, encoding: .utf8) {
-                        description += str
-                    } else {
-                        description += "\(data)"
-                    }
-                } else {
-                    description += "No Data"
-                }
-                description += "\nResponse: \(response?.description ?? "No Response")"
-                description += "\nError: \(error?.localizedDescription ?? "No Error")"
-                return description
-            }
-        }
-    }
-    
-    private typealias FetchResultHandler<E> = (_ result: FetchResult<E>) -> Void
     
     // MARK: Login URL Fetching
     
@@ -150,15 +122,16 @@ public class BKLoginHelper {
         }
     }
     
-    private func fetchLoginURL(handler: @escaping FetchResultHandler<LoginURL>) {
+    private func fetchLoginURL(handler: @escaping BKHandler<LoginURL>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginUrl"
         let task = URLSession.bk.dataTask(with: url) { data, response, error in
-            guard let body = data
-                , let wrapper = try? JSONDecoder().decode(LoginURL.Wrapper.self, from: body)
-                else { return handler(.errored(data: data,
-                                               response: response,
-                                               error: error)) }
-            return handler(.success(result: wrapper.data))
+            guard let data = data else {
+                return handler(.failure(.responseError(
+                    reason: .urlSessionError(error, response: response))))
+            }
+            handler(Result { try JSONDecoder().decode(LoginURL.Wrapper.self, from: data) }
+                .mapError { BKError.parseError(reason: .jsonDecodeFailure($0)) }
+                .map { $0.data })
         }
         task.resume()
     }
@@ -204,28 +177,31 @@ public class BKLoginHelper {
     ///   - handler: code handling fetched login state.
     private func fetchLoginInfo(session: BKSession = .shared,
                                 oauthKey: String,
-                                handler: @escaping FetchResultHandler<LoginState>) {
+                                handler: @escaping BKHandler<LoginState>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginInfo"
         var request = session.postRequest(to: url)
         /// Content-Type: application/x-www-form-urlencoded
         request.httpBody = "oauthKey=\(oauthKey)".data(using: .utf8)
         let task = URLSession.bk.dataTask(with: request)
-        { [weak self] data, response, error in
+        { [weak self] data, res, error in
             guard self?.isRunLoopActive == true else { return }
-            if let response = response as? HTTPURLResponse,
+            if let response = res as? HTTPURLResponse,
                 let headerFields = response.allHeaderFields as? [String: String],
                 let cookies = headerFields["Set-Cookie"] {
                 guard let cookie = BKCookie(headerField: cookies) else {
                     debugPrint("Inconsistent Login Cookie State")
-                    return handler(.errored(data: data, response: response, error: error))
+                    return handler(.failure(.responseError(
+                        reason: .urlSessionError(error, response: res))))
                 }
-                return handler(.success(result: .succeeded(cookie: cookie)))
+                return handler(.success(.succeeded(cookie: cookie)))
             }
-            if let data = data, let info = try? JSONDecoder().decode(LoginInfo.self, from: data) {
-                return handler(.success(result: LoginState.of(info)))
-            } else {
-                return handler(.errored(data: data, response: response, error: error))
+            guard let data = data else {
+                return handler(.failure(.responseError(
+                    reason: .urlSessionError(error, response: res))))
             }
+            handler(Result { try JSONDecoder().decode(LoginInfo.self, from: data) }
+                .mapError { .parseError(reason: .jsonDecodeFailure($0)) }
+                .map { LoginState.of($0) })
         }
         task.resume()
     }

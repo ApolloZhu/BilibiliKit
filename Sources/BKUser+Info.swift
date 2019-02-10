@@ -75,7 +75,7 @@ extension BKUser.Info {
 
     /// 生日（月-日）
     public var birthdate: Date? {
-        guard let birthday = birthday else { return nil }
+        guard let birthday = birthday, !birthday.isEmpty else { return nil }
         return BKUser.Info.formatter.date(from: birthday)!
     }
 
