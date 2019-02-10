@@ -183,7 +183,7 @@ class BilibiliKitTests: XCTestCase {
                     print(i.coverImage)
                     print(i.level)
                 case .failure(let error):
-                    XCTAssertNotEqual(mid, 0, "\(error)")
+                    XCTAssertEqual(mid, 0, "Info of \(mid) fetch failed, reason: \(error)")
                 }
                 print()
                 info.fulfill()
@@ -205,7 +205,7 @@ class BilibiliKitTests: XCTestCase {
                 case .success(let audioStat):
                     dump(audioStat)
                 case .failure(let error):
-                    dump(error)
+                    print(error)
                 }
                 print()
                 audioStat.fulfill()
