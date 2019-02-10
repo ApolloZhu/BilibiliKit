@@ -167,10 +167,10 @@ class BilibiliKitTests: XCTestCase {
                 case .success(let info):
                     dump(info)
                     print()
-                    basicInfo.fulfill()
                 case .failure(let error):
                     XCTAssertEqual(mid, 0, "Basic Info \(mid) fetch failed, reason: \(error)")
                 }
+                basicInfo.fulfill()
             }
             let info = expectation(description: "Info of \(mid)")
             user.getInfo { result in
