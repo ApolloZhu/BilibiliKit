@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension URL: ExpressibleByStringLiteral {
+extension URL: ExpressibleByStringInterpolation {
     /// Initialize url with string literals.
     ///
     /// - Parameter value: url.
