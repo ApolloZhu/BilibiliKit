@@ -87,7 +87,7 @@
 		52E75891211D02010065BCE7 /* BKUser+AudioStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKUser+AudioStat.swift"; sourceTree = "<group>"; };
 		52E7589B211D3F580065BCE7 /* BKUser+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKUser+Info.swift"; sourceTree = "<group>"; };
 		"BilibiliKit::BilibiliKit::Product" /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"BilibiliKit::BilibiliKitTests::Product" /* BilibiliKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = BilibiliKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"BilibiliKit::BilibiliKitTests::Product" /* BilibiliKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BilibiliKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* BKLoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLoginHelper.swift; sourceTree = "<group>"; };
 		OBJ_11 /* BKSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSession.swift; sourceTree = "<group>"; };
 		OBJ_12 /* BKVideo+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKVideo+Info.swift"; sourceTree = "<group>"; };
@@ -249,6 +249,22 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					"BilibiliKit::BilibiliKit" = {
+						DevelopmentTeam = KZ7D8X3PRK;
+						LastSwiftMigration = 1020;
+					};
+					"BilibiliKit::BilibiliKitPackageTests::ProductTarget" = {
+						DevelopmentTeam = KZ7D8X3PRK;
+					};
+					"BilibiliKit::BilibiliKitTests" = {
+						DevelopmentTeam = KZ7D8X3PRK;
+						LastSwiftMigration = 1020;
+					};
+					"BilibiliKit::SwiftPMPackageDescription" = {
+						DevelopmentTeam = KZ7D8X3PRK;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "BilibiliKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -387,7 +403,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = BilibiliKitTests;
 			};
 			name = Debug;
@@ -405,7 +421,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = BilibiliKitTests;
 			};
 			name = Release;
@@ -447,7 +463,7 @@
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = BilibiliKit;
 			};
 			name = Debug;
@@ -469,7 +485,7 @@
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = BilibiliKit;
 			};
 			name = Release;
