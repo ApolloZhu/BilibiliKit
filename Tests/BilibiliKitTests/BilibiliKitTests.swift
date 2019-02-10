@@ -52,8 +52,10 @@ class BilibiliKitTests: XCTestCase {
     func testAudioFail() {
         let audio = BKAudio(au: 0)
         let info = expectation(description: "Nonexisting audio info fetch")
-        audio.getInfo {
-            XCTAssertNil($0)
+        audio.getInfo { result in
+            guard case .failure = result else {
+                return XCTFail("Valid info for invalid audio 0")
+            }
             info.fulfill()
         }
         #warning("""
@@ -65,8 +67,10 @@ class BilibiliKitTests: XCTestCase {
         }
         """)
         let urls = expectation(description: "Nonexisting audio url fetch")
-        audio.getURLs {
-            XCTAssertNil($0)
+        audio.getURLs { result in
+            guard case .failure = result else {
+                return XCTFail("Valid url for invalid audio 0")
+            }
             urls.fulfill()
         }
         waitForExpectations(timeout: 60, handler: nil)
@@ -150,21 +154,21 @@ class BilibiliKitTests: XCTestCase {
             print("BEGIN \(mid)")
             let user = BKUpUser(id: mid)
             let basicInfo = expectation(description: "Basic Info of \(mid)")
-            user.getBasicInfo {
-                if (mid == 0) {
-                    XCTAssertNil($0)
-                } else {
-                    XCTAssertNotNil($0)
+            user.getBasicInfo { result in
+                switch result {
+                case .success(let info):
+                    dump(info)
+                    print()
+                    basicInfo.fulfill()
+                case .failure(let error):
+                    XCTAssertEqual(mid, 0, "Basic Info \(mid) fetch failed, reason: \(error)")
                 }
-                dump($0)
-                print()
-                basicInfo.fulfill()
             }
             let info = expectation(description: "Info of \(mid)")
             user.getInfo { result in
-                dump(result)
                 switch result {
                 case .success(let i):
+                    dump(i)
                     print(i.biologicalSex ?? "No biological sex")
                     print(i.birthdate ?? "No birthday")
                     print(i.registrationTime ?? "Not registered normally")
@@ -177,32 +181,37 @@ class BilibiliKitTests: XCTestCase {
                 info.fulfill()
             }
             let relation = expectation(description: "Relationship of \(mid)")
-            user.getRelationship {
-                if (mid == 0) {
-                    XCTAssertNil($0)
-                } else {
-                    XCTAssertNotNil($0)
+            user.getRelationship { result in
+                switch result {
+                case .success(let relationship):
+                    dump(relationship)
+                    print()
+                    relation.fulfill()
+                case .failure(let error):
+                    XCTAssertEqual(mid, 0, "User \(mid) relationship fetch failed, reason: \(error)")
                 }
-                dump($0)
-                print()
-                relation.fulfill()
             }
             let audioStat = expectation(description: "Audio stat of \(mid)")
-            user.getAudioStat {
-                dump($0)
+            user.getAudioStat { result in
+                switch result {
+                case .success(let audioStat):
+                    dump(audioStat)
+                case .failure(let error):
+                    dump(error)
+                }
                 print()
                 audioStat.fulfill()
             }
             let upStat = expectation(description: "Up stat of \(mid)")
-            user.getStat {
-                if (mid == 0) {
-                    XCTAssertNil($0)
-                } else {
-                    XCTAssertNotNil($0)
+            user.getStat { result in
+                switch result {
+                case .success(let stat):
+                    dump(stat)
+                    print()
+                    upStat.fulfill()
+                case .failure(let error):
+                    XCTAssertEqual(mid, 0, "Up\(mid) stat fetch failed, reason: \(error)")
                 }
-                dump($0)
-                print()
-                upStat.fulfill()
             }
             waitForExpectations(timeout: 300, handler: nil)
             print("--END \(mid)")
