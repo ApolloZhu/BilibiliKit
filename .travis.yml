@@ -5,7 +5,7 @@ language: generic
 osx_image: xcode10.1
 # blog.travis-ci.com/2017-07-11-trusty-as-default-linux-is-coming
 # sudo: required
-dist: trusty
+dist: xenial
 
 before_script:
   - eval "$(curl -sL https://raw.githubusercontent.com/ApolloZhu/script/master/swift/install/5-dev)"
