@@ -34,7 +34,7 @@ public enum BKApp {
             print(raw)
             #endif
             let range = NSRange(raw.indices.startIndex..<raw.indices.endIndex, in: raw)
-            guard let match = regex.matches(in: raw, range: range).first else {
+            guard let match = regex.firstMatch(in: raw, range: range) else {
                 return raise(.parseError(reason: .regexMatchNotFound))
             }
             let matchedRange = Range(match.range(at: 1), in: raw)!
