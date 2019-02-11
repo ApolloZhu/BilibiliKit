@@ -35,13 +35,8 @@ extension BKWrapperMsg {
 }
 
 extension URLSession {
-    #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
     /// Shared url session, alias of URLSession.shared
     static var bk: URLSession { return .shared }
-    #else
-    /// Shared url session, replacement for URLSession.shared
-    static let bk = URLSession(configuration: .default)
-    #endif
 
     /// Fetches a decodable wrapper JSON and pass the unwrapped to handler.
     ///
