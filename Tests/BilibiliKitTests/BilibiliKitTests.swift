@@ -15,11 +15,13 @@ class BilibiliKitTests: XCTestCase {
         BKApp.fetchKey { result in
             switch result {
             case .success(let key):
-                print("\n\(key)\n")
+                print("\n\(key)")
                 goal.fulfill()
             case .failure(let error):
-                XCTFail("No appkey, error: \(error.localizedDescription)")
+                dump(error)
+                XCTFail("No appkey")
             }
+            print()
         }
         waitForExpectations(timeout: 60, handler: nil)
     }
