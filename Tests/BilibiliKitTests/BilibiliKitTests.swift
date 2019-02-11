@@ -68,14 +68,16 @@ class BilibiliKitTests: XCTestCase {
             }
             info.fulfill()
         }
-        #warning("""
         let staff = expectation(description: "Nonexisting audio staff fetch")
-        audio.getStaff {
-            XCTAssertNotNil($0)
-            XCTAssertTrue($0!.isEmpty)
-            staff.fulfill()
+        audio.getStaffList { result in
+            switch result {
+            case .failure(let error):
+                print("Successfully errored: \(error)")
+                staff.fulfill()
+            case .success(let list):
+                XCTFail("Found \(list) while no staff is expected")
+            }
         }
-        """)
         let urls = expectation(description: "Nonexisting audio url fetch")
         audio.getURLs { result in
             guard case .failure = result else {
@@ -100,14 +102,17 @@ class BilibiliKitTests: XCTestCase {
                 XCTFail("\(audio.sid) fetch failed, reason: \(error)")
             }
         }
-        #warning(#"""
         let staff = expectation(description: "Single audio staff fetch")
-        audio.getStaff {
-            XCTAssertNotNil($0, "Failed to fetch audio \(audio.sid) staff")
-            XCTAssertTrue($0!.isEmpty, "Random participants")
-            staff.fulfill()
+        audio.getStaffList { result in
+            switch result {
+            case .success(let list):
+                XCTAssertEqual(list.count, 1, "Multiple staff found where 1 is expected")
+                print(list)
+                staff.fulfill()
+            case .failure(let error):
+                XCTFail("Failed to fetch audio \(audio.sid) staff, reason: \(error)")
+            }
         }
-        """#)
         let urls = expectation(description: "Single audio url fetch")
         audio.getURLs { result in
             switch result {
@@ -115,7 +120,7 @@ class BilibiliKitTests: XCTestCase {
                 dump(url)
                 urls.fulfill()
             case .failure(let error):
-                XCTFail("\(audio.sid) download failed, reason: \(error)")
+                XCTFail("\(audio.sid) staff fetch failed, reason: \(error)")
             }
         }
         waitForExpectations(timeout: 60, handler: nil)
@@ -123,40 +128,44 @@ class BilibiliKitTests: XCTestCase {
     }
 
     func testCollaborativeAudioFetching() {
-        let audio = BKAudio(au: 418827)
-        let info = expectation(description: "Collaborative audio info fetch")
-        audio.getInfo { result in
-            switch result {
-            case .success(let audioInfo):
-                dump(audioInfo)
-                XCTAssertNotNil(audioInfo.lyrics)
-                print(audioInfo.lyrics!)
-                info.fulfill()
-            case .failure(let error):
-                XCTFail("\(audio.sid) fetch failed, reason: \(error)")
+        for sid in [418827, 729124] {
+            let audio = BKAudio(au: sid)
+            let info = expectation(description: "Collaborative audio info fetch")
+            audio.getInfo { result in
+                switch result {
+                case .success(let audioInfo):
+                    dump(audioInfo)
+                    XCTAssertNotNil(audioInfo.lyrics)
+                    print(audioInfo.lyrics!)
+                    info.fulfill()
+                case .failure(let error):
+                    XCTFail("\(audio.sid) fetch failed, reason: \(error)")
+                }
             }
-        }
-        #warning(#"""
-        let staff = expectation(description: "Collaborative audio staff fetch")
-        audio.getStaff {
-            XCTAssertNotNil($0, "Failed to fetch audio \(audio.sid) staff")
-            XCTAssertFalse($0!.isEmpty, "Collaborators disappeared")
-            dump($0!)
-            staff.fulfill()
-        }
-        """#)
-        let urls = expectation(description: "Collaborative audio url fetch")
-        audio.getURLs { result in
-            switch result {
-            case .success(let url):
-                dump(url)
-                urls.fulfill()
-            case .failure(let error):
-                XCTFail("\(audio.sid) download failed, reason: \(error)")
+            let staff = expectation(description: "Collaborative audio staff fetch")
+            audio.getStaffList { result in
+                switch result {
+                case .success(let list):
+                    XCTAssertNotEqual(list.count, 1, "Only 1 staff found were multiple is expected")
+                    print(list)
+                    staff.fulfill()
+                case .failure(let error):
+                    XCTFail("\(audio.sid) staff fetch failed, reason: \(error)")
+                }
             }
+            let urls = expectation(description: "Collaborative audio url fetch")
+            audio.getURLs { result in
+                switch result {
+                case .success(let url):
+                    dump(url)
+                    urls.fulfill()
+                case .failure(let error):
+                    XCTFail("\(audio.sid) download failed, reason: \(error)")
+                }
+            }
+            waitForExpectations(timeout: 60, handler: nil)
+            print()
         }
-        waitForExpectations(timeout: 60, handler: nil)
-        print()
     }
 
     func testUserInfoFetching() {
