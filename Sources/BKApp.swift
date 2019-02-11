@@ -30,6 +30,9 @@ public enum BKApp {
             guard let raw = String(data: data, encoding: .utf8) else {
                 return raise(.parseError(reason: .stringDecodeFailure))
             }
+            #if !canImport(Darwin)
+            print(raw)
+            #endif
             let range = NSRange(raw.indices.startIndex..<raw.indices.endIndex, in: raw)
             guard let match = regex.matches(in: raw, range: range).first else {
                 return raise(.parseError(reason: .regexMatchNotFound))
