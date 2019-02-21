@@ -3,6 +3,7 @@
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 5/11/18.
+//  Copyright (c) 2017-2019 ApolloZhu. MIT License.
 //
 
 /// Bilibili article, identified by unique id.

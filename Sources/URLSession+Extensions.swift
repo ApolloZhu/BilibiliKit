@@ -3,6 +3,7 @@
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 12/31/17.
+//  Copyright (c) 2017-2019 ApolloZhu. MIT License.
 //
 
 import Foundation
@@ -10,27 +11,36 @@ import Foundation
 /// Generic handler type for all requests.
 public typealias BKHandler<T> = (Result<T, BKError>) -> Void
 
+/// Response by bilibili middleware
 public protocol BKWrapper: Codable {
     associatedtype Wrapped: Codable
+    /// Actual data
     var data: Wrapped? { get }
+    /// Response description
     var message: String { get }
 }
 
+/// Response by middleware where message is keyed as message.
 public struct BKWrapperMessage<Wrapped: Codable>: BKWrapper {
+    /// Status code
     public let code: Int
+    /// Response description
     public let message: String
-    // let ttl: Int
+    /// Actual data
     public let data: Wrapped?
 }
 
+/// Response by middleware where message is keyed as msg.
 public struct BKWrapperMsg<Wrapped: Codable>: BKWrapper {
+    /// Status code
     public let code: Int
     let msg: String
-    // let ttl: Int
+    /// Actual data
     public let data: Wrapped?
 }
 
 extension BKWrapperMsg {
+    /// Response description
     public var message: String { return msg }
 }
 
