@@ -4,6 +4,7 @@
 //
 //  Created by Apollo Zhu on 12/15/17.
 //  Copyright © 2017 BilibiliKit. All rights reserved.
+//  Copyright (c) 2017-2019 ApolloZhu. MIT License.
 //
 
 import Foundation

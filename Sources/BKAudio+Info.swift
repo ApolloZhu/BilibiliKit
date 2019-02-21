@@ -3,6 +3,7 @@
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 8/8/18.
+//  Copyright (c) 2017-2019 ApolloZhu. MIT License.
 //
 
 import Foundation
