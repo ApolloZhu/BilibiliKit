@@ -49,7 +49,7 @@ extension URLSession {
         _ url: String,
         session: BKSession = .shared,
         unwrap wrapperType: Wrapper.Type,
-        then handler: @escaping (Result<Wrapper.Wrapped, BKError>) -> Void)
+        then handler: @escaping BKHandler<Wrapper.Wrapped>)
     {
         guard let _url = URL(string: url) else { return
             handler(.failure(.implementationError(reason: .invalidURL(url))))
@@ -67,9 +67,8 @@ extension URLSession {
     public class func get<Wrapper: BKWrapper>(
         _ request: URLRequest,
         unwrap wrapperType: Wrapper.Type,
-        then handler: @escaping (Result<Wrapper.Wrapped, BKError>) -> Void)
+        then handler: @escaping BKHandler<Wrapper.Wrapped>)
     {
-        
         let task = URLSession.bk.dataTask(with: request) { data, res, err in
             guard let data = data else {
                 return handler(.failure(.responseError(
@@ -77,12 +76,9 @@ extension URLSession {
             }
             handler(Result { try JSONDecoder().decode(Wrapper.self, from: data) }
                 .mapError { BKError.parseError(reason: .jsonDecodeFailure($0)) }
-                .flatMap {
-                    if let info = $0.data {
-                        return .success(info)
-                    } else {
-                        return .failure(.responseError(reason: .reason($0.message)))
-                    }})
+                .flatMap { $0.data.map { .success($0) }
+                    ?? .failure(.responseError(reason: .reason($0.message)))
+            })
         }
         task.resume()
     }
