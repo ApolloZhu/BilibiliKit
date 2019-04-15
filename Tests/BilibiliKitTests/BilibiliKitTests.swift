@@ -41,6 +41,26 @@ class BilibiliKitTests: XCTestCase {
         }
         waitForExpectations(timeout: 60, handler: nil)
     }
+    
+    func testHiddenVideoInfoFetching() {
+        return
+        let goal = expectation(description: "Hidden video info fetch")
+        BKSession.shared.login("", password: "") {
+            dump($0)
+            BKVideo(av: 8560452).getInfo { result in
+                switch result {
+                case .success(let info):
+                    print()
+                    dump(info)
+                    print()
+                    goal.fulfill()
+                case .failure(let error):
+                    XCTFail("No info for 8560452, reason: \(error)")
+                }
+            }
+        }
+        waitForExpectations(timeout: 60, handler: nil)
+    }
 
     func testVideoPageFetching() {
         // This is an example of a functional test case.
@@ -242,6 +262,7 @@ class BilibiliKitTests: XCTestCase {
     static var allTests = [
         ("testAppkeyFetching", testAppkeyFetching),
         ("testVideoInfoFetching", testVideoInfoFetching),
+        ("testHiddenVideoInfoFetching", testHiddenVideoInfoFetching),
         ("testVideoPageFetching", testVideoPageFetching),
         ("testAudioFail", testAudioFail),
         ("testAudioSingleFetching", testAudioSingleFetching),

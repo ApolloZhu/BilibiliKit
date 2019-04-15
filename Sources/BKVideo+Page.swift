@@ -59,7 +59,7 @@ extension BKVideo {
                     reason: .urlSessionError(err, response: res))))
             }
             handler(Result { try JSONDecoder().decode([Page].self, from: data) }
-                .mapError { .parseError(reason: .jsonDecodeFailure($0)) }
+                .mapError { .parseError(reason: .jsonDecode(data, failure: $0)) }
                 .flatMap { var pages = $0
                     guard !pages.isEmpty else {
                         return .failure(.responseError(reason: .emptyJSONResponse))

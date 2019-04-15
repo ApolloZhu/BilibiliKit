@@ -1,5 +1,5 @@
 //
-//  BKLoginHelper.swift
+//  BKSession+QRCodeLoginHelper.swift
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 9/30/17.
@@ -9,17 +9,24 @@
 import Foundation
 import Dispatch
 
-#if os(iOS) || os(tvOS) || os(watchOS)
-import UIKit
-#endif
+extension BKSession {
+    public class QRCodeLoginHelper {
+        /// Initialize a new login helper.
+        public init() { }
+        
+        /// Schedule events to check current attempt's stage.
+        private var timer: Timer? {
+            willSet {
+                timer?.invalidate()
+            }
+        }
+    }
+}
 
 /// Manage login through QRCode
-public class BKLoginHelper {
+extension BKSession.QRCodeLoginHelper {
     /// Default login helper
-    public static let `default` = BKLoginHelper()
-    
-    /// Initialize a new login helper.
-    public init() { }
+    public static let `default` = BKSession.QRCodeLoginHelper()
     
     #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
     /// A dummpy helper that does nothing but indicating an internal state.
@@ -29,15 +36,8 @@ public class BKLoginHelper {
     private static let dummyTimer = Timer(timeInterval: 0, repeats: false) { _ in }
     #endif
     
-    /// Schedule events to check current attempt's stage.
-    private var timer: Timer? {
-        willSet {
-            timer?.invalidate()
-        }
-    }
-    
     /// If an attempt is active.
-    private var isRunLoopActive: Bool { return timer != nil }
+    fileprivate var isRunLoopActive: Bool { return timer != nil }
     
     /// Interrupt current attempt.
     public func interrupt() { timer = nil }
@@ -45,12 +45,14 @@ public class BKLoginHelper {
     /// Run code to execute every second.
     ///
     /// - Parameter execute: code to run.
-    private func everySecond(execute: @escaping () -> Void) {
+    fileprivate func everySecond(execute: @escaping () -> Void) {
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, watchOS 3.0, *) {
-            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in execute() }
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {
+                _ in execute()
+            }
             timer?.fire()
         } else {
-            timer = BKLoginHelper.dummyTimer
+            timer = BKSession.QRCodeLoginHelper.dummyTimer
             func loop() {
                 DispatchQueue.global(qos: .userInteractive)
                     .asyncAfter(deadline: DispatchTime.now() + 1)
@@ -59,33 +61,35 @@ public class BKLoginHelper {
             loop()
         }
     }
-    
+}
+
+extension BKSession {
     /// Start an attempt to login.
     ///
     /// - Parameters:
-    ///   - session: session to login into, default to `.shared`.
     ///   - handleLoginInfo: to display `LoginURL` to user.
     ///   - handleLoginState: to handle different stages in this process.
-    public func login(session: BKSession = .shared,
-                      handleLoginInfo: @escaping (LoginURL) -> Void,
-                      handleLoginState: @escaping (LoginState) -> Void) {
-        fetchLoginURL { [weak self] result in
+    public func login(withHelper helper: QRCodeLoginHelper = .default,
+        handleLoginInfo: @escaping (QRCodeLoginHelper.LoginURL) -> Void,
+        handleLoginState: @escaping (QRCodeLoginHelper.LoginState) -> Void)
+    {
+        helper.fetchLoginURL { [weak self] result in
             switch result {
             case .success(let url):
                 handleLoginInfo(url)
                 var process: () -> Void = { [weak self] in
-                    guard let self = self, self.isRunLoopActive else { return }
-                    self.fetchLoginInfo(oauthKey: url.oauthKey)
+                    guard helper.isRunLoopActive else { return }
+                    helper.fetchLoginInfo(oauthKey: url.oauthKey)
                     { [weak self] result in
-                        guard let self = self, self.isRunLoopActive else { return }
+                        guard let self = self, helper.isRunLoopActive else { return }
                         switch result {
                         case .success(let state):
                             switch state {
                             case .succeeded(cookie: let cookie):
-                                self.interrupt()
-                                session.cookie = cookie
+                                helper.interrupt()
+                                self.cookie = cookie
                             case .expired:
-                                self.interrupt()
+                                helper.interrupt()
                             default:
                                 heartbeat()
                             }
@@ -101,16 +105,17 @@ public class BKLoginHelper {
                         .asyncAfter(deadline: DispatchTime.now() + 3,
                                     execute: process)
                 }
-                self?.everySecond(execute: process)
+                helper.everySecond(execute: process)
             case .failure(let error):
                 debugPrint(error)
                 handleLoginState(.errored)
             }
         }
     }
-    
-    // MARK: Login URL Fetching
-    
+}
+
+// MARK: Login URL Fetching
+extension BKSession.QRCodeLoginHelper {
     /// Only valid for 3 minutes
     public struct LoginURL: Codable {
         /// This url directs user to the confirmation page.
@@ -123,7 +128,7 @@ public class BKLoginHelper {
         }
     }
     
-    private func fetchLoginURL(handler: @escaping BKHandler<LoginURL>) {
+    fileprivate func fetchLoginURL(handler: @escaping BKHandler<LoginURL>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginUrl"
         let task = URLSession.bk.dataTask(with: url) { data, response, error in
             guard let data = data else {
@@ -131,7 +136,7 @@ public class BKLoginHelper {
                     reason: .urlSessionError(error, response: response))))
             }
             handler(Result { try JSONDecoder().decode(LoginURL.Wrapper.self, from: data) }
-                .mapError { BKError.parseError(reason: .jsonDecodeFailure($0)) }
+                .mapError { BKError.parseError(reason: .jsonDecode(data, failure: $0)) }
                 .map { $0.data })
         }
         task.resume()
@@ -176,9 +181,9 @@ public class BKLoginHelper {
     ///   - session: session to login to, default to `.shared`.
     ///   - oauthKey: oauthKey indicating the current session.
     ///   - handler: code handling fetched login state.
-    private func fetchLoginInfo(session: BKSession = .shared,
-                                oauthKey: String,
-                                handler: @escaping BKHandler<LoginState>) {
+    fileprivate func fetchLoginInfo(session: BKSession = .shared,
+                                    oauthKey: String,
+                                    handler: @escaping BKHandler<LoginState>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginInfo"
         var request = session.postRequest(to: url)
         /// Content-Type: application/x-www-form-urlencoded
@@ -201,7 +206,7 @@ public class BKLoginHelper {
                     reason: .urlSessionError(error, response: res))))
             }
             handler(Result { try JSONDecoder().decode(LoginInfo.self, from: data) }
-                .mapError { .parseError(reason: .jsonDecodeFailure($0)) }
+                .mapError { .parseError(reason: .jsonDecode(data, failure: $0)) }
                 .map { LoginState.of($0) })
         }
         task.resume()

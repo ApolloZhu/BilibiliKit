@@ -85,7 +85,7 @@ extension URLSession {
                     reason: .urlSessionError(err, response: res))))
             }
             handler(Result { try JSONDecoder().decode(Wrapper.self, from: data) }
-                .mapError { BKError.parseError(reason: .jsonDecodeFailure($0)) }
+                .mapError { BKError.parseError(reason: .jsonDecode(data, failure: $0)) }
                 .flatMap { $0.data.map { .success($0) }
                     ?? .failure(.responseError(reason: .reason($0.message)))
             })
