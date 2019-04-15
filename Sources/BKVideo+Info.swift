@@ -8,6 +8,38 @@
 
 import Foundation
 
+public enum PlaybackCount: Codable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        do {
+            let count = try container.decode(Int.self)
+            self = .times(count)
+        } catch {
+            let string = try container.decode(String.self)
+            if string == "--" {
+                self = .notAvailable
+            } else {
+                throw DecodingError.typeMismatch(Int.self, DecodingError.Context(
+                    codingPath: [], debugDescription:
+                    #"Expecting either an integer or "--". Neither is found."#))
+            }
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .notAvailable:
+            try container.encode("--")
+        case .times(let count):
+            try container.encode(count)
+        }
+    }
+    
+    case notAvailable
+    case times(Int)
+}
+
 extension BKVideo {
     /// 视频相关信息
     /// - Warning: 不支持番剧
@@ -17,7 +49,7 @@ extension BKVideo {
         public let type: String
         // let arctype: String // Copy
         /// 播放次数
-        public let playTimesCount: Int
+        public let playbackCount: PlaybackCount
         /// 评论数
         public let reviewCount: Int
         /// 弹幕数
@@ -64,7 +96,7 @@ extension BKVideo {
         // let offsite: URL
         enum CodingKeys: String, CodingKey {
             case type = "typename"
-            case playTimesCount = "play"
+            case playbackCount = "play"
             case reviewCount = "review"
             case danmakuCount = "video_review"
             case favoritesCount = "favorites"
@@ -112,16 +144,34 @@ extension BKVideo {
     ///   - aid: av number of the video.
     ///   - key: APPKEY from bilibili.
     ///   - handler: code to process optional `Info`.
-    public static func getInfo(of aid: Int, withAppkey key: String, then handler: @escaping BKHandler<Info>) {
-        let base = "https://api.bilibili.com/view?id=\(aid)&appkey=\(key)" as URL
-        let task = URLSession.bk.dataTask(with: base)
+    public static func getInfo(of aid: Int, withAppkey key: String,
+                               in session: BKSession = .shared,
+                               then handler: @escaping BKHandler<Info>) {
+        let url = "https://api.bilibili.com/view?id=\(aid)&appkey=\(key)" as URL
+        let task = URLSession.bk.dataTask(with: session.request(to: url))
         { data, res, err in
             guard let data = data else {
                 return handler(.failure(.responseError(
                     reason: .urlSessionError(err, response: res))))
             }
             handler(Result { try JSONDecoder().decode(Info.self, from: data) }
-                .mapError { .parseError(reason: .jsonDecodeFailure($0)) })
+                .mapError { infoDecodeError in
+                    struct Failure: Codable {
+                        let code: Int
+                        let message: String
+                    }
+                    do {
+                        let failure = try JSONDecoder().decode(Failure.self, from: data)
+                        switch failure.code {
+                        case 403 where failure.message == "Access denied.":
+                            return .responseError(reason: .accessDenied)
+                        default:
+                            return .responseError(reason: .reason(failure.message))
+                        }
+                    } catch {
+                        return .parseError(reason: .jsonDecode(data, failure: infoDecodeError))
+                    }
+            })
         }
         task.resume()
     }

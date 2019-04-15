@@ -1,560 +1,851 @@
 // !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXAggregateTarget section */
-		"BilibiliKit::BilibiliKitPackageTests::ProductTarget" /* BilibiliKitPackageTests */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = OBJ_55 /* Build configuration list for PBXAggregateTarget "BilibiliKitPackageTests" */;
-			buildPhases = (
-			);
-			dependencies = (
-				OBJ_58 /* PBXTargetDependency */,
-			);
-			name = BilibiliKitPackageTests;
-			productName = BilibiliKitPackageTests;
-		};
-/* End PBXAggregateTarget section */
-
-/* Begin PBXBuildFile section */
-		525135D1220FF1A400D2C96A /* BKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525135CF220FF1A400D2C96A /* BKError.swift */; };
-		5281D87620A6666900F6AFF5 /* BKArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87520A6666900F6AFF5 /* BKArticle.swift */; };
-		5281D87820A6668E00F6AFF5 /* BKArticle+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87720A6668E00F6AFF5 /* BKArticle+Info.swift */; };
-		5281D87A20A666DE00F6AFF5 /* BKLiveRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87920A666DE00F6AFF5 /* BKLiveRoom.swift */; };
-		5281D87C20A6670400F6AFF5 /* BKLiveRoom+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281D87B20A6670400F6AFF5 /* BKLiveRoom+Info.swift */; };
-		52D5BB41211C037900965E88 /* BKAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB40211C037900965E88 /* BKAudio.swift */; };
-		52D5BB43211C04BC00965E88 /* BKAudio+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB42211C04BC00965E88 /* BKAudio+Info.swift */; };
-		52D5BB45211C095800965E88 /* BKAudio+URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB44211C095800965E88 /* BKAudio+URLs.swift */; };
-		52D5BB47211C12E900965E88 /* BKAudio+Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB46211C12E900965E88 /* BKAudio+Staff.swift */; };
-		52D5BB49211CB55B00965E88 /* BKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB48211CB55B00965E88 /* BKUser.swift */; };
-		52D5BB4F211CDD0500965E88 /* BKUpUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB4E211CDD0500965E88 /* BKUpUser.swift */; };
-		52D5BB51211CDE3B00965E88 /* BKUpUser+Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB50211CDE3B00965E88 /* BKUpUser+Stat.swift */; };
-		52D5BB53211CE2F400965E88 /* BKCurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB52211CE2F400965E88 /* BKCurrentUser.swift */; };
-		52D5BB55211CEBB800965E88 /* BKUser+Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5BB54211CEBB800965E88 /* BKUser+Relationship.swift */; };
-		52E75892211D02010065BCE7 /* BKUser+AudioStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E75891211D02010065BCE7 /* BKUser+AudioStat.swift */; };
-		52E7589C211D3F580065BCE7 /* BKUser+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7589B211D3F580065BCE7 /* BKUser+Info.swift */; };
-		OBJ_29 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
-		OBJ_35 /* BilibiliKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* BilibiliKitTests.swift */; };
-		OBJ_37 /* BilibiliKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "BilibiliKit::BilibiliKit::Product" /* BilibiliKit.framework */; };
-		OBJ_44 /* BKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* BKApp.swift */; };
-		OBJ_45 /* BKCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* BKCookie.swift */; };
-		OBJ_46 /* BKLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* BKLoginHelper.swift */; };
-		OBJ_47 /* BKSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* BKSession.swift */; };
-		OBJ_48 /* BKVideo+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* BKVideo+Info.swift */; };
-		OBJ_49 /* BKVideo+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* BKVideo+Page.swift */; };
-		OBJ_50 /* BKVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* BKVideo.swift */; };
-		OBJ_51 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* URL+Extensions.swift */; };
-		OBJ_52 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* URLSession+Extensions.swift */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		520C58361FF97CAF00B5F4BB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "BilibiliKit::BilibiliKit";
-			remoteInfo = BilibiliKit;
-		};
-		520C58371FF97CB000B5F4BB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "BilibiliKit::BilibiliKitTests";
-			remoteInfo = BilibiliKitTests;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXFileReference section */
-		525135CF220FF1A400D2C96A /* BKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKError.swift; sourceTree = "<group>"; };
-		5281D87520A6666900F6AFF5 /* BKArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKArticle.swift; sourceTree = "<group>"; };
-		5281D87720A6668E00F6AFF5 /* BKArticle+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKArticle+Info.swift"; sourceTree = "<group>"; };
-		5281D87920A666DE00F6AFF5 /* BKLiveRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLiveRoom.swift; sourceTree = "<group>"; };
-		5281D87B20A6670400F6AFF5 /* BKLiveRoom+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKLiveRoom+Info.swift"; sourceTree = "<group>"; };
-		52B82BAF204B5276001B4D27 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../apollonian/Documents/Git-Repo/BilibiliKit/README.md"; sourceTree = "<group>"; };
-		52B82BB0204B58DE001B4D27 /* BilibiliKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = BilibiliKit.podspec; path = "../../../../apollonian/Documents/Git-Repo/BilibiliKit/BilibiliKit.podspec"; sourceTree = "<group>"; };
-		52B82BB2204B5F51001B4D27 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = "../../../../apollonian/Documents/Git-Repo/BilibiliKit/LICENSE"; sourceTree = "<group>"; };
-		52D5BB40211C037900965E88 /* BKAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKAudio.swift; sourceTree = "<group>"; };
-		52D5BB42211C04BC00965E88 /* BKAudio+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKAudio+Info.swift"; sourceTree = "<group>"; };
-		52D5BB44211C095800965E88 /* BKAudio+URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKAudio+URLs.swift"; sourceTree = "<group>"; };
-		52D5BB46211C12E900965E88 /* BKAudio+Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKAudio+Staff.swift"; sourceTree = "<group>"; };
-		52D5BB48211CB55B00965E88 /* BKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKUser.swift; sourceTree = "<group>"; };
-		52D5BB4E211CDD0500965E88 /* BKUpUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKUpUser.swift; sourceTree = "<group>"; };
-		52D5BB50211CDE3B00965E88 /* BKUpUser+Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKUpUser+Stat.swift"; sourceTree = "<group>"; };
-		52D5BB52211CE2F400965E88 /* BKCurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKCurrentUser.swift; sourceTree = "<group>"; };
-		52D5BB54211CEBB800965E88 /* BKUser+Relationship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKUser+Relationship.swift"; sourceTree = "<group>"; };
-		52E75891211D02010065BCE7 /* BKUser+AudioStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKUser+AudioStat.swift"; sourceTree = "<group>"; };
-		52E7589B211D3F580065BCE7 /* BKUser+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKUser+Info.swift"; sourceTree = "<group>"; };
-		"BilibiliKit::BilibiliKit::Product" /* BilibiliKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BilibiliKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"BilibiliKit::BilibiliKitTests::Product" /* BilibiliKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BilibiliKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_10 /* BKLoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLoginHelper.swift; sourceTree = "<group>"; };
-		OBJ_11 /* BKSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKSession.swift; sourceTree = "<group>"; };
-		OBJ_12 /* BKVideo+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKVideo+Info.swift"; sourceTree = "<group>"; };
-		OBJ_13 /* BKVideo+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKVideo+Page.swift"; sourceTree = "<group>"; };
-		OBJ_14 /* BKVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKVideo.swift; sourceTree = "<group>"; };
-		OBJ_15 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_16 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_19 /* BilibiliKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BilibiliKitTests.swift; sourceTree = "<group>"; };
-		OBJ_20 /* Configs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Configs; sourceTree = SOURCE_ROOT; };
-		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		OBJ_8 /* BKApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKApp.swift; sourceTree = "<group>"; };
-		OBJ_9 /* BKCookie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKCookie.swift; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		OBJ_36 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_37 /* BilibiliKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_53 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		OBJ_17 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_18 /* BilibiliKitTests */,
-			);
-			name = Tests;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_18 /* BilibiliKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_19 /* BilibiliKitTests.swift */,
-			);
-			name = BilibiliKitTests;
-			path = Tests/BilibiliKitTests;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_21 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				"BilibiliKit::BilibiliKitTests::Product" /* BilibiliKitTests.xctest */,
-				"BilibiliKit::BilibiliKit::Product" /* BilibiliKit.framework */,
-			);
-			name = Products;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		OBJ_5 = {
-			isa = PBXGroup;
-			children = (
-				52B82BAF204B5276001B4D27 /* README.md */,
-				52B82BB2204B5F51001B4D27 /* LICENSE */,
-				52B82BB0204B58DE001B4D27 /* BilibiliKit.podspec */,
-				OBJ_6 /* Package.swift */,
-				OBJ_7 /* Sources */,
-				OBJ_17 /* Tests */,
-				OBJ_20 /* Configs */,
-				OBJ_21 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		OBJ_7 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				525135CF220FF1A400D2C96A /* BKError.swift */,
-				OBJ_8 /* BKApp.swift */,
-				5281D87520A6666900F6AFF5 /* BKArticle.swift */,
-				5281D87720A6668E00F6AFF5 /* BKArticle+Info.swift */,
-				52D5BB40211C037900965E88 /* BKAudio.swift */,
-				52D5BB42211C04BC00965E88 /* BKAudio+Info.swift */,
-				52D5BB46211C12E900965E88 /* BKAudio+Staff.swift */,
-				52D5BB44211C095800965E88 /* BKAudio+URLs.swift */,
-				OBJ_9 /* BKCookie.swift */,
-				5281D87920A666DE00F6AFF5 /* BKLiveRoom.swift */,
-				5281D87B20A6670400F6AFF5 /* BKLiveRoom+Info.swift */,
-				OBJ_10 /* BKLoginHelper.swift */,
-				OBJ_11 /* BKSession.swift */,
-				52D5BB48211CB55B00965E88 /* BKUser.swift */,
-				52E75891211D02010065BCE7 /* BKUser+AudioStat.swift */,
-				52E7589B211D3F580065BCE7 /* BKUser+Info.swift */,
-				52D5BB54211CEBB800965E88 /* BKUser+Relationship.swift */,
-				52D5BB52211CE2F400965E88 /* BKCurrentUser.swift */,
-				52D5BB4E211CDD0500965E88 /* BKUpUser.swift */,
-				52D5BB50211CDE3B00965E88 /* BKUpUser+Stat.swift */,
-				OBJ_14 /* BKVideo.swift */,
-				OBJ_12 /* BKVideo+Info.swift */,
-				OBJ_13 /* BKVideo+Page.swift */,
-				OBJ_15 /* URL+Extensions.swift */,
-				OBJ_16 /* URLSession+Extensions.swift */,
-			);
-			path = Sources;
-			sourceTree = SOURCE_ROOT;
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		"BilibiliKit::BilibiliKit" /* BilibiliKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_40 /* Build configuration list for PBXNativeTarget "BilibiliKit" */;
-			buildPhases = (
-				OBJ_43 /* Sources */,
-				OBJ_53 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = BilibiliKit;
-			productName = BilibiliKit;
-			productReference = "BilibiliKit::BilibiliKit::Product" /* BilibiliKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		"BilibiliKit::BilibiliKitTests" /* BilibiliKitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_31 /* Build configuration list for PBXNativeTarget "BilibiliKitTests" */;
-			buildPhases = (
-				OBJ_34 /* Sources */,
-				OBJ_36 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				OBJ_38 /* PBXTargetDependency */,
-			);
-			name = BilibiliKitTests;
-			productName = BilibiliKitTests;
-			productReference = "BilibiliKit::BilibiliKitTests::Product" /* BilibiliKitTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		"BilibiliKit::SwiftPMPackageDescription" /* BilibiliKitPackageDescription */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_25 /* Build configuration list for PBXNativeTarget "BilibiliKitPackageDescription" */;
-			buildPhases = (
-				OBJ_28 /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = BilibiliKitPackageDescription;
-			productName = BilibiliKitPackageDescription;
-			productType = "com.apple.product-type.framework";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		OBJ_1 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 9999;
-				TargetAttributes = {
-					"BilibiliKit::BilibiliKit" = {
-						DevelopmentTeam = KZ7D8X3PRK;
-						LastSwiftMigration = 1020;
-					};
-					"BilibiliKit::BilibiliKitPackageTests::ProductTarget" = {
-						DevelopmentTeam = KZ7D8X3PRK;
-					};
-					"BilibiliKit::BilibiliKitTests" = {
-						DevelopmentTeam = KZ7D8X3PRK;
-						LastSwiftMigration = 1020;
-					};
-					"BilibiliKit::SwiftPMPackageDescription" = {
-						DevelopmentTeam = KZ7D8X3PRK;
-					};
-				};
-			};
-			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "BilibiliKit" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = OBJ_5;
-			productRefGroup = OBJ_21 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				"BilibiliKit::SwiftPMPackageDescription" /* BilibiliKitPackageDescription */,
-				"BilibiliKit::BilibiliKitTests" /* BilibiliKitTests */,
-				"BilibiliKit::BilibiliKit" /* BilibiliKit */,
-				"BilibiliKit::BilibiliKitPackageTests::ProductTarget" /* BilibiliKitPackageTests */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXSourcesBuildPhase section */
-		OBJ_28 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_29 /* Package.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_34 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_35 /* BilibiliKitTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_43 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_44 /* BKApp.swift in Sources */,
-				52D5BB53211CE2F400965E88 /* BKCurrentUser.swift in Sources */,
-				OBJ_45 /* BKCookie.swift in Sources */,
-				OBJ_46 /* BKLoginHelper.swift in Sources */,
-				52D5BB49211CB55B00965E88 /* BKUser.swift in Sources */,
-				525135D1220FF1A400D2C96A /* BKError.swift in Sources */,
-				52E75892211D02010065BCE7 /* BKUser+AudioStat.swift in Sources */,
-				52D5BB41211C037900965E88 /* BKAudio.swift in Sources */,
-				OBJ_47 /* BKSession.swift in Sources */,
-				52D5BB4F211CDD0500965E88 /* BKUpUser.swift in Sources */,
-				52D5BB51211CDE3B00965E88 /* BKUpUser+Stat.swift in Sources */,
-				OBJ_48 /* BKVideo+Info.swift in Sources */,
-				OBJ_49 /* BKVideo+Page.swift in Sources */,
-				OBJ_50 /* BKVideo.swift in Sources */,
-				5281D87820A6668E00F6AFF5 /* BKArticle+Info.swift in Sources */,
-				52D5BB55211CEBB800965E88 /* BKUser+Relationship.swift in Sources */,
-				5281D87620A6666900F6AFF5 /* BKArticle.swift in Sources */,
-				52D5BB47211C12E900965E88 /* BKAudio+Staff.swift in Sources */,
-				52E7589C211D3F580065BCE7 /* BKUser+Info.swift in Sources */,
-				52D5BB43211C04BC00965E88 /* BKAudio+Info.swift in Sources */,
-				5281D87C20A6670400F6AFF5 /* BKLiveRoom+Info.swift in Sources */,
-				5281D87A20A666DE00F6AFF5 /* BKLiveRoom.swift in Sources */,
-				52D5BB45211C095800965E88 /* BKAudio+URLs.swift in Sources */,
-				OBJ_51 /* URL+Extensions.swift in Sources */,
-				OBJ_52 /* URLSession+Extensions.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		OBJ_38 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "BilibiliKit::BilibiliKit" /* BilibiliKit */;
-			targetProxy = 520C58361FF97CAF00B5F4BB /* PBXContainerItemProxy */;
-		};
-		OBJ_58 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "BilibiliKit::BilibiliKitTests" /* BilibiliKitTests */;
-			targetProxy = 520C58371FF97CB000B5F4BB /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin XCBuildConfiguration section */
-		OBJ_26 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		OBJ_27 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		OBJ_3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_NS_ASSERTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DXcode";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				USE_HEADERMAP = NO;
-			};
-			name = Debug;
-		};
-		OBJ_32 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = BilibiliKit.xcodeproj/BilibiliKitTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = BilibiliKitTests;
-			};
-			name = Debug;
-		};
-		OBJ_33 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = BilibiliKit.xcodeproj/BilibiliKitTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = BilibiliKitTests;
-			};
-			name = Release;
-		};
-		OBJ_4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_OPTIMIZATION_LEVEL = s;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_SWIFT_FLAGS = "-DXcode";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				USE_HEADERMAP = NO;
-			};
-			name = Release;
-		};
-		OBJ_41 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = BilibiliKit.xcodeproj/BilibiliKit_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = BilibiliKit;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = BilibiliKit;
-			};
-			name = Debug;
-		};
-		OBJ_42 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = BilibiliKit.xcodeproj/BilibiliKit_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = BilibiliKit;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = BilibiliKit;
-			};
-			name = Release;
-		};
-		OBJ_56 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		OBJ_57 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		OBJ_2 /* Build configuration list for PBXProject "BilibiliKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_3 /* Debug */,
-				OBJ_4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_25 /* Build configuration list for PBXNativeTarget "BilibiliKitPackageDescription" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_26 /* Debug */,
-				OBJ_27 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_31 /* Build configuration list for PBXNativeTarget "BilibiliKitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_32 /* Debug */,
-				OBJ_33 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_40 /* Build configuration list for PBXNativeTarget "BilibiliKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_41 /* Debug */,
-				OBJ_42 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_55 /* Build configuration list for PBXAggregateTarget "BilibiliKitPackageTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_56 /* Debug */,
-				OBJ_57 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = OBJ_1 /* Project object */;
+   archiveVersion = "1";
+   objectVersion = "46";
+   objects = {
+      "BilibiliKit::BilibiliKit" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_46";
+         buildPhases = (
+            "OBJ_49",
+            "OBJ_77"
+         );
+         dependencies = (
+         );
+         name = "BilibiliKit";
+         productName = "BilibiliKit";
+         productReference = "BilibiliKit::BilibiliKit::Product";
+         productType = "com.apple.product-type.framework";
+      };
+      "BilibiliKit::BilibiliKit::Product" = {
+         isa = "PBXFileReference";
+         path = "BilibiliKit.framework";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "BilibiliKit::BilibiliKitPackageTests::ProductTarget" = {
+         isa = "PBXAggregateTarget";
+         buildConfigurationList = "OBJ_85";
+         buildPhases = (
+         );
+         dependencies = (
+            "OBJ_88"
+         );
+         name = "BilibiliKitPackageTests";
+         productName = "BilibiliKitPackageTests";
+      };
+      "BilibiliKit::BilibiliKitTests" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_90";
+         buildPhases = (
+            "OBJ_93",
+            "OBJ_95"
+         );
+         dependencies = (
+            "OBJ_97"
+         );
+         name = "BilibiliKitTests";
+         productName = "BilibiliKitTests";
+         productReference = "BilibiliKit::BilibiliKitTests::Product";
+         productType = "com.apple.product-type.bundle.unit-test";
+      };
+      "BilibiliKit::BilibiliKitTests::Product" = {
+         isa = "PBXFileReference";
+         path = "BilibiliKitTests.xctest";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "BilibiliKit::SwiftPMPackageDescription" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_79";
+         buildPhases = (
+            "OBJ_82"
+         );
+         dependencies = (
+         );
+         name = "BilibiliKitPackageDescription";
+         productName = "BilibiliKitPackageDescription";
+         productType = "com.apple.product-type.framework";
+      };
+      "OBJ_1" = {
+         isa = "PBXProject";
+         attributes = {
+            LastSwiftMigration = "9999";
+            LastUpgradeCheck = "9999";
+         };
+         buildConfigurationList = "OBJ_2";
+         compatibilityVersion = "Xcode 3.2";
+         developmentRegion = "English";
+         hasScannedForEncodings = "0";
+         knownRegions = (
+            "en"
+         );
+         mainGroup = "OBJ_5";
+         productRefGroup = "OBJ_38";
+         projectDirPath = ".";
+         targets = (
+            "BilibiliKit::BilibiliKit",
+            "BilibiliKit::SwiftPMPackageDescription",
+            "BilibiliKit::BilibiliKitPackageTests::ProductTarget",
+            "BilibiliKit::BilibiliKitTests"
+         );
+      };
+      "OBJ_10" = {
+         isa = "PBXFileReference";
+         path = "BKArticle.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_11" = {
+         isa = "PBXFileReference";
+         path = "BKAudio+Info.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_12" = {
+         isa = "PBXFileReference";
+         path = "BKAudio+Staff.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_13" = {
+         isa = "PBXFileReference";
+         path = "BKAudio+URLs.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_14" = {
+         isa = "PBXFileReference";
+         path = "BKAudio.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_15" = {
+         isa = "PBXFileReference";
+         path = "BKCookie.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_16" = {
+         isa = "PBXFileReference";
+         path = "BKCurrentUser.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_17" = {
+         isa = "PBXFileReference";
+         path = "BKError.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_18" = {
+         isa = "PBXFileReference";
+         path = "BKLiveRoom+Info.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_19" = {
+         isa = "PBXFileReference";
+         path = "BKLiveRoom.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_2" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_3",
+            "OBJ_4"
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Release";
+      };
+      "OBJ_20" = {
+         isa = "PBXFileReference";
+         path = "BKSec.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_21" = {
+         isa = "PBXFileReference";
+         path = "BKSession+PasswordLogin.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_22" = {
+         isa = "PBXFileReference";
+         path = "BKSession+QRCodeLoginHelper.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_23" = {
+         isa = "PBXFileReference";
+         path = "BKSession.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_24" = {
+         isa = "PBXFileReference";
+         path = "BKUpUser+Stat.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_25" = {
+         isa = "PBXFileReference";
+         path = "BKUpUser.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_26" = {
+         isa = "PBXFileReference";
+         path = "BKUser+AudioStat.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_27" = {
+         isa = "PBXFileReference";
+         path = "BKUser+Info.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_28" = {
+         isa = "PBXFileReference";
+         path = "BKUser+Relationship.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_29" = {
+         isa = "PBXFileReference";
+         path = "BKUser.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_3" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CLANG_ENABLE_OBJC_ARC = "YES";
+            COMBINE_HIDPI_IMAGES = "YES";
+            COPY_PHASE_STRIP = "NO";
+            DEBUG_INFORMATION_FORMAT = "dwarf";
+            DYLIB_INSTALL_NAME_BASE = "@rpath";
+            ENABLE_NS_ASSERTIONS = "YES";
+            GCC_OPTIMIZATION_LEVEL = "0";
+            GCC_PREPROCESSOR_DEFINITIONS = (
+               "$(inherited)",
+               "SWIFT_PACKAGE=1",
+               "DEBUG=1"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.10";
+            ONLY_ACTIVE_ARCH = "YES";
+            OTHER_SWIFT_FLAGS = (
+               "-DXcode"
+            );
+            PRODUCT_NAME = "$(TARGET_NAME)";
+            SDKROOT = "macosx";
+            SUPPORTED_PLATFORMS = (
+               "macosx",
+               "iphoneos",
+               "iphonesimulator",
+               "appletvos",
+               "appletvsimulator",
+               "watchos",
+               "watchsimulator"
+            );
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)",
+               "SWIFT_PACKAGE",
+               "DEBUG"
+            );
+            SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            USE_HEADERMAP = "NO";
+         };
+         name = "Debug";
+      };
+      "OBJ_30" = {
+         isa = "PBXFileReference";
+         path = "BKVideo+Info.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_31" = {
+         isa = "PBXFileReference";
+         path = "BKVideo+Page.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_32" = {
+         isa = "PBXFileReference";
+         path = "BKVideo.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_33" = {
+         isa = "PBXFileReference";
+         path = "URL+Extensions.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_34" = {
+         isa = "PBXFileReference";
+         path = "URLSession+Extensions.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_35" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_36"
+         );
+         name = "Tests";
+         path = "";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_36" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_37"
+         );
+         name = "BilibiliKitTests";
+         path = "Tests/BilibiliKitTests";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_37" = {
+         isa = "PBXFileReference";
+         path = "BilibiliKitTests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_38" = {
+         isa = "PBXGroup";
+         children = (
+            "BilibiliKit::BilibiliKitTests::Product",
+            "BilibiliKit::BilibiliKit::Product"
+         );
+         name = "Products";
+         path = "";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "OBJ_4" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CLANG_ENABLE_OBJC_ARC = "YES";
+            COMBINE_HIDPI_IMAGES = "YES";
+            COPY_PHASE_STRIP = "YES";
+            DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+            DYLIB_INSTALL_NAME_BASE = "@rpath";
+            GCC_OPTIMIZATION_LEVEL = "s";
+            GCC_PREPROCESSOR_DEFINITIONS = (
+               "$(inherited)",
+               "SWIFT_PACKAGE=1"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.10";
+            OTHER_SWIFT_FLAGS = (
+               "-DXcode"
+            );
+            PRODUCT_NAME = "$(TARGET_NAME)";
+            SDKROOT = "macosx";
+            SUPPORTED_PLATFORMS = (
+               "macosx",
+               "iphoneos",
+               "iphonesimulator",
+               "appletvos",
+               "appletvsimulator",
+               "watchos",
+               "watchsimulator"
+            );
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)",
+               "SWIFT_PACKAGE"
+            );
+            SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+            USE_HEADERMAP = "NO";
+         };
+         name = "Release";
+      };
+      "OBJ_41" = {
+         isa = "PBXFileReference";
+         path = "Configs";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_42" = {
+         isa = "PBXFileReference";
+         path = "BilibiliKit.podspec";
+         sourceTree = "<group>";
+      };
+      "OBJ_43" = {
+         isa = "PBXFileReference";
+         path = "LICENSE";
+         sourceTree = "<group>";
+      };
+      "OBJ_44" = {
+         isa = "PBXFileReference";
+         path = "README.md";
+         sourceTree = "<group>";
+      };
+      "OBJ_46" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_47",
+            "OBJ_48"
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Release";
+      };
+      "OBJ_47" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)"
+            );
+            INFOPLIST_FILE = "BilibiliKit.xcodeproj/BilibiliKit_Info.plist";
+            IPHONEOS_DEPLOYMENT_TARGET = "10.0";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.12";
+            OTHER_CFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)"
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "BilibiliKit";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)"
+            );
+            SWIFT_VERSION = "5.0";
+            TARGET_NAME = "BilibiliKit";
+            TVOS_DEPLOYMENT_TARGET = "10.0";
+            WATCHOS_DEPLOYMENT_TARGET = "3.0";
+         };
+         name = "Debug";
+      };
+      "OBJ_48" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)"
+            );
+            INFOPLIST_FILE = "BilibiliKit.xcodeproj/BilibiliKit_Info.plist";
+            IPHONEOS_DEPLOYMENT_TARGET = "10.0";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.12";
+            OTHER_CFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)"
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "BilibiliKit";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)"
+            );
+            SWIFT_VERSION = "5.0";
+            TARGET_NAME = "BilibiliKit";
+            TVOS_DEPLOYMENT_TARGET = "10.0";
+            WATCHOS_DEPLOYMENT_TARGET = "3.0";
+         };
+         name = "Release";
+      };
+      "OBJ_49" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_50",
+            "OBJ_51",
+            "OBJ_52",
+            "OBJ_53",
+            "OBJ_54",
+            "OBJ_55",
+            "OBJ_56",
+            "OBJ_57",
+            "OBJ_58",
+            "OBJ_59",
+            "OBJ_60",
+            "OBJ_61",
+            "OBJ_62",
+            "OBJ_63",
+            "OBJ_64",
+            "OBJ_65",
+            "OBJ_66",
+            "OBJ_67",
+            "OBJ_68",
+            "OBJ_69",
+            "OBJ_70",
+            "OBJ_71",
+            "OBJ_72",
+            "OBJ_73",
+            "OBJ_74",
+            "OBJ_75",
+            "OBJ_76"
+         );
+      };
+      "OBJ_5" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_6",
+            "OBJ_7",
+            "OBJ_35",
+            "OBJ_38",
+            "OBJ_41",
+            "OBJ_42",
+            "OBJ_43",
+            "OBJ_44"
+         );
+         path = "";
+         sourceTree = "<group>";
+      };
+      "OBJ_50" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_8";
+      };
+      "OBJ_51" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_9";
+      };
+      "OBJ_52" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_10";
+      };
+      "OBJ_53" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_11";
+      };
+      "OBJ_54" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_12";
+      };
+      "OBJ_55" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_13";
+      };
+      "OBJ_56" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_14";
+      };
+      "OBJ_57" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_15";
+      };
+      "OBJ_58" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_16";
+      };
+      "OBJ_59" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_17";
+      };
+      "OBJ_6" = {
+         isa = "PBXFileReference";
+         explicitFileType = "sourcecode.swift";
+         path = "Package.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_60" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_18";
+      };
+      "OBJ_61" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_19";
+      };
+      "OBJ_62" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_20";
+      };
+      "OBJ_63" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_21";
+      };
+      "OBJ_64" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_22";
+      };
+      "OBJ_65" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_23";
+      };
+      "OBJ_66" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_24";
+      };
+      "OBJ_67" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_25";
+      };
+      "OBJ_68" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_26";
+      };
+      "OBJ_69" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_27";
+      };
+      "OBJ_7" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_8",
+            "OBJ_9",
+            "OBJ_10",
+            "OBJ_11",
+            "OBJ_12",
+            "OBJ_13",
+            "OBJ_14",
+            "OBJ_15",
+            "OBJ_16",
+            "OBJ_17",
+            "OBJ_18",
+            "OBJ_19",
+            "OBJ_20",
+            "OBJ_21",
+            "OBJ_22",
+            "OBJ_23",
+            "OBJ_24",
+            "OBJ_25",
+            "OBJ_26",
+            "OBJ_27",
+            "OBJ_28",
+            "OBJ_29",
+            "OBJ_30",
+            "OBJ_31",
+            "OBJ_32",
+            "OBJ_33",
+            "OBJ_34"
+         );
+         name = "Sources";
+         path = "Sources";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_70" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_28";
+      };
+      "OBJ_71" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_29";
+      };
+      "OBJ_72" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_30";
+      };
+      "OBJ_73" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_31";
+      };
+      "OBJ_74" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_32";
+      };
+      "OBJ_75" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_33";
+      };
+      "OBJ_76" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_34";
+      };
+      "OBJ_77" = {
+         isa = "PBXFrameworksBuildPhase";
+         files = (
+         );
+      };
+      "OBJ_79" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_80",
+            "OBJ_81"
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Release";
+      };
+      "OBJ_8" = {
+         isa = "PBXFileReference";
+         path = "BKApp.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_80" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "5",
+               "-I",
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk"
+            );
+            SWIFT_VERSION = "5.0";
+         };
+         name = "Debug";
+      };
+      "OBJ_81" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "5",
+               "-I",
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk"
+            );
+            SWIFT_VERSION = "5.0";
+         };
+         name = "Release";
+      };
+      "OBJ_82" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_83"
+         );
+      };
+      "OBJ_83" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_6";
+      };
+      "OBJ_85" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_86",
+            "OBJ_87"
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Release";
+      };
+      "OBJ_86" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+         };
+         name = "Debug";
+      };
+      "OBJ_87" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+         };
+         name = "Release";
+      };
+      "OBJ_88" = {
+         isa = "PBXTargetDependency";
+         target = "BilibiliKit::BilibiliKitTests";
+      };
+      "OBJ_9" = {
+         isa = "PBXFileReference";
+         path = "BKArticle+Info.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_90" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_91",
+            "OBJ_92"
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Release";
+      };
+      "OBJ_91" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CLANG_ENABLE_MODULES = "YES";
+            EMBEDDED_CONTENT_CONTAINS_SWIFT = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)"
+            );
+            INFOPLIST_FILE = "BilibiliKit.xcodeproj/BilibiliKitTests_Info.plist";
+            IPHONEOS_DEPLOYMENT_TARGET = "10.0";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(inherited)",
+               "@loader_path/../Frameworks",
+               "@loader_path/Frameworks"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.12";
+            OTHER_CFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)"
+            );
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)"
+            );
+            SWIFT_VERSION = "5.0";
+            TARGET_NAME = "BilibiliKitTests";
+            TVOS_DEPLOYMENT_TARGET = "10.0";
+            WATCHOS_DEPLOYMENT_TARGET = "3.0";
+         };
+         name = "Debug";
+      };
+      "OBJ_92" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CLANG_ENABLE_MODULES = "YES";
+            EMBEDDED_CONTENT_CONTAINS_SWIFT = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)"
+            );
+            INFOPLIST_FILE = "BilibiliKit.xcodeproj/BilibiliKitTests_Info.plist";
+            IPHONEOS_DEPLOYMENT_TARGET = "10.0";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(inherited)",
+               "@loader_path/../Frameworks",
+               "@loader_path/Frameworks"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.12";
+            OTHER_CFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)"
+            );
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)"
+            );
+            SWIFT_VERSION = "5.0";
+            TARGET_NAME = "BilibiliKitTests";
+            TVOS_DEPLOYMENT_TARGET = "10.0";
+            WATCHOS_DEPLOYMENT_TARGET = "3.0";
+         };
+         name = "Release";
+      };
+      "OBJ_93" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_94"
+         );
+      };
+      "OBJ_94" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_37";
+      };
+      "OBJ_95" = {
+         isa = "PBXFrameworksBuildPhase";
+         files = (
+            "OBJ_96"
+         );
+      };
+      "OBJ_96" = {
+         isa = "PBXBuildFile";
+         fileRef = "BilibiliKit::BilibiliKit::Product";
+      };
+      "OBJ_97" = {
+         isa = "PBXTargetDependency";
+         target = "BilibiliKit::BilibiliKit";
+      };
+   };
+   rootObject = "OBJ_1";
 }

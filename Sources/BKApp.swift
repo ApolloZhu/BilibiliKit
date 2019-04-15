@@ -11,7 +11,8 @@ import Foundation
 /// APPKEY associated operations
 public enum BKApp {
     /// APPKEY from bilibili website.
-    public static let appkey = "8e9fc618fbd41e28"
+    public static let appkey = "1d8b6e7d45233436"
+    public static let salt = "560c52ccd288fed045859ed18bffd973"
     
     // MARK: - Dynamic Fetching
     
@@ -21,6 +22,7 @@ public enum BKApp {
     /// Fetch a valid appkey from bilibili.
     ///
     /// - Parameter handler: code to run with fetched appkey.
+    /// - Important: No salt (secret for this key).
     public static func fetchKey(_ handler: @escaping BKHandler<String>) {
         func raise(_ error: BKError) { handler(.failure(error)) }
         let task = URLSession.bk.dataTask(with: playerURL) { data, res, err in

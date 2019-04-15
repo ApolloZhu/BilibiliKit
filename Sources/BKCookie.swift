@@ -33,7 +33,9 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
     /// at current working directory, which can be retrieved
     /// using https://github.com/dantmnf/biliupload/blob/master/getcookie.py ,
     /// and appending `;bili_jct=value of cookie named bili_jct` .
-    public static var `default`: BKCookie! = BKCookie()
+    public static var `default`: BKCookie! = BKCookie(path:
+        "\(FileManager.default.currentDirectoryPath)/\(filename)"
+    )
     #endif
     
     /// File name which stores cookie as and loads from.
@@ -59,14 +61,14 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
     /// - md5Sum: DedeUserID__ckMd5
     /// - sessionData: SESSDATA
     /// - csrf: bili_jct
-    public enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case mid = "DedeUserID"
         case md5Sum = "DedeUserID__ckMd5"
         case sessionData = "SESSDATA"
         case csrf = "bili_jct"
     }
     
-    /// Initialize a Cookie with required cookie value,
+    /// Initialize a BKCookie with required cookie value,
     /// available after login a bilibili account.
     ///
     /// - Parameters:
@@ -81,36 +83,35 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
         csrf = bili_jct
     }
     
-    /// Initialize a Cookie with a file at path,
+    /// Initialize a BKCookie with a file at path,
     /// whose contents are of format
     /// `DedeUserID=xx;DedeUserID__ckMd5=xx;SESSDATA=xx`
     ///
     /// - Parameters:
     ///   - path: path to the file, or the directory
     ///           where `bilicookies` file is stored.
-    public init?(path: String? = nil) {
-        guard let string = try? String(contentsOfFile: path ??
-            "\(FileManager.default.currentDirectoryPath)/\(BKCookie.filename)"
-            ) else { return nil }
+    public init?(path: String) {
+        guard let string = try? String(contentsOfFile: path) else { return nil }
         let splited = string
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .split(separator: ";")
-        self.init(array: splited)
+        self.init(sequence: splited)
     }
     
-    /// Initialize a Cookie based on raw cookie, preferably
+    /// Initialize a BKCookie based on raw cookie, preferably
     /// HTTPURLResponse.allHeaderFields["Set-Cookie"].
     ///
     /// - Parameter headerField: raw cookie.
     public init?(headerField: String) {
         let separator = CharacterSet(charactersIn: "; ")
         let splited = headerField.components(separatedBy: separator)
-        self.init(array: splited)
+        self.init(sequence: splited)
     }
     
-    init?<AnyString: StringProtocol>(array: [AnyString]) {
-        var dict = [String:String]()
-        for part in array {
+    init?<AnySequence: Sequence>(sequence: AnySequence)
+        where AnySequence.Element: StringProtocol {
+        var dict = [String: String]()
+        for part in sequence {
             let parts = part
                 .split(separator: "=")
                 .map { "\($0)".trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -119,11 +120,10 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
         self.init(dictionary: dict)
     }
     
-    
-    /// Initialize a Cookie from contents of a dictionary.
+    /// Initialize a BKCookie from contents of a dictionary.
     ///
     /// - Parameter dictionary: with keys in CodingKeys and their values.
-    public init?(dictionary: [String:String]) {
+    public init?(dictionary: [String: String]) {
         guard let str = dictionary[CodingKeys.mid.stringValue]
             , let mid = Int(str)
             , let sum = dictionary[CodingKeys.md5Sum.stringValue]
@@ -131,6 +131,21 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
             , let csrf = dictionary[CodingKeys.csrf.stringValue]
             else { return nil }
         self.init(DedeUserID: mid, DedeUserID__ckMd5: sum, SESSDATA: data, bili_jct: csrf)
+    }
+    
+    /// Initialize a BKCookie from http cookies, possibly from cookie stores.
+    ///
+    /// - Parameter httpCookies: array of cookies with possibly useful information.
+    /// - Note: Implementation filters for desired cookies. No need to perform
+    /// such an optimization, but pull requests are welcome should your method
+    /// works better and more efficient.
+    public init?(httpCookies: [HTTPCookie]) {
+        var usefulCookies = [String: String]()
+        for cookie in httpCookies where cookie.domain.hasSuffix("bilibili.com") &&
+            CodingKeys.allCases.contains(where: { $0.rawValue == cookie.name }) {
+                usefulCookies[cookie.name] = cookie.value
+        }
+        self.init(dictionary: usefulCookies)
     }
     
     /// Cookie in format of request header
@@ -142,12 +157,13 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
     ///
     /// - Parameter path: path to save the cookie, default to `BKCookie.defaultPath`.
     /// - Returns: discardable, if saved successfully.
-    @discardableResult public func save(toPath path: String = BKCookie.defaultPath) -> Bool {
+    @discardableResult public func save(toPath path: String = BKCookie.defaultPath)
+        -> Result<Void, Error> {
         do {
             try asHeaderField.write(toFile: path, atomically: true, encoding: .utf8)
-            return true
+            return .success(())
         } catch {
-            return false
+            return .failure(error)
         }
     }
 }
