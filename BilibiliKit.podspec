@@ -15,6 +15,6 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = "10.0"
   s.source       = { :git => "https://github.com/ApolloZhu/BilibiliKit.git", :tag => s.version.to_s }
   s.source_files  = "Sources/**/*"
-  s.swift_versions = ['4.0', '4.2', '5.0']
+  s.swift_versions = ['4.0', '4.2', '5.0', '5.1']
   s.frameworks  = "Security"
 end

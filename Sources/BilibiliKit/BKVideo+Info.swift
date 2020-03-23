@@ -148,7 +148,7 @@ extension BKVideo {
                                in session: BKSession = .shared,
                                then handler: @escaping BKHandler<Info>) {
         let url = "https://api.bilibili.com/view?id=\(aid)&appkey=\(key)" as URL
-        let task = URLSession.bk.dataTask(with: session.request(to: url))
+        let task = URLSession._bk.dataTask(with: session.request(to: url))
         { data, res, err in
             guard let data = data else {
                 return handler(.failure(.responseError(

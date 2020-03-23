@@ -46,7 +46,7 @@ extension BKWrapperMsg {
 
 extension URLSession {
     /// Shared url session, alias of URLSession.shared
-    static var bk: URLSession { return .shared }
+    public static var _bk: URLSession { return .shared }
 
     /// Fetches a decodable wrapper JSON and pass the unwrapped to handler.
     ///
@@ -79,7 +79,7 @@ extension URLSession {
         unwrap wrapperType: Wrapper.Type,
         then handler: @escaping BKHandler<Wrapper.Wrapped>)
     {
-        let task = URLSession.bk.dataTask(with: request) { data, res, err in
+        let task = URLSession._bk.dataTask(with: request) { data, res, err in
             guard let data = data else {
                 return handler(.failure(.responseError(
                     reason: .urlSessionError(err, response: res))))

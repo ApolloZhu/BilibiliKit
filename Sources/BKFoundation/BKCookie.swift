@@ -15,7 +15,9 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
     ///
     /// - Parameter elements: with keys in CodingKeys and their values.
     public init(dictionaryLiteral elements: (String, String)...) {
-        let get: (String) -> String? = { key in elements.first { $0.0 == key }?.1 }
+        let get: (String) -> String? = {
+          key in elements.first { $0.0 == key }?.1
+        }
         guard let str = get(CodingKeys.mid.stringValue)
             , let mid = Int(str)
             , let sum = get(CodingKeys.md5Sum.stringValue)
@@ -95,7 +97,7 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
         let splited = string
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .split(separator: ";")
-        self.init(sequence: splited)
+        self.init(_sequence: splited)
     }
     
     /// Initialize a BKCookie based on raw cookie, preferably
@@ -105,13 +107,13 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
     public init?(headerField: String) {
         let separator = CharacterSet(charactersIn: "; ")
         let splited = headerField.components(separatedBy: separator)
-        self.init(sequence: splited)
+        self.init(_sequence: splited)
     }
     
-    init?<AnySequence: Sequence>(sequence: AnySequence)
+    public init?<AnySequence: Sequence>(_sequence: AnySequence)
         where AnySequence.Element: StringProtocol {
         var dict = [String: String]()
-        for part in sequence {
+        for part in _sequence {
             let parts = part
                 .split(separator: "=")
                 .map { "\($0)".trimmingCharacters(in: .whitespacesAndNewlines) }

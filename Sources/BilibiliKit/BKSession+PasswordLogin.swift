@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BKSecurity
 
 extension CharacterSet {
     /// https://stackoverflow.com/questions/41561853/couldnt-encode-plus-character-in-url-swift
@@ -62,7 +63,7 @@ extension BKSession {
             let url = "https://passport.bilibili.com/api/v3/oauth2/login?\(params)&sign=\(sign)" as URL
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            let task = URLSession.bk.dataTask(with: request) {
+            let task = URLSession._bk.dataTask(with: request) {
                 [weak self] dat, res, err in
                 guard let data = dat, !data.isEmpty else {
                     return handle(.failure(.responseError(reason:
@@ -71,7 +72,7 @@ extension BKSession {
                 handle(Result { try JSONDecoder().decode(Wrapper.self, from: data) }
                     .mapError { BKError.parseError(reason: .jsonDecode(data, failure: $0)) }
                     .map { [weak self] in
-                        let cookie = BKCookie(sequence: $0.data.cookie_info.cookies
+                        let cookie = BKCookie(_sequence: $0.data.cookie_info.cookies
                             .lazy.map { "\($0.name)=\($0.value)" })!
                         self?.cookie = cookie
                         return cookie
@@ -89,7 +90,7 @@ extension BKSession {
     
     private func getPublicKey(completionHandler handle: @escaping BKHandler<Encryption>) {
         let url = "https://passport.bilibili.com/login?act=getkey" as URL
-        let task = URLSession.bk.dataTask(with: url) { dat, res, err in
+        let task = URLSession._bk.dataTask(with: url) { dat, res, err in
             guard let data = dat else {
                 return handle(.failure(.responseError(reason: .urlSessionError(err, response: res))))
             }

@@ -130,7 +130,7 @@ extension BKSession.QRCodeLoginHelper {
     
     fileprivate func fetchLoginURL(handler: @escaping BKHandler<LoginURL>) {
         let url: URL = "https://passport.bilibili.com/qrcode/getLoginUrl"
-        let task = URLSession.bk.dataTask(with: url) { data, response, error in
+        let task = URLSession._bk.dataTask(with: url) { data, response, error in
             guard let data = data else {
                 return handler(.failure(.responseError(
                     reason: .urlSessionError(error, response: response))))
@@ -188,7 +188,7 @@ extension BKSession.QRCodeLoginHelper {
         var request = session.postRequest(to: url)
         /// Content-Type: application/x-www-form-urlencoded
         request.httpBody = "oauthKey=\(oauthKey)".data(using: .utf8)
-        let task = URLSession.bk.dataTask(with: request)
+        let task = URLSession._bk.dataTask(with: request)
         { [weak self] data, res, error in
             guard self?.isRunLoopActive == true else { return }
             if let response = res as? HTTPURLResponse,

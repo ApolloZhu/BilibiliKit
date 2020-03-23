@@ -25,7 +25,7 @@ public enum BKApp {
     /// - Important: No salt (secret for this key).
     public static func fetchKey(_ handler: @escaping BKHandler<String>) {
         func raise(_ error: BKError) { handler(.failure(error)) }
-        let task = URLSession.bk.dataTask(with: playerURL) { data, res, err in
+        let task = URLSession._bk.dataTask(with: playerURL) { data, res, err in
             guard let data = data else {
                 return raise(.responseError(
                     reason: .urlSessionError(err, response: res)))

@@ -52,7 +52,7 @@ extension BKVideo {
     /// - Parameter handler: code to perform on the pages.
     public func pages(handler: @escaping BKHandler<[Page]>) {
         let pagesInfoURL = "https://www.bilibili.com/widget/getPageList?aid=\(aid)" as URL
-        let task = URLSession.bk.dataTask(with: pagesInfoURL)
+        let task = URLSession._bk.dataTask(with: pagesInfoURL)
         { [aid] data,res,err in
             guard let data = data else {
                 return handler(.failure(.responseError(
