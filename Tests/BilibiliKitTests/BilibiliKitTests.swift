@@ -79,15 +79,15 @@ class BilibiliKitTests: XCTestCase {
             fetchHiddenVideo()
         } else {
             let ENV = ProcessInfo.processInfo.environment
-            if ENV["GITHUB_PAGES_TOKEN"]?.isEmpty == false
-                || ENV["GITHUB_TOKEN"]?.isEmpty == false {
-                print("Skipping on Travis CI if not already logged in")
-                goal.fulfill()
-            } else {
-                BKSession.shared.login(ENV["BILI_USER"]!, password: ENV["BILI_PASS"]!) {
+            if let username = ENV["BILI_USER"],
+                let password = ENV["BILI_PASS"] {
+                BKSession.shared.login(username, password: password) {
                     dump($0)
                     fetchHiddenVideo()
                 }
+            } else {
+                print("No user configured, skipping...")
+                goal.fulfill()
             }
         }
         waitForExpectations(timeout: 60, handler: nil)
