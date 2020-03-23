@@ -45,8 +45,7 @@ class BilibiliKitTests: XCTestCase {
     
     func testHiddenVideoInfoFetching() {
         let goal = expectation(description: "Hidden video info fetch")
-        BKSession.shared.login("", password: "") {
-            dump($0)
+        func fetchHiddenVideo() {
             BKVideo(av: 5510557).getInfo { result in
                 defer { goal.fulfill() }
                 switch result {
@@ -56,6 +55,20 @@ class BilibiliKitTests: XCTestCase {
                     print()
                 case .failure(let error):
                     XCTFail("No info for 5510557, reason: \(error)")
+                }
+            }
+        }
+        if BKSession.shared.isLoggedIn {
+            fetchHiddenVideo()
+        } else {
+            let ENV = ProcessInfo.processInfo.environment
+            if ENV["GITHUB_TOKEN"]?.isEmpty == false {
+                print("Skipping on Travis CI if not already logged in")
+                goal.fulfill()
+            } else {
+                BKSession.shared.login(ENV["BILI_USER"]!, password: ENV["BILI_PASS"]!) {
+                    dump($0)
+                    fetchHiddenVideo()
                 }
             }
         }

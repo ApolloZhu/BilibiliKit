@@ -22,7 +22,10 @@ public class BKSession {
             return try? JSONDecoder().decode(BKCookie.self, from: cached)
         }
         set {
-            userDefaults.set(try? JSONEncoder().encode(newValue), forKey: cacheKey)
+            guard let cookie = try? newValue.map(JSONEncoder().encode) else {
+                return userDefaults.removeObject(forKey: cacheKey)
+            }
+            userDefaults.set(cookie, forKey: cacheKey)
         }
     }
     
@@ -41,7 +44,9 @@ public class BKSession {
     public init(identifier: String, cookie: BKCookie? = nil, userDefaults: UserDefaults = .standard) {
         self.identifier = identifier
         self.userDefaults = userDefaults
-        self.cookie = cookie
+        if let cookie = cookie {
+            self.cookie = cookie
+        }
     }
     
     /// If the current session has a user logged in.
