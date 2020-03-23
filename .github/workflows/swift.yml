@@ -1,0 +1,30 @@
+name: Swift
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: swift build -v
+    - name: Build Release
+      run: swift build -v -c release
+    - name: Run tests
+      run: swift test -v
+    - name: Publish Jazzy Docs
+    - uses: Steven0351/publish-jazzy-docs@v1.1.1
+      with:
+        # Path to .jazzy.yml file - preferred
+        config: .jazzy.yaml
+        # Arguments to pass to Jazzy
+        args: --root-url https://apollozhu.github.io/BilibiliKit/ --github-file-prefix https://github.com/ApolloZhu/BilibiliKit/blob/master
+        # Personal access token
+        personal_access_token: $GITHUB_PAGES_TOKEN
