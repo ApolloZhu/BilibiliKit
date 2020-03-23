@@ -30,16 +30,33 @@ class BilibiliKitTests: XCTestCase {
     func testVideoInfoFetching() {
         let goal = expectation(description: "Video info fetch")
         BKVideo.av(170001).getInfo { result in
-            defer { goal.fulfill() }
             switch result {
             case .success(let info):
                 print()
                 dump(info)
                 print()
+                BKVideo.bv("BV17x411w7KC").getInfo { result in
+                    defer { goal.fulfill() }
+                    switch result {
+                    case .success(let bvInfo):
+                        print()
+                        dump(bvInfo)
+                        let encoder = JSONEncoder()
+                        XCTAssertEqual(
+                            try! encoder.encode(info),
+                            try! encoder.encode(bvInfo)
+                        )
+                        print()
+                    case .failure(let error):
+                        XCTFail("No info for 170001, reason: \(error)")
+                    }
+                }
             case .failure(let error):
                 XCTFail("No info for 170001, reason: \(error)")
+                goal.fulfill()
             }
         }
+
         waitForExpectations(timeout: 60, handler: nil)
     }
     
@@ -62,7 +79,8 @@ class BilibiliKitTests: XCTestCase {
             fetchHiddenVideo()
         } else {
             let ENV = ProcessInfo.processInfo.environment
-            if ENV["GITHUB_TOKEN"]?.isEmpty == false {
+            if ENV["GITHUB_PAGES_TOKEN"]?.isEmpty == false
+                || ENV["GITHUB_TOKEN"]?.isEmpty == false {
                 print("Skipping on Travis CI if not already logged in")
                 goal.fulfill()
             } else {
