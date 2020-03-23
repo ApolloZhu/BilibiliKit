@@ -1,8 +1,9 @@
 //
-//  File.swift
-//  
+//  MD5.swift
+//  BilibiliKit
 //
 //  Created by Apollo Zhu on 12/19/19.
+//  Copyright (c) 2017-2020 ApolloZhu. MIT License.
 //
 
 import Foundation

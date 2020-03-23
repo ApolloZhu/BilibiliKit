@@ -3,7 +3,7 @@
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 4/14/19.
-//  Copyright (c) 2017-2019 ApolloZhu. MIT License.
+//  Copyright (c) 2017-2020 ApolloZhu. MIT License.
 //
 
 import Foundation
@@ -69,15 +69,21 @@ extension BKSession {
                     return handle(.failure(.responseError(reason:
                         .urlSessionError(err, response: res))))
                 }
-                handle(Result { try JSONDecoder().decode(Wrapper.self, from: data) }
-                    .mapError { BKError.parseError(reason: .jsonDecode(data, failure: $0)) }
-                    .map { [weak self] in
-                        let cookie = BKCookie(_sequence: $0.data.cookie_info.cookies
-                            .lazy.map { "\($0.name)=\($0.value)" })!
-                        self?.cookie = cookie
-                        return cookie
+                let decoder = JSONDecoder()
+                handle(Result {
+                    try decoder.decode(Wrapper.self, from: data)
+                } .mapError { error in
+                    if let message = (try? decoder.decode(BKErrorResponse.self, from: data))?.message {
+                        return BKError.responseError(reason: .reason(message))
+                    } else {
+                        return BKError.parseError(reason: .jsonDecode(data, failure: error))
                     }
-                )
+                } .map { [weak self] in
+                    let cookie = BKCookie(_sequence: $0.data.cookie_info.cookies
+                        .lazy.map { "\($0.name)=\($0.value)" })!
+                    self?.cookie = cookie
+                    return cookie
+                })
             }
             task.resume()
         }

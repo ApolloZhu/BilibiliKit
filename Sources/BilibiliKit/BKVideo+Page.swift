@@ -3,33 +3,49 @@
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 7/9/17.
-//  Copyright (c) 2017-2019 ApolloZhu. MIT License.
+//  Copyright (c) 2017-2020 ApolloZhu. MIT License.
 //
 
 import Foundation
 
 extension BKVideo {
+    /// Dimension of the video
+    public struct Dimension: Codable {
+        public let width: Int
+        public let height: Int
+        private let rotate: Int
+
+        public var isVertical: Bool {
+            return rotate != 0
+        }
+    }
+
     /// Sub page of video, identified by unique cid.
     public struct Page: Codable, Equatable {
-        /// AV number, the unique identifier of the container video.
-        public fileprivate(set) var aid: Int!
+        /// Unique identifier of this page.
+        public let cid: Int
+
         /// Index of the page.
         public let page: Int
         /// Name of the page.
         public let pageName: String
-        /// Unique identifier of this page.
-        public let cid: Int
-        
+        /// Length in seconds.
+        public let duration: Int
+        /// Video dimension.
+        public let dimension: Dimension
+
+        /// Where from, such as `vupload`.
+        public let source: String
+        /// ???
+        public let vid: String
+        ///???
+        public let weblink: String
+
         /// Coding keys to use when encoding to other formats.
-        ///
-        /// - page: page.
-        /// - cid: cid.
-        /// - pageName: pagename.
-        /// - aid: aid, but doesn't matter since it's assigned.
         enum CodingKeys: String, CodingKey {
-            case page, cid
-            case pageName = "pagename"
-            case aid
+            case cid, page, duration, dimension, vid, weblink
+            case pageName = "part"
+            case source = "from"
         }
         
         /// Check if two video pages are the same.
@@ -38,7 +54,7 @@ extension BKVideo {
         ///   - lhs: A page of a video.
         ///   - rhs: Another page, of the same or another video.
         /// - Returns: true if they have the same cid, false otherwise.
-        public static func ==(lhs: BKVideo.Page, rhs: BKVideo.Page) -> Bool {
+        public static func ==(lhs: Page, rhs: Page) -> Bool {
             return lhs.cid == rhs.cid
         }
     }
@@ -51,26 +67,8 @@ extension BKVideo {
     ///
     /// - Parameter handler: code to perform on the pages.
     public func pages(handler: @escaping BKHandler<[Page]>) {
-        let pagesInfoURL = "https://www.bilibili.com/widget/getPageList?aid=\(aid)" as URL
-        let task = URLSession._bk.dataTask(with: pagesInfoURL)
-        { [aid] data,res,err in
-            guard let data = data else {
-                return handler(.failure(.responseError(
-                    reason: .urlSessionError(err, response: res))))
-            }
-            handler(Result { try JSONDecoder().decode([Page].self, from: data) }
-                .mapError { .parseError(reason: .jsonDecode(data, failure: $0)) }
-                .flatMap { var pages = $0
-                    guard !pages.isEmpty else {
-                        return .failure(.responseError(reason: .emptyJSONResponse))
-                    }
-                    for index in pages.indices {
-                        pages[index].aid = aid
-                    }
-                    return .success(pages)
-            })
-        }
-        task.resume()
+        let url = "https://api.bilibili.com/x/player/pagelist?\(self)"
+        URLSession.get(url, unwrap: BKWrapperMessage<[Page]>.self, then: handler)
     }
 
     /// Fetch the first page of video and perform action over.

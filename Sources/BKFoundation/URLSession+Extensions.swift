@@ -3,7 +3,7 @@
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 12/31/17.
-//  Copyright (c) 2017-2019 ApolloZhu. MIT License.
+//  Copyright (c) 2017-2020 ApolloZhu. MIT License.
 //
 
 import Foundation
@@ -18,6 +18,16 @@ public protocol BKWrapper: Codable {
     var data: Wrapped? { get }
     /// Response description
     var message: String { get }
+}
+
+public struct BKErrorResponse: Decodable, Error, LocalizedError {
+    // let ts: Int
+    public let code: Int
+    public let message: String
+
+    public var errorDescription: String? {
+        return message
+    }
 }
 
 /// Response by middleware where message is keyed as message.

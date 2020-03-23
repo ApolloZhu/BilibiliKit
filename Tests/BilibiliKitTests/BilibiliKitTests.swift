@@ -3,7 +3,7 @@
 //  BilibiliKit
 //
 //  Created by Apollo Zhu on 12/13/17.
-//  Copyright (c) 2017-2019 ApolloZhu. MIT License.
+//  Copyright (c) 2017-2020 ApolloZhu. MIT License.
 //
 
 #if !os(watchOS)
@@ -29,7 +29,7 @@ class BilibiliKitTests: XCTestCase {
 
     func testVideoInfoFetching() {
         let goal = expectation(description: "Video info fetch")
-        BKVideo(av: 170001).getInfo { result in
+        BKVideo.av(170001).getInfo { result in
             defer { goal.fulfill() }
             switch result {
             case .success(let info):
@@ -46,7 +46,7 @@ class BilibiliKitTests: XCTestCase {
     func testHiddenVideoInfoFetching() {
         let goal = expectation(description: "Hidden video info fetch")
         func fetchHiddenVideo() {
-            BKVideo(av: 5510557).getInfo { result in
+            BKVideo.av(5510557).getInfo { result in
                 defer { goal.fulfill() }
                 switch result {
                 case .success(let info):
@@ -80,7 +80,7 @@ class BilibiliKitTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         let goal = expectation(description: "Video page information fetch")
-        BKVideo(av: 8993458).p1 { result in
+        BKVideo.av(8993458).p1 { result in
             defer { goal.fulfill() }
             switch result {
             case .success(let page):
@@ -270,6 +270,12 @@ class BilibiliKitTests: XCTestCase {
             print()
             print()
         }
+    }
+
+    func testAVBVConvert() {
+        XCTAssertEqual(BKVideo.bv("BV17x411w7KC"), BKVideo.av(170001))
+        XCTAssertEqual(BKVideo.bv("BV1Q541167Qg"), BKVideo.av(455017605))
+        XCTAssertEqual(BKVideo.bv("BV1mK4y1C7Bz"), BKVideo.av(882584971))
     }
 
     static var allTests = [
