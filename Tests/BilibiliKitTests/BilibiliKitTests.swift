@@ -56,7 +56,6 @@ class BilibiliKitTests: XCTestCase {
                 goal.fulfill()
             }
         }
-
         waitForExpectations(timeout: 60, handler: nil)
     }
     
@@ -303,6 +302,46 @@ class BilibiliKitTests: XCTestCase {
         XCTAssertEqual(BKVideo.av(87854625), BKVideo.bv("BV1574114794"))
     }
 
+    func testLiveRoomFetching() {
+        let goal = expectation(description: "Live room info fetch")
+        BKLiveRoom(421622).getInfo { (result) in
+            defer { goal.fulfill() }
+            switch result {
+            case .success(let info):
+                print()
+                dump(info)
+                print()
+            case .failure(let error):
+                dump(error)
+                XCTFail("No live room info")
+            }
+        }
+        waitForExpectations(timeout: 60, handler: nil)
+    }
+
+    func testNonExistentLiveRoomFetching() {
+        let goal = expectation(description: "Empty live room fail as expected")
+        BKLiveRoom(-1).getInfo { (result) in
+            defer { goal.fulfill() }
+            switch result {
+            case .success(let info):
+                print()
+                dump(info)
+                print()
+                XCTFail("Found info above while expeting .emptyField")
+            case .failure(let error):
+                print()
+                switch error {
+                case .responseError(reason: .emptyField):
+                    break
+                default:
+                    XCTFail("Found \(error) while expecting .emptyField")
+                }
+            }
+        }
+        waitForExpectations(timeout: 60, handler: nil)
+    }
+
     static var allTests = [
         ("testAppkeyFetching", testAppkeyFetching),
         ("testVideoInfoFetching", testVideoInfoFetching),
@@ -313,6 +352,7 @@ class BilibiliKitTests: XCTestCase {
         ("testCollaborativeAudioFetching", testCollaborativeAudioFetching),
         ("testUserInfoFetching", testUserInfoFetching),
         ("testAVBVConvert", testAVBVConvert),
+        ("testLiveRoomFetching", testLiveRoomFetching),
     ]
 }
 #endif

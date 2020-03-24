@@ -10,6 +10,7 @@ import Foundation
 import Dispatch
 
 extension BKSession {
+    /// Manages login into bilibili with QRCode
     public class QRCodeLoginHelper {
         /// Initialize a new login helper.
         public init() { }
@@ -114,7 +115,7 @@ extension BKSession {
     }
 }
 
-// MARK: Login URL Fetching
+// MARK: - Login URL Fetching
 extension BKSession.QRCodeLoginHelper {
     /// Only valid for 3 minutes
     public struct LoginURL: Codable {
@@ -141,9 +142,11 @@ extension BKSession.QRCodeLoginHelper {
         }
         task.resume()
     }
+}
     
-    // MARK: Login Info Fetching
-    
+// MARK: - Login Info Fetching
+extension BKSession.QRCodeLoginHelper {
+    /// Wrapper for fetching login info.
     fileprivate struct LoginInfo: Codable {
         /// If has login info.
         /// Set-Cookie if true.
@@ -154,7 +157,8 @@ extension BKSession.QRCodeLoginHelper {
         /// Login process status explaination.
         let message: String
     }
-    
+
+    /// Stage during login process.
     public enum LoginState {
         case errored
         case started

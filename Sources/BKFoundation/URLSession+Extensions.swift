@@ -11,17 +11,24 @@ import Foundation
 /// Generic handler type for all requests.
 public typealias BKHandler<T> = (Result<T, BKError>) -> Void
 
+/// Codable response from bilibili.
+public typealias BKWrapper = Decodable
+
 /// Response by bilibili middleware
-public protocol BKWrapper: Codable {
+public protocol BKDataWrapper: BKWrapper {
     associatedtype Wrapped: Codable
     /// Actual data
     var data: Wrapped? { get }
-    /// Response description
+}
+
+/// Response by bilibili middleware, but with message
+public protocol BKMessagedWrapper: BKWrapper {
+    /// Response description.
     var message: String { get }
 }
 
 /// Response by bilibili middleware for errors.
-public struct BKErrorResponse: Decodable, Error, LocalizedError {
+public struct BKErrorResponse: BKMessagedWrapper, Error, LocalizedError {
     // let ts: Int
     /// Error code.
     public let code: Int
@@ -35,25 +42,26 @@ public struct BKErrorResponse: Decodable, Error, LocalizedError {
 }
 
 /// Response by middleware where message is keyed as message.
-public struct BKWrapperMessage<Wrapped: Codable>: BKWrapper {
-    /// Status code
+public struct BKWrapperMessage<Wrapped: Codable>: BKDataWrapper, BKMessagedWrapper {
+    /// Status code.
     public let code: Int
-    /// Response description
+    /// Response description.
     public let message: String
-    /// Actual data
+    /// Actual data.
     public let data: Wrapped?
 }
 
 /// Response by middleware where message is keyed as msg.
-public struct BKWrapperMsg<Wrapped: Codable>: BKWrapper {
-    /// Status code
+public struct BKWrapperMsg<Wrapped: Codable>: BKDataWrapper {
+    /// Status code.
     public let code: Int
-    let msg: String
-    /// Actual data
+    /// Response description.
+    fileprivate let msg: String
+    /// Actual data.
     public let data: Wrapped?
 }
 
-extension BKWrapperMsg {
+extension BKWrapperMsg: BKMessagedWrapper {
     /// Response description
     public var message: String { return msg }
 }
@@ -69,7 +77,7 @@ extension URLSession {
     ///   - session: session containing cookie identifying current user.
     ///   - wrapperType: type containing `Wrapped` data field.
     ///   - handler: code to process an optional `Wrapped` instance.
-    public class func get<Wrapper: BKWrapper>(
+    public class func get<Wrapper: BKDataWrapper>(
         _ url: String,
         session: BKSession = .shared,
         unwrap wrapperType: Wrapper.Type,
@@ -88,7 +96,7 @@ extension URLSession {
     ///   - request: request to complete.
     ///   - wrapperType: type containing `Wrapped` data field.
     ///   - handler: code to process an optional `Wrapped` instance.
-    public class func get<Wrapper: BKWrapper>(
+    public class func get<Wrapper: BKDataWrapper>(
         _ request: URLRequest,
         unwrap wrapperType: Wrapper.Type,
         then handler: @escaping BKHandler<Wrapper.Wrapped>)
@@ -100,8 +108,11 @@ extension URLSession {
             }
             handler(Result { try JSONDecoder().decode(Wrapper.self, from: data) }
                 .mapError { BKError.parseError(reason: .jsonDecode(data, failure: $0)) }
-                .flatMap { $0.data.map { .success($0) }
-                    ?? .failure(.responseError(reason: .reason($0.message)))
+                .flatMap {
+                    $0.data.map { .success($0) }
+                        ?? ($0 as? BKMessagedWrapper)
+                            .map { .failure(BKError.responseError(reason: .reason($0.message))) }
+                        ?? .failure(BKError.responseError(reason: .emptyField))
             })
         }
         task.resume()

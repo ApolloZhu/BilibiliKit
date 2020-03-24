@@ -10,17 +10,15 @@ import Foundation
 
 public enum PlaybackCount: Codable {
     public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        do {
-            let count = try container.decode(Int.self)
+        switch try _Either<Int, String>(from: decoder) {
+        case .left(let count):
             self = .times(count)
-        } catch {
-            let string = try container.decode(String.self)
+        case .right(let string):
             if string == "--" {
                 self = .notAvailable
             } else {
-                throw DecodingError.typeMismatch(Int.self, DecodingError.Context(
-                    codingPath: [], debugDescription:
+                throw DecodingError.typeMismatch(Int.self, .init(
+                    codingPath: decoder.codingPath, debugDescription:
                     #"Expecting either an integer or "--". Neither is found."#))
             }
         }

@@ -34,7 +34,8 @@ extension BKLiveRoom {
         public let title: String
         /// Might be empty string.
         public let userChosenCoverImageURL: String
-        public let keyframeSnapshotURL: URL
+        /// Might be empty string
+        public let keyframeSnapshotURL: String
         // let is_strict_room: Bool
         /// When started. e.g. 2018-05-12 00:00:00
         // let live_time: String
@@ -52,24 +53,47 @@ extension BKLiveRoom {
          let pendants: String
          let area_pendants: String
          let hot_words: [String]
+         let hot_words_status: Int
          */
         /// Verified official name.
         public let verifiedIdentity: String
         /*
          "new_pendants": {
-         "frame": null,
-         "badge": {
-         "name": "v_company",
-         "position": 3,
-         "value": "",
-         "desc": "哔哩哔哩直播 官方账号"
+             "frame": {
+                 "name": "",
+                 "value": "",
+                 "position": 0,
+                 "desc": "",
+                 "area": 0,
+                 "area_old": 0,
+                 "bg_color": "",
+                 "bg_pic": "",
+                 "use_old_area": false
+             },
+             "badge": null,
+             "mobile_frame": {
+                 "name": "",
+                 "value": "",
+                 "position": 0,
+                 "desc": "",
+                 "area": 0,
+                 "area_old": 0,
+                 "bg_color": "",
+                 "bg_pic": "",
+                 "use_old_area": false
+             },
+             "mobile_badge": null
          },
-         "mobile_frame": null,
-         "mobile_badge": null
-         },
-         let up_session: String
-         let allow_change_area_time: Int
-         let allow_upload_cover_time: Int
+         "up_session": "",
+         "pk_status": 0,
+         "pk_id": 0,
+         "battle_id": 0,
+         "allow_change_area_time": 0,
+         "allow_upload_cover_time": 0,
+         "studio_info": {
+             "status": 0,
+             "master_list": []
+         }
          */
         
         enum CodingKeys: String, CodingKey {
@@ -91,30 +115,32 @@ extension BKLiveRoom {
 extension BKLiveRoom.Info {
     /// The actual cover image in use.
     public var coverImageURL: URL {
-        return URL(string: userChosenCoverImageURL) ?? keyframeSnapshotURL
+        return URL(string: userChosenCoverImageURL)
+            ?? URL(string: keyframeSnapshotURL)
+            ?? .notFound
     }
 }
 
 // MARK: - Networking
 
 extension BKLiveRoom {
-    private struct Wrapper: BKWrapper {
-        /// 0 or error code.
-        let code: Int
-        /// "ok" or error message.
-        let msg: String
-        /// "ok" or error message.
-        let message: String
-        /// Info or empty array.
-        let data: Info?
-    }
-    
     /// Fetchs and passes this live room's info to `handler`.
     ///
     /// - Parameters:
     ///   - handler: code to process an optional `Info`.
     public func getInfo(then handler: @escaping BKHandler<Info>) {
         let url = "https://api.live.bilibili.com/room/v1/Room/get_info?room_id=\(id)"
-        URLSession.get(url, unwrap: Wrapper.self, then: handler)
+        URLSession.get(url, unwrap: BKWrapperMessage<_Either<Info, [String]>>.self ) {
+            handler($0.flatMap { either in
+                switch either {
+                case .left(let info):
+                    return .success(info)
+                case .right(let emptyArray):
+                    return emptyArray.isEmpty
+                        ? .failure(.responseError(reason: .emptyField))
+                        : .failure(.parseError(reason: .dataEncodeFailure))
+                }
+            })
+        }
     }
 }

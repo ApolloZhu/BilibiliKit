@@ -20,7 +20,7 @@ let package = Package(
     targets: [
         .target(
             name: "BilibiliKit",
-            dependencies: ["BKSecurity"]),
+            dependencies: ["BKFoundation", "BKSecurity"]),
         .target(
             name: "BKSecurity",
             dependencies: [

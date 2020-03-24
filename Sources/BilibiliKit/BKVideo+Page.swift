@@ -15,7 +15,7 @@ extension BKVideo {
         public let height: Int
         private let rotate: Int
 
-        public var isVertical: Bool {
+        public var isPortrait: Bool {
             return rotate != 0
         }
     }
