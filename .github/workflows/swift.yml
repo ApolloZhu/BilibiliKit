@@ -28,4 +28,4 @@ jobs:
         # Path to .jazzy.yml file - preferred
         config: .jazzy.yaml
         # Personal access token
-        personal_access_token: ${{ secrets.GITHUB_TOKEN }}
+        personal_access_token: ${{ secrets.GITHUB_PAGES_TOKEN }}

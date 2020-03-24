@@ -16,8 +16,8 @@ extension URL: ExpressibleByStringInterpolation {
         self.init(string: value)!
     }
 
-    @available(swift, deprecated: 3.0, obsoleted: 5.0, renamed: "inHTTPS")
     /// Deprecated, use `inHTTPS` instead.
+    @available(*, unavailable, renamed: "inHTTPS")
     public var inHttps: URL? { return inHTTPS }
 
     /// Returns a new url with this url's scheme set to https,

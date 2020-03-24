@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Cookie required to post danmaku
+/// Cookie required to post danmaku.
 public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
     /// Initialize a Cookie from a dictionary literal,
     /// fatalError if failed to provide all necessary components.
@@ -23,7 +23,6 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
             , let sum = get(CodingKeys.md5Sum.stringValue)
             , let data = get(CodingKeys.sessionData.stringValue)
             , let csrf = get(CodingKeys.csrf.stringValue)
-            // FIXME: Can not return nil here from some reason...
             else { fatalError("Missing components from BKCookie dictionary literal") }
         self.init(DedeUserID: mid, DedeUserID__ckMd5: sum, SESSDATA: data, bili_jct: csrf)
     }
@@ -109,7 +108,11 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
         let splited = headerField.components(separatedBy: separator)
         self.init(_sequence: splited)
     }
-    
+
+    /// Initialize a BKCookie based on a sequence of raw cookies.
+    ///
+    /// - Warning: doesn't work if your value contains the character `=`.
+    /// - Parameter _sequence: a sequence of cookie strings with format `key=value`.
     public init?<AnySequence: Sequence>(_sequence: AnySequence)
         where AnySequence.Element: StringProtocol {
         var dict = [String: String]()
@@ -143,8 +146,8 @@ public struct BKCookie: Codable, ExpressibleByDictionaryLiteral {
     /// works better and more efficient.
     public init?(httpCookies: [HTTPCookie]) {
         var usefulCookies = [String: String]()
-        for cookie in httpCookies where cookie.domain.hasSuffix("bilibili.com") &&
-            CodingKeys.allCases.contains(where: { $0.rawValue == cookie.name }) {
+        for cookie in httpCookies where cookie.domain.hasSuffix("bilibili.com")
+            && CodingKeys.allCases.contains(where: { $0.rawValue == cookie.name }) {
                 usefulCookies[cookie.name] = cookie.value
         }
         self.init(dictionary: usefulCookies)

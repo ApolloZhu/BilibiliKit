@@ -20,11 +20,15 @@ public protocol BKWrapper: Codable {
     var message: String { get }
 }
 
+/// Response by bilibili middleware for errors.
 public struct BKErrorResponse: Decodable, Error, LocalizedError {
     // let ts: Int
+    /// Error code.
     public let code: Int
+    /// Error message.
     public let message: String
 
+    /// A localized message describing what error occurred.
     public var errorDescription: String? {
         return message
     }

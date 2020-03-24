@@ -81,13 +81,13 @@ extension BKUser.Info {
     }
 
     /// 用户等级
-    @available(swift, deprecated: 5.0, renamed: "level")
+    @available(*, unavailable, renamed: "level")
     public var currentLevel: Int {
         return level
     }
 
     /// 小号头图
-    @available(swift, deprecated: 5.0, renamed: "coverImage")
+    @available(*, unavailable, renamed: "coverImage")
     public var coverImageSmall: URL {
         return coverImage
     }

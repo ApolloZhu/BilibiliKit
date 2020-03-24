@@ -12,11 +12,14 @@ import Foundation
 public enum BKApp {
     /// APPKEY from bilibili website.
     public static let appkey = "4409e2ce8ffd12b8"
+    /// The secret to go along with `appkey`.
     public static let salt = "59b43e04ad6965f34319062b478f83dd"
     
     // MARK: - Dynamic Fetching
-    
+
+    /// Regular expression for app key extraction.
     private static let regex = try! NSRegularExpression(pattern: "appkey=([^&]+)&")
+    /// URL where an appkey can be found.
     private static let playerURL: URL = "https://www.bilibili.com/blackboard/player.html"
     
     /// Fetch a valid appkey from bilibili.

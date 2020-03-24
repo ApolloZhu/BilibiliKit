@@ -59,11 +59,6 @@ extension BKVideo {
         public let bvid: String
         /// AV 号
         public let aid: Int
-        /// 分 P 数量
-        @available(*, renamed: "pages.count")
-        public var pagesCount: Int {
-            return pages.count // "videos"
-        }
         /// 分区 ID
         public let tid: Int
         /// 分区
@@ -180,6 +175,11 @@ extension BKVideo {
 // MARK: Migration
 
 extension BKVideo.Info {
+    /// 分 P 数量
+    @available(*, unavailable, renamed: "pages.count")
+    public var pagesCount: Int {
+        return pages.count // "videos"
+    }
     /// 创建时间
     public var creatAtTimestamp: String {
         let formatter = DateFormatter()
@@ -188,12 +188,12 @@ extension BKVideo.Info {
         return formatter.string(from: date)
     }
     /// UP 主 ID
-    @available(*, renamed: "author.mid")
+    @available(*, unavailable, renamed: "author.mid")
     public var mid: Int {
         return author.mid
     }
     /// UP 主头像
-    @available(*, renamed: "author.faceURL")
+    @available(*, unavailable, renamed: "author.faceURL")
     public var authorFaceURL: URL {
         return author.faceURL
     }
@@ -223,7 +223,7 @@ extension BKVideo {
     ///   - aid: av number of the video.
     ///   - key: APPKEY from bilibili.
     ///   - handler: code to process optional `Info`.
-    @available(*, renamed: "BKVideo.av.getInfo(then:)")
+    @available(*, unavailable, renamed: "BKVideo.av.getInfo(then:)")
     public static func getInfo(
         of aid: Int, withAppkey key: String,
         in session: BKSession = .shared,
