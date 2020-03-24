@@ -6,4 +6,5 @@
 //  Copyright (c) 2017-2020 ApolloZhu. MIT License.
 //
 
+/// Security related algorithms.
 public enum BKSec { }

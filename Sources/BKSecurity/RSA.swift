@@ -16,8 +16,14 @@ import Security
 #endif
 
 public extension BKSec {
-    /// Copyright (c) 2015 Scoop Technologies, Inc.
+    /// Compute the digest using RSA PKCS1.
+    ///
+    /// - Copyright: Copyright (c) 2015 Scoop Technologies, Inc.
     /// [MIT License](https://github.com/TakeScoop/SwiftyRSA/blob/master/LICENSE).
+    ///
+    /// - Parameters:
+    ///   - string: the data to be encrypted.
+    ///   - publicKey: contents of a `.pem` file.
     static func rsaEncrypt(_ string: String, with publicKey: String) -> Result<String, BKError> {
         guard let stringData = string.data(using: .utf8) else {
             return .failure(.implementationError(reason: .invalidDataEncoding))
@@ -35,7 +41,13 @@ public extension BKSec {
     }
 
     #if canImport(Security)
-    private static func encrypt_Sec(_ stringData: Data, keyData: Data) -> Result<String, BKError> {
+    /// Calculates digest using RSA PCKS1.
+    /// - Parameters:
+    ///   - stringData: string to find digest for.
+    ///   - keyData: public key data.
+    private static func encrypt_Sec(
+        _ stringData: Data, keyData: Data
+    ) -> Result<String, BKError> {
         var error: Unmanaged<CFError>? = nil
         var errorDescription: String {
             return (error!.takeRetainedValue() as Error).localizedDescription

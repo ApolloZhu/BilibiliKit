@@ -22,6 +22,10 @@ import CommonCrypto
 #endif
 
 extension BKSec {
+    /// Calculates digest using md5.
+    /// - Parameters:
+    ///   - string: the string to calculate md5 for.
+    ///   - salt: salt to append after `string`. Defaults to `BKApp.salt`.
     public static func md5Hex(_ string: String, withSalt salt: String = BKApp.salt) -> Result<String, BKError> {
         guard let data = (string + salt).data(using: .utf8) else {
             return .failure(.parseError(reason: .dataEncodeFailure))
@@ -48,6 +52,7 @@ extension BKSec {
 }
 
 extension Sequence where Element == UInt8 {
+    /// Converts bytes to hex representation.
     var hexString: String {
         return reduce(into: "") { $0 += String(format: "%02hhx", $1) }
     }
@@ -55,6 +60,8 @@ extension Sequence where Element == UInt8 {
 
 extension BKSec {
     #if canImport(CryptoKit)
+    /// Calculate MD5 using CryptoKit.
+    /// - Parameter data: the data to run through md5.
     @available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, watchOS 6.0,  *)
     static func md5Hex_CK(_ data: Data) -> Result<String, BKError> {
         return .success(Insecure.MD5.hash(data: data).hexString)
@@ -62,13 +69,19 @@ extension BKSec {
     #endif
 
     #if !canImport(CryptoKit) && canImport(Crypto)
+    /// Calculate MD5 using Swift Crypto.
+    /// - Parameter data: the data to run through md5.
     static func md5Hex_SC(_ data: Data) -> Result<String, BKError> {
         return .success(Insecure.MD5.hash(data: data).hexString)
     }
     #endif
 
     #if canImport(CommonCrypto)
-    /// https://stackoverflow.com/questions/32163848/how-can-i-convert-a-string-to-an-md5-hash-in-ios-using-swift/32166735#32166735
+    /// Calculate MD5 using Common Crypto.
+    ///
+    /// - Author: [StackOverflow](https://stackoverflow.com/questions/32163848/how-can-i-convert-a-string-to-an-md5-hash-in-ios-using-swift/32166735#32166735)
+    ///
+    /// - Parameter data: the data to run through md5.
     @available(iOS, introduced: 2.0, deprecated: 13.0, message: "You should never see this warning.")
     @available(macOS, introduced: 10.4, deprecated: 10.15, message: "You should never see this warning.")
     @available(tvOS, introduced: 9.0, deprecated: 13.0, message: "You should never see this warning.")

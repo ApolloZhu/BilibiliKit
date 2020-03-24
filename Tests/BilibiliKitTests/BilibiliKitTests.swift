@@ -293,9 +293,14 @@ class BilibiliKitTests: XCTestCase {
     }
 
     func testAVBVConvert() {
+        XCTAssertEqual(BKVideo.av(170001), BKVideo.av(170001))
         XCTAssertEqual(BKVideo.bv("BV17x411w7KC"), BKVideo.av(170001))
         XCTAssertEqual(BKVideo.bv("BV1Q541167Qg"), BKVideo.av(455017605))
         XCTAssertEqual(BKVideo.bv("BV1mK4y1C7Bz"), BKVideo.av(882584971))
+        XCTAssertEqual(BKVideo.av(465235), BKVideo.bv("BV1Kx411c7f5"))
+        XCTAssertEqual(BKVideo.av(10000000), BKVideo.bv("BV1Ex411U7PA"))
+        XCTAssertEqual(BKVideo.av(82054919), BKVideo.bv("BV1XJ41157tQ"))
+        XCTAssertEqual(BKVideo.av(87854625), BKVideo.bv("BV1574114794"))
     }
 
     static var allTests = [
@@ -306,7 +311,8 @@ class BilibiliKitTests: XCTestCase {
         ("testAudioFail", testAudioFail),
         ("testAudioSingleFetching", testAudioSingleFetching),
         ("testCollaborativeAudioFetching", testCollaborativeAudioFetching),
-        ("testUserInfoFetching", testUserInfoFetching)
+        ("testUserInfoFetching", testUserInfoFetching),
+        ("testAVBVConvert", testAVBVConvert),
     ]
 }
 #endif
