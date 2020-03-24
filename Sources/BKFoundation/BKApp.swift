@@ -11,8 +11,8 @@ import Foundation
 /// APPKEY associated operations
 public enum BKApp {
     /// APPKEY from bilibili website.
-    public static let appkey = "1d8b6e7d45233436"
-    public static let salt = "560c52ccd288fed045859ed18bffd973"
+    public static let appkey = "4409e2ce8ffd12b8"
+    public static let salt = "59b43e04ad6965f34319062b478f83dd"
     
     // MARK: - Dynamic Fetching
     

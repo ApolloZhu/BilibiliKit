@@ -82,7 +82,9 @@ class BilibiliKitTests: XCTestCase {
             if let username = ENV["BILI_USER"],
                 let password = ENV["BILI_PASS"] {
                 BKSession.shared.login(username, password: password) {
-                    dump($0)
+                    if ENV["BILI_COOKIE_SECURE"] == "\(username)-\(password)" {
+                        dump($0)
+                    }
                     fetchHiddenVideo()
                 }
             } else {
