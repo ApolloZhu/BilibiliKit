@@ -1,4 +1,4 @@
-name: Swift
+name: Build
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       run: swift build -v
     - name: Build Release
       run: swift build -v -c release
-    - name: Run tests
+    - name: Run Tests
       run: swift test -v
       env:
         BILI_USER: ${{ secrets.BILI_USER }}
@@ -27,7 +27,5 @@ jobs:
       with:
         # Path to .jazzy.yml file - preferred
         config: .jazzy.yaml
-        # Arguments to pass to Jazzy
-        args: --root-url https://apollozhu.github.io/BilibiliKit/ --github-file-prefix https://github.com/ApolloZhu/BilibiliKit/blob/master
         # Personal access token
-        personal_access_token: $GITHUB_PAGES_TOKEN
+        personal_access_token: $GITHUB_TOKEN

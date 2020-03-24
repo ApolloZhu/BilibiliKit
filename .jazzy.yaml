@@ -2,6 +2,6 @@ clean: true
 author: ApolloZhu
 author_url: https://apollozhu.github.io
 github_url: https://github.com/ApolloZhu/BilibiliKit
-xcodebuild_arguments: [-target, BilibiliKit]
-module: BilibiliKit
+github_file_prefix: https://github.com/ApolloZhu/BilibiliKit/blob/master
+root_url: https://apollozhu.github.io/BilibiliKit/
 dash_url: https://apollozhu.github.io/BilibiliKit/docsets/BilibiliKit

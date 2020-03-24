@@ -15,13 +15,12 @@ script:
 
 before_deploy:
   - sudo gem install jazzy
-  - swift package generate-xcodeproj
-  - jazzy --root-url https://apollozhu.github.io/BilibiliKit/ --github-file-prefix https://github.com/ApolloZhu/BilibiliKit/blob/master
+  - jazzy spm
 deploy:
   provider: pages
   skip_cleanup: true
   local_dir: docs
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  github_token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard
   on:
     branch: master
     condition: $TRAVIS_OS_NAME = osx

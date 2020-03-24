@@ -34,7 +34,7 @@ extension BKVideo {
         public let evaluation: String
     }
 
-    public class ArchiveStat: _BaseStat {
+    public final class ArchiveStat: _BaseStat {
         /// BV 号
         public private(set) var bvid: String = ""
         /// ???
@@ -44,10 +44,10 @@ extension BKVideo {
         /// 2：转载
         public private(set) var copyright: Int = -1
         /// 是否禁止转载
-        public let no_reprint: Int = -1
+        public private(set) var no_reprint: Int = -1
     }
 
-    public class InfoStat: _BaseStat {
+    public final class InfoStat: _BaseStat {
         /// 踩次数
         public private(set) var dislike: Int = 0
     }
@@ -60,6 +60,9 @@ extension BKVideo {
         URLSession.get(url, unwrap: BKWrapperMessage<ArchiveStat>.self, then: handler)
     }
 
+    /// In case if local conversion fails, this fetches the real IDs.
+    ///
+    /// - Parameter handler: process real aid and bvid
     public func getIDs(then handler: @escaping BKHandler<(aid: Int, bvid: String)>) {
         getStat { (result) in
             handler(result.map { (aid: $0.aid, bvid: $0.bvid) })
