@@ -84,47 +84,50 @@ extension BKVideo {
         /// 0 不是 1 是
         private struct Flags: Codable {
             /// 是番剧
-            let bp: Int
+            private let bp: Int
             /// 能充电
-            let elec: Int
+            private let elec: Int
             /// 能下载
-            let download: Int
+            private let download: Int
             /// 是电影
-            let movie: Int
+            private let movie: Int
             /// 需要付费观看（官方）
-            let pay: Int
+            private let pay: Int
             /// ???
-            let hd5: Int
+            private let hd5: Int
             /// 禁止转载
-            let no_reprint: Int
+            private let no_reprint: Int
             /// 能自动播放
-            let autoplay: Int
+            private let autoplay: Int
             /// 需要付费观看（用户）
-            let ugc_pay: Int
+            private let ugc_pay: Int
             /// ???
-            let is_cooperation: Int
+            private let is_cooperation: Int
             /// 是付费观看预览（用户）
-            let ugc_pay_preview: Int
+            private let ugc_pay_preview: Int
             /// 禁止后台播放
-            let no_background: Int
+            private let no_background: Int
         }
         /// UP 主
         public let author: Author
+        /// UP 主信息
         public struct Author: Codable {
             /// UP 主 ID
-            let mid: Int
+            public let mid: Int
             /// UP 主名字
-            let name: String
+            public let name: String
             /// UP 主头像
-            let faceURL: URL
+            public let faceURL: URL
             enum CodingKeys: String, CodingKey {
                 case mid, name
                 case faceURL = "face"
             }
         }
+        /// 统计数据
         public let stat: InfoStat
         /// 动态？
         public let dynamic: String
+        /// 当前分 P ID
         public let cid: Int
         /// 视频尺寸
         public let dimension: Dimension
@@ -160,11 +163,16 @@ extension BKVideo {
                 public let is_deleted: Int
             }
         }
+        /// 字幕相关信息
         public struct Subtitles: Codable {
-            /// 允许观众提交字幕
-            let allow_submit: Bool
-            let list: [Subtitle]
-
+            /// 是否允许观众提交字幕
+            public let allowContribution: Bool
+            /// 字幕列表
+            public let list: [Subtitle]
+            enum CodingKeys: String, CodingKey {
+                case allowContribution = "allow_submit"
+                case list
+            }
         }
     }
 
