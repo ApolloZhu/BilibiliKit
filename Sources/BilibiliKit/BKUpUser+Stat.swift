@@ -9,23 +9,28 @@
 import Foundation
 
 extension BKUpUser {
-    /// Statistics of the
+    /// Statistics of the user.
     public struct Stat: Codable {
         private struct View: Codable {
+            /// The actual number
             fileprivate let view: Int
         }
+        /// 视频播放数
         private let archive: View
+        /// 文章阅读数
         private let article: View
+        /// 获点赞数量
+        public let likes: Int
     }
 }
 
 extension BKUpUser.Stat {
-    /// 播放数
-    public var archiveView: Int {
+    /// 视频播放数
+    public var videoPlaybackCount: Int {
         return archive.view
     }
-    /// 阅读数
-    public var articleView: Int {
+    /// 文章阅读数
+    public var articleViewCount: Int {
         return article.view
     }
 }

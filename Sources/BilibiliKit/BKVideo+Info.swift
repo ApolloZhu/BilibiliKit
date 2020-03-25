@@ -45,12 +45,13 @@ extension BKVideo {
         enum CodingKeys: String, CodingKey {
             case bvid, aid, tid, copyright, title
             case pubdate, ctime, state, attribute
-            case duration, rights, stat, dynamic
+            case duration, rights, dynamic
             case cid, dimension, no_cache, pages
             case type = "tname"
             case coverImageURL = "pic"
             case description = "desc"
             case author = "owner"
+            case statistics = "stat"
             case subtitles = "subtitle"
         }
         /// BV 号
@@ -124,7 +125,7 @@ extension BKVideo {
             }
         }
         /// 统计数据
-        public let stat: InfoStat
+        public let statistics: InfoStat
         /// 动态？
         public let dynamic: String
         /// 当前分 P ID

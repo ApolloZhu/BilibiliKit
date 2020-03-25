@@ -6,7 +6,7 @@
 //  Copyright (c) 2017-2020 ApolloZhu. MIT License.
 //
 
-/// Bilibili article, identified by unique id.
+/// Bilibili article, identified by unique cv id.
 public struct BKArticle: Equatable {
     /// The unique identifier of the article.
     public let id: Int

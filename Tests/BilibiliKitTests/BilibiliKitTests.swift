@@ -116,7 +116,7 @@ class BilibiliKitTests: XCTestCase {
         let info = expectation(description: "Nonexisting audio info fetch")
         audio.getInfo { result in
             defer { info.fulfill() }
-            guard case .failure = result else {
+            guard case .failure(.responseError(reason: .emptyField)) = result else {
                 return XCTFail("Valid info for invalid audio 0")
             }
         }
@@ -141,7 +141,37 @@ class BilibiliKitTests: XCTestCase {
         print()
     }
 
-    func testAudioSingleFetching() {
+    func testAudioAccessDeny() {
+        let audio = BKAudio(au: 360363)
+        let info = expectation(description: "Region limited audio info fetch")
+        audio.getInfo { result in
+            defer { info.fulfill() }
+            guard case .failure(.responseError(reason: .accessDenied)) = result else {
+                return XCTFail("Are you in mainland China?")
+            }
+        }
+//        let staff = expectation(description: "Nonexisting audio staff fetch")
+//        audio.getStaffList { result in
+//            defer { staff.fulfill() }
+//            switch result {
+//            case .failure(let error):
+//                print("Successfully errored: \(error)")
+//            case .success(let list):
+//                XCTFail("Found \(list) while no staff is expected")
+//            }
+//        }
+//        let urls = expectation(description: "Nonexisting audio url fetch")
+//        audio.getURLs { result in
+//            defer { urls.fulfill() }
+//            guard case .failure = result else {
+//                return XCTFail("Valid url for invalid audio 0")
+//            }
+//        }
+        waitForExpectations(timeout: 60, handler: nil)
+        print()
+    }
+
+    func testSoloAudioFetching() {
         let audio = BKAudio(au: 195471)
         let info = expectation(description: "Single audio info fetch")
         audio.getInfo { result in
@@ -180,7 +210,7 @@ class BilibiliKitTests: XCTestCase {
     }
 
     func testCollaborativeAudioFetching() {
-        for sid in [418827, 729124] {
+        for sid in [418827, 729124, 736986] {
             let audio = BKAudio(au: sid)
             let info = expectation(description: "Collaborative audio info fetch")
             audio.getInfo { result in
@@ -188,8 +218,10 @@ class BilibiliKitTests: XCTestCase {
                 switch result {
                 case .success(let audioInfo):
                     dump(audioInfo)
-                    XCTAssertNotNil(audioInfo.lyrics)
-                    print(audioInfo.lyrics!)
+                    if sid != 736986 {
+                        XCTAssertNotNil(audioInfo.lyrics)
+                        print(audioInfo.lyrics!)
+                    }
                 case .failure(let error):
                     XCTFail("\(audio.sid) fetch failed, reason: \(error)")
                 }
@@ -335,8 +367,26 @@ class BilibiliKitTests: XCTestCase {
                 case .responseError(reason: .emptyField):
                     break
                 default:
-                    XCTFail("Found \(error) while expecting .emptyField")
+                    dump(error)
+                    XCTFail("Found above error while expecting .emptyField")
                 }
+            }
+        }
+        waitForExpectations(timeout: 60, handler: nil)
+    }
+
+    func testArticleInfoFetching() {
+        let goal = expectation(description: "Article info fetch")
+        BKArticle(cv: 5167957).getInfo { result in
+            defer { goal.fulfill() }
+            switch result {
+            case .success(let info):
+                print()
+                dump(info)
+                print()
+            case .failure(let error):
+                dump(error)
+                XCTFail("No article info")
             }
         }
         waitForExpectations(timeout: 60, handler: nil)
@@ -348,11 +398,13 @@ class BilibiliKitTests: XCTestCase {
         ("testHiddenVideoInfoFetching", testHiddenVideoInfoFetching),
         ("testVideoPageFetching", testVideoPageFetching),
         ("testAudioFail", testAudioFail),
-        ("testAudioSingleFetching", testAudioSingleFetching),
+        ("testAudioAccessDeny", testAudioAccessDeny),
+        ("testSoloAudioFetching", testSoloAudioFetching),
         ("testCollaborativeAudioFetching", testCollaborativeAudioFetching),
         ("testUserInfoFetching", testUserInfoFetching),
         ("testAVBVConvert", testAVBVConvert),
         ("testLiveRoomFetching", testLiveRoomFetching),
+        ("testArticleInfoFetching", testArticleInfoFetching),
     ]
 }
 #endif

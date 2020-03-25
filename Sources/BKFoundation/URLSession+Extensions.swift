@@ -8,8 +8,11 @@
 
 import Foundation
 
+/// Generic result type for all requests.
+public typealias BKResult<T> = Result<T, BKError>
+
 /// Generic handler type for all requests.
-public typealias BKHandler<T> = (Result<T, BKError>) -> Void
+public typealias BKHandler<T> = (BKResult<T>) -> Void
 
 /// Codable response from bilibili.
 public typealias BKWrapper = Decodable
@@ -27,8 +30,14 @@ public protocol BKMessagedWrapper: BKWrapper {
     var message: String { get }
 }
 
+/// Response by bilibilib middleware, with code indicating type of error
+public protocol BKCodeWrapper: BKWrapper {
+    /// The status code, usually 0 for success and others for errors.
+    var code: Int { get }
+}
+
 /// Response by bilibili middleware for errors.
-public struct BKErrorResponse: BKMessagedWrapper, Error, LocalizedError {
+public struct BKErrorResponse: BKMessagedWrapper, BKCodeWrapper, Error, LocalizedError {
     // let ts: Int
     /// Error code.
     public let code: Int
@@ -42,7 +51,7 @@ public struct BKErrorResponse: BKMessagedWrapper, Error, LocalizedError {
 }
 
 /// Response by middleware where message is keyed as message.
-public struct BKWrapperMessage<Wrapped: Codable>: BKDataWrapper, BKMessagedWrapper {
+public struct BKWrapperMessage<Wrapped: Codable>: BKDataWrapper, BKMessagedWrapper, BKCodeWrapper {
     /// Status code.
     public let code: Int
     /// Response description.
@@ -52,7 +61,7 @@ public struct BKWrapperMessage<Wrapped: Codable>: BKDataWrapper, BKMessagedWrapp
 }
 
 /// Response by middleware where message is keyed as msg.
-public struct BKWrapperMsg<Wrapped: Codable>: BKDataWrapper {
+public struct BKWrapperMsg<Wrapped: Codable>: BKDataWrapper, BKCodeWrapper {
     /// Status code.
     public let code: Int
     /// Response description.
@@ -108,10 +117,17 @@ extension URLSession {
             }
             handler(Result { try JSONDecoder().decode(Wrapper.self, from: data) }
                 .mapError { BKError.parseError(reason: .jsonDecode(data, failure: $0)) }
-                .flatMap {
-                    $0.data.map { .success($0) }
-                        ?? ($0 as? BKMessagedWrapper)
-                            .map { .failure(BKError.responseError(reason: .reason($0.message))) }
+                .flatMap { wrapper in
+                    wrapper.data.map(Result<Wrapper.Wrapped, BKError>.success)
+                        ?? (wrapper as? BKMessagedWrapper).map {
+                            .failure(BKError.responseError(reason:
+                                .reason($0.message,
+                                        code: (wrapper as? BKCodeWrapper).map(\.code))))
+                        }
+                        ?? (wrapper as? BKCodeWrapper).map {
+                            .failure(BKError.responseError(reason:
+                                .reason("\($0.code)", code: $0.code)))
+                        }
                         ?? .failure(BKError.responseError(reason: .emptyField))
             })
         }

@@ -21,7 +21,7 @@ public enum BKError: Error {
     public enum ResponseErrorReason {
         case urlSessionError(Error?, response: URLResponse?)
         case accessDenied
-        case reason(String)
+        case reason(String, code: Int? = nil)
         case emptyJSONResponse
         case emptyField
     }
