@@ -13,6 +13,10 @@ let package = Package(
         .library(
             name: "BilibiliKit",
             targets: ["BilibiliKit"]),
+        .library(
+            name: "BilibiliKitDYLB",
+            type: .dynamic,
+            targets: ["BilibiliKit"]),
     ],
     dependencies: [
         // .package(url: "https://github.com/apple/swift-crypto", from: "1.0.1"),
