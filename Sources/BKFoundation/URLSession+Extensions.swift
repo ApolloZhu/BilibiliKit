@@ -122,7 +122,8 @@ extension URLSession {
                         ?? (wrapper as? BKMessagedWrapper).map {
                             .failure(BKError.responseError(reason:
                                 .reason($0.message,
-                                        code: (wrapper as? BKCodeWrapper).map(\.code))))
+                                        code: (wrapper as? BKCodeWrapper)
+                                            .map { $0.code })))
                         }
                         ?? (wrapper as? BKCodeWrapper).map {
                             .failure(BKError.responseError(reason:
