@@ -7,14 +7,14 @@
 //
 
 import Foundation
+#if canImport(BKFoundation)
 import BKFoundation
+#endif
 
 #if canImport(CryptoKit)
 import CryptoKit
 #elseif canImport(Crypto)
 import Crypto
-#else
-#error("MD5: NO ENCRYPTION BACKEND")
 #endif
 
 #if canImport(CommonCrypto)
@@ -31,22 +31,19 @@ extension BKSec {
             return .failure(.parseError(reason: .dataEncodeFailure))
         }
 
-        if #available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, watchOS 6.0,  *) {
-            #if canImport(CryptoKit)
-            return md5Hex_CK(data)
-            #else
-            #error("CryptoKit disappered")
-            #endif
-        } else {
-            #if canImport(CommonCrypto)
-            return md5Hex_CC(data)
-            #else
-            #error("CommonCrypto disappered")
-            #endif
-        }
 
-        #if !canImport(CryptoKit) && canImport(Crypto)
+        #if canImport(CryptoKit)
+        if #available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, watchOS 6.0,  *) {
+            return md5Hex_CK(data)
+        }
+        #elseif canImport(Crypto)
         return md5Hex_SC(data)
+        #endif
+
+        #if canImport(CommonCrypto)
+        return md5Hex_CC(data)
+        #else
+        #error("MD5: NO ENCRYPTION BACKEND")
         #endif
     }
 }

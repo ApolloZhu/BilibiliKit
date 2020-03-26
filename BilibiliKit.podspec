@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "BilibiliKit"
-  s.version      = "3.0.1"
+  s.version      = "3.1.2"
   s.summary      = "bilibili APIs in Swift."
   s.description  = <<-DESC
     3rd-party implementation of core bilibili functionalities in Swift.
@@ -15,6 +15,6 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = "10.0"
   s.source       = { :git => "https://github.com/ApolloZhu/BilibiliKit.git", :tag => s.version.to_s }
   s.source_files  = "Sources/**/*"
-  s.swift_versions = ['4.0', '4.2', '5.0', '5.1']
+  s.swift_versions = ['4.0', '4.2', '5.0', '5.1', '5.2']
   s.frameworks  = "Security"
 end

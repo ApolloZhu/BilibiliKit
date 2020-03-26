@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if canImport(BKFoundation)
 import BKFoundation
+#endif
 
 #if canImport(Security)
 import Security

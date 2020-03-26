@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if canImport(BKFoundation)
 @_exported import BKFoundation
+#endif
 
 /// Bilibili song, identified by unique sid.
 public struct BKAudio: Equatable {

@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if canImport(BKSecurity)
 import BKSecurity
+#endif
 
 extension CharacterSet {
     /// https://stackoverflow.com/questions/41561853/couldnt-encode-plus-character-in-url-swift

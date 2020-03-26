@@ -48,10 +48,10 @@ extension BKVideo: Equatable {
     /// Makes a sequences of bases in radix 58.
     fileprivate struct Exp: Sequence, IteratorProtocol {
         /// Next value to be returned
-        private var current = 1
+        private var current: Int64 = 1
 
         /// Advances to the next element and returns it.
-        mutating func next() -> Int? {
+        mutating func next() -> Int64? {
             defer { current *= 58 }
             return current
         }
@@ -60,13 +60,15 @@ extension BKVideo: Equatable {
     /// Convert decimal number to radix 58.
     private static let itoc = Array("fZodR9XQDSUm21yCkr6zBqiveYah8bt4xsWpHnJE7jL5VG3guMTKNPAwcF")
     /// Convert radix 58 digits back to decimal.
-    private static let ctoi = [Character: Int](uniqueKeysWithValues: zip(itoc, itoc.indices))
+    private static let ctoi = [Character: Int64](
+        uniqueKeysWithValues: zip(itoc, itoc.indices.lazy.map(Int64.init))
+    )
     /// The order in which digits are used.
     private static let indices = [11, 10, 3, 8, 4, 6, 2, 9, 5, 7]
     /// Modular so numbers are within bounds.
-    private static let xor = 177451812
+    private static let xor: Int64 = 177451812
     /// Shift by this magic number. Don't ask why.
-    private static let add = 100618342136696320
+    private static let add: Int64 = 100618342136696320
 
     /// The associated av number of this video.
     /// - Note: it's highly likely that an overflow will happen eventually. In that case, we crash.
@@ -94,22 +96,22 @@ extension BKVideo: Equatable {
     /// - Note: it's highly likely that an overflow will happen eventually. In that case, we crash.
     /// - Parameter bvid: the bv ID string to convert from.
     public static func aid(fromBV bvid: String) -> Int {
-        var r = 0
+        var r: Int64 = 0
         let bvid = Array(bvid)
         for (i, exp) in zip(0..<10, Exp()) {
             r += ctoi[bvid[indices[i]]]! * exp
         }
-        return (r - add) ^ xor
+        return Int((r - add) ^ xor)
     }
 
     /// Converts the given av number to its corresponding bv ID string.
     /// - Note: it's highly likely that an overflow will happen eventually. In that case, we crash.
     /// - Parameter aid: the av number to convert from.
     public static func bvid(fromAV aid: Int) -> String {
-        let aid = (aid ^ xor) + add
+        let aid = (Int64(aid) ^ xor) + add
         var r = Array("BV          ")
         for (i, exp) in zip(0..<10, Exp()) {
-            r[indices[i]] = itoc[aid / exp % 58]
+            r[indices[i]] = itoc[Int(aid / exp % 58)]
         }
         return String(r)
     }
