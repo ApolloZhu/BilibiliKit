@@ -14,7 +14,7 @@ let package = Package(
             name: "BilibiliKit",
             targets: ["BilibiliKit"]),
         .library(
-            name: "BilibiliKitDYLB",
+            name: "BilibiliKitDYLIB",
             type: .dynamic,
             targets: ["BilibiliKit"]),
     ],
