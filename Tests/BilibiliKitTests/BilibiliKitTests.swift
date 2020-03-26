@@ -32,10 +32,27 @@ class BilibiliKitTests: XCTestCase {
         BKVideo.av(170001).getInfo { result in
             switch result {
             case .success(let info):
+                defer { goal.fulfill() }
                 print()
                 dump(info)
                 print()
-                BKVideo.bv("BV17x411w7KC").getInfo { result in
+            case .failure(let error):
+                XCTFail("No info for 170001, reason: \(error)")
+                goal.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 60, handler: nil)
+    }
+
+    func testAVBVInfoConsistency() {
+        let goal = expectation(description: "AV+BV video info fetch")
+        BKVideo.av(4305072).getInfo { result in
+            switch result {
+            case .success(let info):
+                print()
+                dump(info)
+                print()
+                BKVideo.bv("BV18s411z7ST").getInfo { result in
                     defer { goal.fulfill() }
                     switch result {
                     case .success(let bvInfo):
@@ -48,17 +65,17 @@ class BilibiliKitTests: XCTestCase {
                         )
                         print()
                     case .failure(let error):
-                        XCTFail("No info for 170001, reason: \(error)")
+                        XCTFail("No info for 4305072, reason: \(error)")
                     }
                 }
             case .failure(let error):
-                XCTFail("No info for 170001, reason: \(error)")
+                XCTFail("No info for 4305072, reason: \(error)")
                 goal.fulfill()
             }
         }
         waitForExpectations(timeout: 60, handler: nil)
     }
-    
+
     func testHiddenVideoInfoFetching() {
         let goal = expectation(description: "Hidden video info fetch")
         func fetchHiddenVideo() {

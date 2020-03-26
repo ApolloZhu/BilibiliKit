@@ -22,6 +22,8 @@ jobs:
       env:
         BILI_USER: ${{ secrets.BILI_USER }}
         BILI_PASS: ${{ secrets.BILI_PASS }}
+    - name: CocoaPods Lint
+      run: pod lib lint --verbose
     - name: Publish Jazzy Docs
       uses: Steven0351/publish-jazzy-docs@v1.1.1
       with:

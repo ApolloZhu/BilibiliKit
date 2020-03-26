@@ -12,6 +12,7 @@ before_script:
   - eval "$(curl -sL https://raw.githubusercontent.com/ApolloZhu/script/master/swift/install/5)"
 script:
   - eval "$(curl -sL https://raw.githubusercontent.com/ApolloZhu/script/master/swift/ci)"
+  - pod lib lint
 
 before_deploy:
   - sudo gem install jazzy
