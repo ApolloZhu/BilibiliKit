@@ -7,3 +7,4 @@
 //
 
 @_exported import BKFoundation
+@_exported import BKAudio
