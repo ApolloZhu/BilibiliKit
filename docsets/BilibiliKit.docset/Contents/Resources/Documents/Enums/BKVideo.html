@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BKVideo Enumeration Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Enum/BKVideo" class="dashAnchor"></a>
+    <a title="BKVideo Enumeration Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">BilibiliKit Docs</a> (78% documented)</p>
+        <p class="header-right"><a href="https://github.com/ApolloZhu/BilibiliKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fapollozhu%2Egithub%2Eio%2FBilibiliKit%2Fdocsets%2FBilibiliKit"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">BilibiliKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        BKVideo Enumeration Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BKUpUser.html">BKUpUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BKUpUser/Stat.html">– Stat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BKUser.html">BKUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BKUser/AudioStat.html">– AudioStat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BKUser/Info.html">– Info</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BKUser/Relationship.html">– Relationship</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/BKVideo.html">BKVideo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BKVideo/Info.html">– Info</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BKVideo/Dimension.html">– Dimension</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BKVideo/Page.html">– Page</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BKVideo/_BaseStat.html">– _BaseStat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BKVideo/ArchiveStat.html">– ArchiveStat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BKVideo/InfoStat.html">– InfoStat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PlaybackCount.html">PlaybackCount</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/BKSession.html">BKSession</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/BKSession/QRCodeLoginHelper.html">– QRCodeLoginHelper</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/BKArticle.html">BKArticle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BKArticle/Stat.html">– Stat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BKArticle/Info.html">– Info</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BKLiveRoom.html">BKLiveRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BKLiveRoom/Info.html">– Info</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>BKVideo</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">BKVideo</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">BKVideo</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">BKVideo</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                </div>
+              </div>
+            <p>Bilibili video, identified by unique bv string (bvid) or [deprecated] av number (aid).</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO2avyACSicACmF"></a>
+                    <a name="//apple_ref/swift/Element/av(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO2avyACSicACmF">av(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><strong>[Deprecated]</strong> Video identified by av number (aid).</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    consider using bvid instead:
+<a href="bilibili.com/read/cv5167957">【升级公告】AV号全面升级至BV号</a>.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">av</span><span class="p">(</span><span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo.swift#L15">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO2bvyACSScACmF"></a>
+                    <a name="//apple_ref/swift/Element/bv(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO2bvyACSScACmF">bv(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Video identified by bv string (bvid).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">bv</span><span class="p">(</span><span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo.swift#L17">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO4InfoV"></a>
+                    <a name="//apple_ref/swift/Struct/Info" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO4InfoV">Info</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>视频相关信息</p>
+
+                        <a href="../Enums/BKVideo/Info.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Info</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Info.swift#L44-L178">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Networking"></a>
+                <a name="//apple_ref/swift/Section/Networking" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Networking"></a>
+                  <h3 class="section-name"><p>Networking</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO7getInfo3cid4thenySiSg_ys6ResultOyAC0E0V12BKFoundation7BKErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/getInfo(cid:then:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO7getInfo3cid4thenySiSg_ys6ResultOyAC0E0V12BKFoundation7BKErrorOGctF">getInfo(cid:then:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetchs and passes this video&rsquo;s info to <code>handler</code>.</p>
+
+                        <a href="../Enums/BKVideo/getInfo%28cid%3Athen%3A%29.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getInfo</span><span class="p">(</span>
+    <span class="nv">cid</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="n">then</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">BKHandler</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/BKVideo/Info.html">Info</a></span><span class="o">&gt;</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cid</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a specific page to process.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>code to process optional <code><a href="../Enums/BKVideo/Info.html">Info</a></code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Info.swift#L216-L225">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO9DimensionV"></a>
+                    <a name="//apple_ref/swift/Struct/Dimension" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO9DimensionV">Dimension</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Dimension of the video</p>
+
+                        <a href="../Enums/BKVideo/Dimension.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Dimension</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Page.swift#L13-L21">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO4PageV"></a>
+                    <a name="//apple_ref/swift/Struct/Page" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO4PageV">Page</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sub page of video, identified by unique cid.</p>
+
+                        <a href="../Enums/BKVideo/Page.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Page</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Page.swift#L24-L60">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO5pages7handleryys6ResultOySayAC4PageVG12BKFoundation7BKErrorOGc_tF"></a>
+                    <a name="//apple_ref/swift/Method/pages(handler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO5pages7handleryys6ResultOySayAC4PageVG12BKFoundation7BKErrorOGc_tF">pages(handler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch all pages of video and perform action over.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pages</span><span class="p">(</span><span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">BKHandler</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Enums/BKVideo/Page.html">Page</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>code to perform on the pages.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Page.swift#L69-L72">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO2p17handleryys6ResultOyAC4PageV12BKFoundation7BKErrorOGc_tF"></a>
+                    <a name="//apple_ref/swift/Method/p1(handler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO2p17handleryys6ResultOyAC4PageV12BKFoundation7BKErrorOGc_tF">p1(handler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch the first page of video and perform action over.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">p1</span><span class="p">(</span><span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">BKHandler</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/BKVideo/Page.html">Page</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>code to perform on the page.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Page.swift#L77-L79">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO4page_7handlerySi_ys6ResultOyAC4PageV12BKFoundation7BKErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/page(_:handler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO4page_7handlerySi_ys6ResultOyAC4PageV12BKFoundation7BKErrorOGctF">page(_:handler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch page of video at index and perform action over.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">page</span><span class="p">(</span><span class="n">_</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">BKHandler</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/BKVideo/Page.html">Page</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><strong>ONE</strong> based index of the page to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>code to perform on the page.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Page.swift#L86-L100">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoOyySi_ys6ResultOyAC4PageV12BKFoundation7BKErrorOGctcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoOyySi_ys6ResultOyAC4PageV12BKFoundation7BKErrorOGctcip">subscript(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch page of video at index and perform action over.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">BKHandler</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/BKVideo/Page.html">Page</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><strong>ZERO</strong> based index of the page to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>code to perform on the page.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Page.swift#L107-L109">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO9_BaseStatC"></a>
+                    <a name="//apple_ref/swift/Class/_BaseStat" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO9_BaseStatC">_BaseStat</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Enums/BKVideo/_BaseStat.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nv">_BaseStat</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Stat.swift#L12-L35">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO11ArchiveStatC"></a>
+                    <a name="//apple_ref/swift/Class/ArchiveStat" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO11ArchiveStatC">ArchiveStat</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Enums/BKVideo/ArchiveStat.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ArchiveStat</span> <span class="p">:</span> <span class="n"><a href="../Enums/BKVideo/_BaseStat.html">_BaseStat</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Stat.swift#L37-L48">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO8InfoStatC"></a>
+                    <a name="//apple_ref/swift/Class/InfoStat" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO8InfoStatC">InfoStat</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Enums/BKVideo/InfoStat.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">InfoStat</span> <span class="p">:</span> <span class="n"><a href="../Enums/BKVideo/_BaseStat.html">_BaseStat</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Stat.swift#L50-L53">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO7getStat4thenyys6ResultOyAC07ArchiveE0C12BKFoundation7BKErrorOGc_tF"></a>
+                    <a name="//apple_ref/swift/Method/getStat(then:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO7getStat4thenyys6ResultOyAC07ArchiveE0C12BKFoundation7BKErrorOGc_tF">getStat(then:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getStat</span><span class="p">(</span><span class="n">then</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">BKHandler</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/BKVideo/ArchiveStat.html">ArchiveStat</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Stat.swift#L58-L61">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO6getIDs4thenyys6ResultOySi3aid_SS4bvidt12BKFoundation7BKErrorOGc_tF"></a>
+                    <a name="//apple_ref/swift/Method/getIDs(then:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO6getIDs4thenyys6ResultOySi3aid_SS4bvidt12BKFoundation7BKErrorOGc_tF">getIDs(then:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>In case if local conversion fails, this fetches the real IDs.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getIDs</span><span class="p">(</span><span class="n">then</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">BKHandler</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">aid</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">bvid</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>process real aid and bvid</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo+Stat.swift#L66-L70">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/URL%20Params"></a>
+                <a name="//apple_ref/swift/Section/URL Params" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/URL%20Params"></a>
+                  <h3 class="section-name"><p>URL Params</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Useful to pass as URL parameter.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo.swift#L32-L39">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Local%20conversion%20between%20AV%20and%20BV"></a>
+                <a name="//apple_ref/swift/Section/Local conversion between AV and BV" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Local%20conversion%20between%20AV%20and%20BV"></a>
+                  <h3 class="section-name"><p>Local conversion between AV and BV</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO3aidSivp"></a>
+                    <a name="//apple_ref/swift/Property/aid" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO3aidSivp">aid</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The associated av number of this video.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    it&rsquo;s highly likely that an overflow will happen eventually. In that case, we crash.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">aid</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo.swift#L75-L82">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO4bvidSSvp"></a>
+                    <a name="//apple_ref/swift/Property/bvid" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO4bvidSSvp">bvid</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The associated bv string of this video.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    it&rsquo;s highly likely that an overflow will happen eventually. In that case, we crash.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">bvid</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo.swift#L86-L93">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO3aid6fromBVSiSS_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/aid(fromBV:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO3aid6fromBVSiSS_tFZ">aid(fromBV:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Converts the given bv ID string to its corresponding av number.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    it&rsquo;s highly likely that an overflow will happen eventually. In that case, we crash.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">aid</span><span class="p">(</span><span class="n">fromBV</span> <span class="nv">bvid</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bvid</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the bv ID string to convert from.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo.swift#L98-L105">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO4bvid6fromAVSSSi_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/bvid(fromAV:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO4bvid6fromAVSSSi_tFZ">bvid(fromAV:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Converts the given av number to its corresponding bv ID string.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    it&rsquo;s highly likely that an overflow will happen eventually. In that case, we crash.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">bvid</span><span class="p">(</span><span class="n">fromAV</span> <span class="nv">aid</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aid</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the av number to convert from.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo.swift#L110-L117">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11BilibiliKit7BKVideoO2eeoiySbAC_ACtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11BilibiliKit7BKVideoO2eeoiySbAC_ACtFZ">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a Boolean value indicating whether two values are equal.
+Equality is the inverse of inequality. For any values a and b, a == b implies that a != b is false.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">BKVideo</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">BKVideo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A value to compare.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Another value to compare.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/ApolloZhu/BilibiliKit/blob/master/Sources/BilibiliKit/BKVideo.swift#L125-L134">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://apollozhu.github.io" target="_blank" rel="external">ApolloZhu</a>. All rights reserved. (Last updated: 2020-03-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

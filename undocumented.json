@@ -1,0 +1,376 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKCurrentUser.swift",
+      "line": 12,
+      "symbol": "BKUser.current",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKLiveRoom+Info.swift",
+      "line": 16,
+      "symbol": "BKLiveRoom.Info.roomID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKLiveRoom+Info.swift",
+      "line": 17,
+      "symbol": "BKLiveRoom.Info.shortID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKLiveRoom+Info.swift",
+      "line": 22,
+      "symbol": "BKLiveRoom.Info.isPortrait",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKLiveRoom+Info.swift",
+      "line": 33,
+      "symbol": "BKLiveRoom.Info.background",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKLiveRoom+Info.swift",
+      "line": 34,
+      "symbol": "BKLiveRoom.Info.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKLiveRoom.swift",
+      "line": 9,
+      "symbol": "BKLiveRoom",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKLiveRoom.swift",
+      "line": 11,
+      "symbol": "BKLiveRoom",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKLiveRoom.swift",
+      "line": 126,
+      "symbol": "BKLiveRoom",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKSession+QRCodeLoginHelper.swift",
+      "line": 163,
+      "symbol": "BKSession.QRCodeLoginHelper.LoginState.errored",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKSession+QRCodeLoginHelper.swift",
+      "line": 164,
+      "symbol": "BKSession.QRCodeLoginHelper.LoginState.started",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKSession+QRCodeLoginHelper.swift",
+      "line": 165,
+      "symbol": "BKSession.QRCodeLoginHelper.LoginState.needsConfirmation",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKSession+QRCodeLoginHelper.swift",
+      "line": 166,
+      "symbol": "BKSession.QRCodeLoginHelper.LoginState.succeeded(cookie:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKSession+QRCodeLoginHelper.swift",
+      "line": 167,
+      "symbol": "BKSession.QRCodeLoginHelper.LoginState.expired",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKSession+QRCodeLoginHelper.swift",
+      "line": 168,
+      "symbol": "BKSession.QRCodeLoginHelper.LoginState.missingOAuthKey",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKSession+QRCodeLoginHelper.swift",
+      "line": 169,
+      "symbol": "BKSession.QRCodeLoginHelper.LoginState.unknown(status:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUpUser.swift",
+      "line": 13,
+      "symbol": "BKUser.up",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+AudioStat.swift",
+      "line": 12,
+      "symbol": "BKUser.AudioStat",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 25,
+      "symbol": "BKUser.Info.level",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 34,
+      "symbol": "BKUser.Info.Official",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 35,
+      "symbol": "BKUser.Info.Official.role",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 36,
+      "symbol": "BKUser.Info.Official.desc",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 37,
+      "symbol": "BKUser.Info.Official.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 39,
+      "symbol": "BKUser.Info.official",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 40,
+      "symbol": "BKUser.Info.VIP",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 41,
+      "symbol": "BKUser.Info.VIP.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 42,
+      "symbol": "BKUser.Info.VIP.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 44,
+      "symbol": "BKUser.Info.vip",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 104,
+      "symbol": "BKUser.Info.BiologicalSex",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 105,
+      "symbol": "BKUser.Info.BiologicalSex.male",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 106,
+      "symbol": "BKUser.Info.BiologicalSex.female",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Info.swift",
+      "line": 107,
+      "symbol": "BKUser.Info.BiologicalSex.secret",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKUser+Relationship.swift",
+      "line": 12,
+      "symbol": "BKUser.Relationship",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 11,
+      "symbol": "PlaybackCount",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 37,
+      "symbol": "PlaybackCount.notAvailable",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 38,
+      "symbol": "PlaybackCount.times(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 143,
+      "symbol": "BKVideo.Info.Subtitle.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 156,
+      "symbol": "BKVideo.Info.Subtitle.Author.mid",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 157,
+      "symbol": "BKVideo.Info.Subtitle.Author.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 158,
+      "symbol": "BKVideo.Info.Subtitle.Author.sex",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 159,
+      "symbol": "BKVideo.Info.Subtitle.Author.face",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 160,
+      "symbol": "BKVideo.Info.Subtitle.Author.sign",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 161,
+      "symbol": "BKVideo.Info.Subtitle.Author.rank",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 162,
+      "symbol": "BKVideo.Info.Subtitle.Author.birthday",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 163,
+      "symbol": "BKVideo.Info.Subtitle.Author.is_fake_account",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Info.swift",
+      "line": 164,
+      "symbol": "BKVideo.Info.Subtitle.Author.is_deleted",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Page.swift",
+      "line": 14,
+      "symbol": "BKVideo.Dimension.width",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Page.swift",
+      "line": 15,
+      "symbol": "BKVideo.Dimension.height",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Page.swift",
+      "line": 18,
+      "symbol": "BKVideo.Dimension.isPortrait",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Stat.swift",
+      "line": 12,
+      "symbol": "BKVideo._BaseStat",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Stat.swift",
+      "line": 37,
+      "symbol": "BKVideo.ArchiveStat",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Stat.swift",
+      "line": 50,
+      "symbol": "BKVideo.InfoStat",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit/Sources/BilibiliKit/BKVideo+Stat.swift",
+      "line": 58,
+      "symbol": "BKVideo.getStat(then:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/runner/runners/2.165.2/work/BilibiliKit/BilibiliKit"
+}
