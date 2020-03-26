@@ -8,8 +8,6 @@
 
 import Foundation
 
-public final class BKCurrentUser: BKUpUser { }
-
 extension BKUser {
     public class var current: BKUser? {
         if let mid = BKSession.shared.cookie?.mid {

@@ -137,7 +137,7 @@ extension BKLiveRoom {
                     return .success(info)
                 case .right(let emptyArray):
                     return emptyArray.isEmpty
-                        ? .failure(.responseError(reason: .emptyField))
+                        ? .failure(.responseError(reason: .emptyValue))
                         : .failure(.parseError(reason: .dataEncodeFailure))
                 }
             })

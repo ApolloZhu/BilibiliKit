@@ -101,7 +101,7 @@ extension BKArticle.Info {
         /// Number of coins the current user give.
         public let coin: Int
     }
-    /// The data is only valid if `BKCurrentUser.current` exists.
+    /// The data is only valid if `BKUser.current` exists.
     public var currentUser: ForCurrentUser {
         return ForCurrentUser(
             isAuthor: isAuthor, liked: like == 1,

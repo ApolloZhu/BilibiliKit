@@ -116,7 +116,7 @@ class BilibiliKitTests: XCTestCase {
         let info = expectation(description: "Nonexisting audio info fetch")
         audio.getInfo { result in
             defer { info.fulfill() }
-            guard case .failure(.responseError(reason: .emptyField)) = result else {
+            guard case .failure(.responseError(reason: .emptyValue)) = result else {
                 return XCTFail("Valid info for invalid audio 0")
             }
         }
@@ -125,7 +125,10 @@ class BilibiliKitTests: XCTestCase {
             defer { staff.fulfill() }
             switch result {
             case .failure(let error):
-                print("Successfully errored: \(error)")
+                guard case .failure(.responseError(reason: .emptyValue)) = result else {
+                    dump(error)
+                    return XCTFail("Wrong error produced")
+                }
             case .success(let list):
                 XCTFail("Found \(list) while no staff is expected")
             }
@@ -150,16 +153,19 @@ class BilibiliKitTests: XCTestCase {
                 return XCTFail("Are you in mainland China?")
             }
         }
-//        let staff = expectation(description: "Nonexisting audio staff fetch")
-//        audio.getStaffList { result in
-//            defer { staff.fulfill() }
-//            switch result {
-//            case .failure(let error):
-//                print("Successfully errored: \(error)")
-//            case .success(let list):
-//                XCTFail("Found \(list) while no staff is expected")
-//            }
-//        }
+        let staff = expectation(description: "Region limited audio staff fetch")
+        audio.getStaffList { result in
+            defer { staff.fulfill() }
+            switch result {
+            case .failure(let error):
+                guard case .failure(.responseError(reason: .emptyValue)) = result else {
+                    dump((error))
+                    return XCTFail("Wrong error produced")
+                }
+            case .success(let list):
+                XCTFail("Found \(list) while no staff is expected")
+            }
+        }
 //        let urls = expectation(description: "Nonexisting audio url fetch")
 //        audio.getURLs { result in
 //            defer { urls.fulfill() }
@@ -364,7 +370,7 @@ class BilibiliKitTests: XCTestCase {
             case .failure(let error):
                 print()
                 switch error {
-                case .responseError(reason: .emptyField):
+                case .responseError(reason: .emptyValue):
                     break
                 default:
                     dump(error)

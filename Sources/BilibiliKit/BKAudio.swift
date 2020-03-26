@@ -38,7 +38,7 @@ extension BKAudio {
                 case accessDenied:
                     return .responseError(reason: .accessDenied)
                 case removedOrNoExist:
-                    return .responseError(reason: .emptyField)
+                    return .responseError(reason: .emptyValue)
                 default:
                     return error
                 }

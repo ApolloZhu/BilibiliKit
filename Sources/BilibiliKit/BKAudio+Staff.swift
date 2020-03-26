@@ -11,12 +11,13 @@ import Foundation
 extension BKAudio {
     public typealias StaffList = [Staff]
     public struct Staff: Codable {
-        private struct Info: Codable {
-            /// Might be 0
-            let mid: Int
-            let name: String
-            // Might be an internal identifyer
-            // public let member_id: Int
+        fileprivate struct Info: Codable {
+            /// Might be 0.
+            fileprivate let mid: Int
+            /// Staff name.
+            fileprivate let name: String
+            /// Might be an internal identifyer
+            fileprivate let member_id: Int
         }
         private let info: [Info]
         public let role: Role
@@ -36,6 +37,10 @@ extension BKAudio.Staff: CustomStringConvertible {
     public var mid: Int? {
         let mid = info[0].mid
         return mid == 0 ? nil : mid
+    }
+
+    public var audioMid: Int {
+        return info[0].member_id
     }
     
     public var description: String {
@@ -68,7 +73,7 @@ extension BKAudio.Staff: CustomStringConvertible {
         case play = 10
         /// 乐器
         case bands = 11
-        
+        /// “我自己干的”
         case iDidItAllMySelf = 127
         
         public var description: String {
@@ -100,7 +105,7 @@ extension BKAudio {
             handler(result.flatMap { list in
                 switch list.count {
                 case 0:
-                    return .failure(.responseError(reason: .emptyJSONResponse))
+                    return .failure(.responseError(reason: .emptyValue))
                 case 1:
                     return .success(list)
                 default:

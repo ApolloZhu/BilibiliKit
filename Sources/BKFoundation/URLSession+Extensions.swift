@@ -129,7 +129,7 @@ extension URLSession {
                             .failure(BKError.responseError(reason:
                                 .reason("\($0.code)", code: $0.code)))
                         }
-                        ?? .failure(BKError.responseError(reason: .emptyField))
+                        ?? .failure(BKError.responseError(reason: .emptyValue))
             })
         }
         task.resume()

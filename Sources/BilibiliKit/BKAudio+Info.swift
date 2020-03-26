@@ -26,13 +26,14 @@ extension BKAudio {
         public let description: String
         /// Raw lyrics URL
         private let lyric: String
-        /// ???
+        /// Music type. 3 is video.
         public let crtype: Int
         /// Length in seconds.
         public let duration: Int
         /// Time interval since 1970 when passed review.
         public let passtime: Int
-        // let curtime: Int // current time
+        // current time
+        // private let curtime: Int
         /// AV number for related video. 0 if not exist.
         public let aid: Int
         /// BV ID string for related video, Empty if not exist.
@@ -40,17 +41,22 @@ extension BKAudio {
         /// ID number for related video. 0 if not exist.
         public let cid: Int
         // Not sure what these are:
-        /// ???
-        public let msid: Int
-        /// ???
-        public let attr: Int
-        /// ???
-        public let limit: Int
+        // ???
+        // public let msid: Int
+        /*
+         t.isPGC && (t.intro = "该歌单为付费歌单，目前仅支持收听试听片段，请静候更多功能上线。"),
+         t.isPGC = 5 === e.type,
+         t.isLead = 2 === e.type,
+         */
+        /// Other bitmask flags.
+        private let attr: Int
+        /// Why audio is not available.
+        private let limit: Int
         /// ???
         public let activityID: Int
         /// So far so empty. Let @ApolloZhu of any example.
         public let limitDescription: String
-        // let ctime: null
+        // let ctime: null // 歌单 only
         /// Raw statistics.
         private let statistic: _Stat
         /// uploader's VIP information.
@@ -89,7 +95,7 @@ extension BKAudio {
             case description = "intro"
             case lyric, crtype
             case duration, passtime, aid, bvid, cid
-            case msid, attr, limit, statistic
+            case /*msid,*/ attr, limit, statistic
             case activityID = "activityId"
             case limitDescription = "limitdesc"
             case upVIP = "vipInfo"
@@ -144,6 +150,50 @@ extension BKAudio.Info {
     /// Lyrics URL
     public var lyrics: URL? {
         return URL(string: lyric)
+    }
+
+    public var isVideo: Bool {
+        return crtype == 3
+    }
+
+    /// Reasons why the audio is not available.
+    public enum Limit: Int {
+        /// 下架
+        case discontinued = 1
+        /// 版权受限
+        case notLicensed
+        /// 删除
+        case deleted
+    }
+
+    /**
+     Determine what limit is in place.
+
+         isType: function(t, e) {
+            return ("0000" + (+t).toString(2)).substr(-5).substring(e, e + 1)
+         },
+
+     - Parameters:
+         - t: the bit masked integer.
+         - limit: category to check (bit mask position, from left).
+     - Returns: wether given t tests positive for the limit.
+     */
+    fileprivate func has(_ t: Int, _ limit: Int) -> Bool {
+        let flag = 1 << (4 - limit)
+        return (t & flag) != 0
+    }
+
+    /// Checks and returns if the audio is not available for some reason.
+    /// - Parameter limitedBy: limit for why this audio is not available.
+    /// - Returns: wether this audio has such limit.
+    public func `is`(_ limitedBy: Limit) -> Bool {
+        return has(limit, limitedBy.rawValue)
+    }
+
+    /// 付费歌曲试听片段
+    public var isPreviewForPaidAudio: Bool {
+        // t.isPGC = t.isType(n.attr, 1),
+        return has(attr, 1)
     }
 }
 
