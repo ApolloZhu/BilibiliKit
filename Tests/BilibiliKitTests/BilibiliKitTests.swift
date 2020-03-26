@@ -117,6 +117,7 @@ class BilibiliKitTests: XCTestCase {
         audio.getInfo { result in
             defer { info.fulfill() }
             guard case .failure(.responseError(reason: .emptyValue)) = result else {
+                dump(result)
                 return XCTFail("Valid info for invalid audio 0")
             }
         }
@@ -136,7 +137,8 @@ class BilibiliKitTests: XCTestCase {
         let urls = expectation(description: "Nonexisting audio url fetch")
         audio.getURLs { result in
             defer { urls.fulfill() }
-            guard case .failure = result else {
+            guard case .failure(.responseError(reason: .emptyValue)) = result else {
+                dump(result)
                 return XCTFail("Valid url for invalid audio 0")
             }
         }
@@ -144,35 +146,42 @@ class BilibiliKitTests: XCTestCase {
         print()
     }
 
-    func testAudioAccessDeny() {
+    func testPaidAudioAccessDeny() {
         let audio = BKAudio(au: 360363)
-        let info = expectation(description: "Region limited audio info fetch")
+        let info = expectation(description: "Paid audio info fetch")
         audio.getInfo { result in
             defer { info.fulfill() }
             guard case .failure(.responseError(reason: .accessDenied)) = result else {
-                return XCTFail("Are you in mainland China?")
+                dump(result)
+                return XCTFail("Did bilibili open up paid audio?")
             }
         }
-        let staff = expectation(description: "Region limited audio staff fetch")
+        let staff = expectation(description: "Paid audio staff fetch")
         audio.getStaffList { result in
             defer { staff.fulfill() }
             switch result {
             case .failure(let error):
                 guard case .failure(.responseError(reason: .emptyValue)) = result else {
-                    dump((error))
+                    dump(error)
                     return XCTFail("Wrong error produced")
                 }
             case .success(let list):
                 XCTFail("Found \(list) while no staff is expected")
             }
         }
-//        let urls = expectation(description: "Nonexisting audio url fetch")
-//        audio.getURLs { result in
-//            defer { urls.fulfill() }
-//            guard case .failure = result else {
-//                return XCTFail("Valid url for invalid audio 0")
-//            }
-//        }
+        let urls = expectation(description: "Paid audio url fetch")
+        audio.getURLs { result in
+            defer { urls.fulfill() }
+            switch result {
+            case .failure(let error):
+                guard case .failure(.responseError(reason: .accessDenied)) = result else {
+                    dump(error)
+                    return XCTFail("Wrong error produced")
+                }
+            case .success(let urls):
+                XCTFail("Found \(urls) while no url is expected")
+            }
+        }
         waitForExpectations(timeout: 60, handler: nil)
         print()
     }
@@ -404,7 +413,7 @@ class BilibiliKitTests: XCTestCase {
         ("testHiddenVideoInfoFetching", testHiddenVideoInfoFetching),
         ("testVideoPageFetching", testVideoPageFetching),
         ("testAudioFail", testAudioFail),
-        ("testAudioAccessDeny", testAudioAccessDeny),
+        ("testPaidAudioAccessDeny", testPaidAudioAccessDeny),
         ("testSoloAudioFetching", testSoloAudioFetching),
         ("testCollaborativeAudioFetching", testCollaborativeAudioFetching),
         ("testUserInfoFetching", testUserInfoFetching),

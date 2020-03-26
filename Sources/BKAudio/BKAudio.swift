@@ -23,6 +23,8 @@ public struct BKAudio: Equatable {
 // MARK: - Response Mapping
 
 extension BKAudio {
+    /// 付费歌曲
+    internal static let paidAudio = 72010081
     /// 版权受限
     internal static let accessDenied = 72010027
     /// 该音频不存在或已被下架
@@ -36,7 +38,7 @@ extension BKAudio {
             switch error {
             case .responseError(reason: .reason(_, code: let code)):
                 switch code {
-                case accessDenied:
+                case accessDenied, paidAudio:
                     return .responseError(reason: .accessDenied)
                 case removedOrNoExist:
                     return .responseError(reason: .emptyValue)

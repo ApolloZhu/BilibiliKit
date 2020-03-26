@@ -18,7 +18,7 @@ extension BKAudio {
         public let timeout: Int
         /// Download size.
         public let size: Int
-        /// Download URLs.
+        /// Download URL(s).
         public let cdns: [URL]
     }
 }
@@ -31,6 +31,7 @@ extension BKAudio {
     public func getURLs(then handler: @escaping BKHandler<URLs>) {
         // Maybe: privilege=2&quality=2
         let url = "https://www.bilibili.com/audio/music-service-c/web/url?sid=\(sid)"
-        URLSession.get(url, unwrap: BKWrapperMsg<URLs>.self, then: handler)
+        URLSession.get(url, unwrap: BKWrapperMsg<URLs>.self,
+                       then: BKAudio.middleware(handler))
     }
 }
