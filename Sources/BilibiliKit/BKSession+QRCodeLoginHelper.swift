@@ -70,19 +70,22 @@ extension BKSession {
     /// - Parameters:
     ///   - handleLoginInfo: to display `LoginURL` to user.
     ///   - handleLoginState: to handle different stages in this process.
-    public func login(withHelper helper: QRCodeLoginHelper = .default,
+    public func login(
+        withHelper helper: QRCodeLoginHelper = .default,
         handleLoginInfo: @escaping (QRCodeLoginHelper.LoginURL) -> Void,
-        handleLoginState: @escaping (QRCodeLoginHelper.LoginState) -> Void)
-    {
+        handleLoginState: @escaping (QRCodeLoginHelper.LoginState) -> Void
+    ) {
         helper.fetchLoginURL { [weak self] result in
             switch result {
             case .success(let url):
                 handleLoginInfo(url)
-                var process: () -> Void = { [weak self] in
+                func process() {
                     guard helper.isRunLoopActive else { return }
-                    helper.fetchLoginInfo(oauthKey: url.oauthKey)
-                    { [weak self] result in
-                        guard let self = self, helper.isRunLoopActive else { return }
+                    helper.fetchLoginInfo(oauthKey: url.oauthKey) { result in
+                        guard let self = self,
+                              helper.isRunLoopActive
+                        else { return }
+                        
                         switch result {
                         case .success(let state):
                             switch state {

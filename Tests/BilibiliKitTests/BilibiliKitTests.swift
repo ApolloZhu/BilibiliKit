@@ -30,15 +30,14 @@ class BilibiliKitTests: XCTestCase {
     func testVideoInfoFetching() {
         let goal = expectation(description: "Video info fetch")
         BKVideo.av(170001).getInfo { result in
+            defer { goal.fulfill() }
             switch result {
             case .success(let info):
-                defer { goal.fulfill() }
                 print()
                 dump(info)
                 print()
             case .failure(let error):
                 XCTFail("No info for 170001, reason: \(error)")
-                goal.fulfill()
             }
         }
         waitForExpectations(timeout: 60, handler: nil)
