@@ -26,6 +26,7 @@ extension BKUser {
     /// Fetchs and passes this up's stat to `handler`.
     ///
     /// - Parameters:
+    ///   - session: session logged in as. Default to `BKSession.shared`.
     ///   - handler: code to process an optional `Relationship`.
     public func getRelationship(session: BKSession = .shared,
                                 then handler: @escaping BKHandler<Relationship>) {

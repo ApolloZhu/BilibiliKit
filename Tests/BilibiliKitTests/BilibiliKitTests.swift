@@ -109,6 +109,23 @@ class BilibiliKitTests: XCTestCase {
         }
         waitForExpectations(timeout: 60, handler: nil)
     }
+    
+    func testBangumiVideoFetching() {
+        return
+        let goal = expectation(description: "Bangumi video info fetch")
+        BKVideo.bv("BV1rf4y1R7uF").getInfo { (result) in
+            defer { goal.fulfill() }
+            switch result {
+            case .success(let info):
+                print()
+                dump(info)
+                print()
+            case .failure(let error):
+                XCTFail("No info for bangumi, reason: \(error)")
+            }
+        }
+        waitForExpectations(timeout: 60, handler: nil)
+    }
 
     func testVideoPageFetching() {
         // This is an example of a functional test case.
@@ -162,12 +179,16 @@ class BilibiliKitTests: XCTestCase {
         print()
     }
 
-    func testPaidAudioAccessDeny() {
+    func testPaidAudio() {
+        #warning("TODO")
+    }
+
+    func testRemovedAudioEmpty() {
         let audio = BKAudio(au: 360363)
         let info = expectation(description: "Paid audio info fetch")
         audio.getInfo { result in
             defer { info.fulfill() }
-            guard case .failure(.responseError(reason: .accessDenied)) = result else {
+            guard case .failure(.responseError(reason: .emptyValue)) = result else {
                 dump(result)
                 return XCTFail("Did bilibili open up paid audio?")
             }
@@ -190,7 +211,7 @@ class BilibiliKitTests: XCTestCase {
             defer { urls.fulfill() }
             switch result {
             case .failure(let error):
-                guard case .failure(.responseError(reason: .accessDenied)) = result else {
+                guard case .failure(.responseError(reason: .emptyValue)) = result else {
                     dump(error)
                     return XCTFail("Wrong error produced")
                 }
@@ -344,7 +365,15 @@ class BilibiliKitTests: XCTestCase {
                     dump(stat)
                     print()
                 case .failure(let error):
-                    XCTAssertEqual(mid, 0, "Up\(mid) stat fetch failed, reason: \(error)")
+                    if mid == 0 { return } // expected to fail
+                    if !BKSession.shared.isLoggedIn {
+                        if case .responseError(reason: .emptyValue) = error {
+                            return // failed correctly
+                        }
+                        dump(error)
+                        return XCTFail("Up\(mid) stat fetch failed wrongly")
+                    }
+                    XCTFail("Up\(mid) stat fetch failed, reason: \(error)")
                 }
             }
             waitForExpectations(timeout: 300, handler: nil)
@@ -429,7 +458,8 @@ class BilibiliKitTests: XCTestCase {
         ("testHiddenVideoInfoFetching", testHiddenVideoInfoFetching),
         ("testVideoPageFetching", testVideoPageFetching),
         ("testAudioFail", testAudioFail),
-        ("testPaidAudioAccessDeny", testPaidAudioAccessDeny),
+        ("testPaidAudio", testPaidAudio),
+        ("testRemovedAudioEmpty", testRemovedAudioEmpty),
         ("testSoloAudioFetching", testSoloAudioFetching),
         ("testCollaborativeAudioFetching", testCollaborativeAudioFetching),
         ("testUserInfoFetching", testUserInfoFetching),

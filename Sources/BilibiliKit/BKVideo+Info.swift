@@ -44,9 +44,10 @@ extension BKVideo {
     public struct Info: Codable {
         enum CodingKeys: String, CodingKey {
             case bvid, aid, tid, copyright, title
-            case pubdate, ctime, state, attribute
+            case pubdate, ctime, state
             case duration, rights, dynamic
             case cid, dimension, no_cache, pages
+            // case pageCount = "videos"
             case type = "tname"
             case coverImageURL = "pic"
             case description = "desc"
@@ -76,8 +77,6 @@ extension BKVideo {
         public let description: String
         /// 0
         private let state: Int
-        /// ???
-        private let attribute: Int
         /// 长度
         public let duration: Int
         /// 权限标记
@@ -108,6 +107,8 @@ extension BKVideo {
             private let ugc_pay_preview: Int
             /// 禁止后台播放
             private let no_background: Int
+            /// ???
+            private let clean_mode: Int
         }
         /// UP 主
         public let author: Author
@@ -229,6 +230,7 @@ extension BKVideo {
     /// - Parameters:
     ///   - aid: av number of the video.
     ///   - key: APPKEY from bilibili.
+    ///   - session: session logged in as. Default to `BKSession.shared`.
     ///   - handler: code to process optional `Info`.
     @available(*, unavailable, renamed: "BKVideo.av.getInfo(then:)")
     public static func getInfo(

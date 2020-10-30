@@ -125,7 +125,7 @@ extension BKArticle {
     /// Fetchs and passes an article's info to `handler`.
     ///
     /// - Parameters:
-    ///   - session: BKSession to generate request. Default to `BKSession.shared`.
+    ///   - session: session logged in as. Default to `BKSession.shared`.
     ///   - handler: code to process an optional `Info`, otherwise error description in Chinese.
     public func getInfo(withSession session: BKSession = .shared,
                         then handler: @escaping BKHandler<Info>) {

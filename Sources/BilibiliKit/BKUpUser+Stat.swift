@@ -39,9 +39,23 @@ extension BKUpUser {
     /// Fetchs and passes this up's stat to `handler`.
     ///
     /// - Parameters:
+    ///   - session: session logged in as. Default to `BKSession.shared`.
     ///   - handler: code to process an optional `Stat`.
-    public func getStat(then handler: @escaping BKHandler<Stat>) {
+    public func getStat(session: BKSession = .shared,
+                        then handler: @escaping BKHandler<Stat>) {
         let url = "https://api.bilibili.com/x/space/upstat?mid=\(mid)"
-        URLSession.get(url, unwrap: BKWrapperMessage<Stat>.self, then: handler)
+        URLSession.get(url, session: session,
+                       unwrap: BKWrapperMessage<Stat>.self) { result in
+            handler(result.mapError { error in
+                if case let .parseError(reason: .jsonDecode(jsonData, _)) = error,
+                   let json = try? JSONSerialization.jsonObject(with: jsonData),
+                   let wrapperDict = json as? [String:Any],
+                   let dataDict = wrapperDict["data"] as? [AnyHashable:Any],
+                   dataDict.isEmpty {
+                    return .responseError(reason: .emptyValue)
+                }
+                return error
+            })
+        }
     }
 }
