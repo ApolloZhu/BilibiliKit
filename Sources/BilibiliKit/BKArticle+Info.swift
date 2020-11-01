@@ -130,6 +130,7 @@ extension BKArticle {
     public func getInfo(withSession session: BKSession = .shared,
                         then handler: @escaping BKHandler<Info>) {
         URLSession.get("https://api.bilibili.com/x/article/viewinfo?id=\(id)",
-            session: session, unwrap: BKWrapperMessage<Info>.self, then: handler)
+                       session: session, unwrap: BKWrapperMessage<Info>.self,
+                       then: handler)
     }
 }
