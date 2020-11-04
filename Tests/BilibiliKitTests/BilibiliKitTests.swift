@@ -11,24 +11,6 @@ import XCTest
 @testable import BilibiliKit
 
 class BilibiliKitTests: XCTestCase {
-    func testAppkeyFetching() {
-        #warning("Need to fix")
-        return
-        let goal = expectation(description: "Appkey fetch")
-        BKApp.fetchKey { result in
-            defer { goal.fulfill() }
-            switch result {
-            case .success(let key):
-                print("\n\(key)")
-            case .failure(let error):
-                dump(error)
-                XCTFail("No appkey")
-            }
-            print()
-        }
-        waitForExpectations(timeout: 60, handler: nil)
-    }
-
     func testVideoInfoFetching() {
         let goal = expectation(description: "Video info fetch")
         BKVideo.av(170001).getInfo { result in
@@ -187,15 +169,15 @@ class BilibiliKitTests: XCTestCase {
 
     func testRemovedAudioEmpty() {
         let audio = BKAudio(au: 360363)
-        let info = expectation(description: "Paid audio info fetch")
+        let info = expectation(description: "Removed audio info fetch")
         audio.getInfo { result in
             defer { info.fulfill() }
             guard case .failure(.responseError(reason: .emptyValue)) = result else {
                 dump(result)
-                return XCTFail("Did bilibili open up paid audio?")
+                return XCTFail("Did bilibili restore this audio?")
             }
         }
-        let staff = expectation(description: "Paid audio staff fetch")
+        let staff = expectation(description: "Removed audio staff fetch")
         audio.getStaffList { result in
             defer { staff.fulfill() }
             switch result {
@@ -208,7 +190,7 @@ class BilibiliKitTests: XCTestCase {
                 XCTFail("Found \(list) while no staff is expected")
             }
         }
-        let urls = expectation(description: "Paid audio url fetch")
+        let urls = expectation(description: "Removed audio url fetch")
         audio.getURLs { result in
             defer { urls.fulfill() }
             switch result {
@@ -455,7 +437,6 @@ class BilibiliKitTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testAppkeyFetching", testAppkeyFetching),
         ("testVideoInfoFetching", testVideoInfoFetching),
         ("testHiddenVideoInfoFetching", testHiddenVideoInfoFetching),
         ("testVideoPageFetching", testVideoPageFetching),

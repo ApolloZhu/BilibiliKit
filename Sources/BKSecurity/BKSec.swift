@@ -8,7 +8,3 @@
 
 /// Security related algorithms.
 public enum BKSec { }
-
-#if canImport(BKFoundation)
-import BKFoundation
-#endif
