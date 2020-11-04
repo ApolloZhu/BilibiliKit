@@ -58,18 +58,24 @@ public extension BKSec {
             kSecAttrType: kSecAttrKeyTypeRSA,
             kSecAttrKeyClass: kSecAttrKeyClassPublic,
             kSecAttrKeySizeInBits: (keyData.count * 8) as NSNumber,
-            ] as CFDictionary, &error) else {
-                return .failure(.encryptError(reason:
-                    .publicKeySecKeyGenerationFailure(errorDescription)))
+        ] as CFDictionary, &error) else {
+            return .failure(.encryptError(
+                reason: .publicKeySecKeyGenerationFailure(errorDescription)
+            ))
         }
-        guard SecKeyIsAlgorithmSupported(key, .encrypt, .rsaEncryptionPKCS1) else {
-            return .failure(.encryptError(reason:
-                .rsaEncryptFailure(errorDescription)))
+        guard SecKeyIsAlgorithmSupported(
+            key, .encrypt, .rsaEncryptionPKCS1
+        ) else {
+            return .failure(.encryptError(
+                reason: .rsaEncryptFailure(errorDescription)
+            ))
         }
         guard let data = SecKeyCreateEncryptedData(
-            key, .rsaEncryptionPKCS1, stringData as CFData, &error) else {
-                return .failure(.encryptError(reason:
-                    .rsaEncryptFailure(errorDescription)))
+            key, .rsaEncryptionPKCS1, stringData as CFData, &error
+        ) else {
+            return .failure(.encryptError(
+                reason: .rsaEncryptFailure(errorDescription)
+            ))
         }
         return .success((data as Data).base64EncodedString())
     }

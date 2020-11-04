@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -19,7 +19,8 @@ let package = Package(
             targets: ["BilibiliKit"]),
     ],
     dependencies: [
-        // .package(url: "https://github.com/apple/swift-crypto", from: "1.0.1"),
+        .package(url: "https://github.com/apple/swift-crypto",
+                 .upToNextMinor(from: "1.1.2")),
     ],
     targets: [
         .target(
@@ -31,8 +32,8 @@ let package = Package(
         .target(
             name: "BKSecurity",
             dependencies: [
-                // Will need to wait for 5.3
-                // .product(name: "Crypto", condition: .when(platforms: [.linux])),
+                .product(name: "Crypto", package: "swift-crypto",
+                         condition: .when(platforms: [.linux])),
                 "BKFoundation"
         ]),
         .target(
