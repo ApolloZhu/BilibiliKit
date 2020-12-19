@@ -15,9 +15,13 @@ import BKFoundation
 import Security
 #else
 #error("RSA: NO ENCRYPTION BACKEND")
+#warning("TODO: import NIOSSH")
 #endif
 
-public extension BKSec {
+extension BKSec {
+    private static let publicKeyBegin = "-----BEGIN PUBLIC KEY-----"
+    private static let publicKeyEnd = "-----END PUBLIC KEY-----"
+
     /// Compute the digest using RSA PKCS1.
     ///
     /// - Copyright: Copyright (c) 2015 Scoop Technologies, Inc.
@@ -26,20 +30,21 @@ public extension BKSec {
     /// - Parameters:
     ///   - string: the data to be encrypted.
     ///   - publicKey: contents of a `.pem` file.
-    static func rsaEncrypt(_ string: String, with publicKey: String) -> Result<String, BKError> {
+    public static func rsaEncrypt(
+        _ string: String, with publicKey: String
+    ) -> Result<String, BKError> {
         guard let stringData = string.data(using: .utf8) else {
             return .failure(.implementationError(reason: .invalidDataEncoding))
         }
-
         let publicKey = publicKey
-            .replacingOccurrences(of: "-----BEGIN PUBLIC KEY-----", with: "")
-            .replacingOccurrences(of: "-----END PUBLIC KEY-----", with: "")
+            .replacingOccurrences(of: publicKeyBegin, with: "")
+            .replacingOccurrences(of: publicKeyEnd, with: "")
             .replacingOccurrences(of: "\n", with: "")
-        guard let keyData = Data(base64Encoded: publicKey) else {
-            return .failure(.parseError(reason: .dataEncodeFailure))
-        }
-
-        return encrypt_Sec(stringData, keyData: keyData)
+        #if canImport(Security)
+        return encrypt_Sec(stringData, with: publicKey)
+        #else
+        return encrypt_NIOSSH(stringData, with: publicKey)
+        #endif
     }
 
     #if canImport(Security)
@@ -48,8 +53,12 @@ public extension BKSec {
     ///   - stringData: string to find digest for.
     ///   - keyData: public key data.
     private static func encrypt_Sec(
-        _ stringData: Data, keyData: Data
+        _ stringData: Data, with publicKey: String
     ) -> Result<String, BKError> {
+        guard let keyData = Data(base64Encoded: publicKey) else {
+            return .failure(.parseError(reason: .dataEncodeFailure))
+        }
+
         var error: Unmanaged<CFError>? = nil
         var errorDescription: String {
             return (error!.takeRetainedValue() as Error).localizedDescription
@@ -60,7 +69,7 @@ public extension BKSec {
             kSecAttrKeySizeInBits: (keyData.count * 8) as NSNumber,
         ] as CFDictionary, &error) else {
             return .failure(.encryptError(
-                reason: .publicKeySecKeyGenerationFailure(errorDescription)
+                reason: .publicKeyGenerationFailure(errorDescription)
             ))
         }
         guard SecKeyIsAlgorithmSupported(
@@ -79,5 +88,18 @@ public extension BKSec {
         }
         return .success((data as Data).base64EncodedString())
     }
+    #else
+    private static func encrypt_NIOSSH(
+        _ stringData: Data, with publicKey: String
+    ) -> Result<String, BKError> {
+        do {
+            let key = try NIOSSHPublicKey(openSSHPublicKey: "ssh-rsa \(publicKey) OwO")
+            #warning("TODO: WIP")
+        } catch {
+            return .failure(.encryptError(reason: .publicKeyGenerationFailure(error.localizedDescription)))
+        }
+        return .failure(.encryptError(reason: .rsaEncryptFailure("WTF")))
+    }
     #endif
+
 }
