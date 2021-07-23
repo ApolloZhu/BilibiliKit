@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// All possible errors thrown by BilibiliKit.
 public enum BKError: Error {
