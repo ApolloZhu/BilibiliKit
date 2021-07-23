@@ -14,8 +14,7 @@ import BKFoundation
 #if canImport(Security)
 import Security
 #else
-#error("RSA: NO ENCRYPTION BACKEND")
-#warning("TODO: import NIOSSH")
+#warning("RSA: NO ENCRYPTION BACKEND")
 #endif
 
 extension BKSec {
@@ -93,8 +92,7 @@ extension BKSec {
         _ stringData: Data, with publicKey: String
     ) -> Result<String, BKError> {
         do {
-            let key = try NIOSSHPublicKey(openSSHPublicKey: "ssh-rsa \(publicKey) OwO")
-            #warning("TODO: WIP")
+            #warning("RSA encryption will always fail")
         } catch {
             return .failure(.encryptError(reason: .publicKeyGenerationFailure(error.localizedDescription)))
         }
