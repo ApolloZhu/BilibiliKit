@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 public enum PlaybackCount: Codable {
     public init(from decoder: Decoder) throws {
