@@ -14,10 +14,13 @@ import BKFoundation
 #if canImport(Security)
 import Security
 #else
-#error("RSA: NO ENCRYPTION BACKEND")
+import _CryptoExtras
 #endif
 
-public extension BKSec {
+extension BKSec {
+    private static let publicKeyBegin = "-----BEGIN PUBLIC KEY-----"
+    private static let publicKeyEnd = "-----END PUBLIC KEY-----"
+
     /// Compute the digest using RSA PKCS1.
     ///
     /// - Copyright: Copyright (c) 2015 Scoop Technologies, Inc.
@@ -26,20 +29,14 @@ public extension BKSec {
     /// - Parameters:
     ///   - string: the data to be encrypted.
     ///   - publicKey: contents of a `.pem` file.
-    static func rsaEncrypt(_ string: String, with publicKey: String) -> Result<String, BKError> {
+    public static func rsaEncrypt(
+        _ string: String, with publicKey: String
+    ) -> Result<String, BKError> {
         guard let stringData = string.data(using: .utf8) else {
             return .failure(.implementationError(reason: .invalidDataEncoding))
         }
-
-        let publicKey = publicKey
-            .replacingOccurrences(of: "-----BEGIN PUBLIC KEY-----", with: "")
-            .replacingOccurrences(of: "-----END PUBLIC KEY-----", with: "")
-            .replacingOccurrences(of: "\n", with: "")
-        guard let keyData = Data(base64Encoded: publicKey) else {
-            return .failure(.parseError(reason: .dataEncodeFailure))
-        }
-
-        return encrypt_Sec(stringData, keyData: keyData)
+        return encrypt(stringData, with: publicKey)
+            .map { $0.base64EncodedString() }
     }
 
     #if canImport(Security)
@@ -47,9 +44,17 @@ public extension BKSec {
     /// - Parameters:
     ///   - stringData: string to find digest for.
     ///   - keyData: public key data.
-    private static func encrypt_Sec(
-        _ stringData: Data, keyData: Data
-    ) -> Result<String, BKError> {
+    private static func encrypt(
+        _ stringData: Data, with publicKey: String
+    ) -> Result<Data, BKError> {
+        let publicKey = publicKey
+            .replacingOccurrences(of: publicKeyBegin, with: "")
+            .replacingOccurrences(of: publicKeyEnd, with: "")
+            .replacingOccurrences(of: "\n", with: "")
+        guard let keyData = Data(base64Encoded: publicKey) else {
+            return .failure(.parseError(reason: .dataEncodeFailure))
+        }
+
         var error: Unmanaged<CFError>? = nil
         var errorDescription: String {
             return (error!.takeRetainedValue() as Error).localizedDescription
@@ -60,7 +65,7 @@ public extension BKSec {
             kSecAttrKeySizeInBits: (keyData.count * 8) as NSNumber,
         ] as CFDictionary, &error) else {
             return .failure(.encryptError(
-                reason: .publicKeySecKeyGenerationFailure(errorDescription)
+                reason: .publicKeyGenerationFailure(errorDescription)
             ))
         }
         guard SecKeyIsAlgorithmSupported(
@@ -77,7 +82,15 @@ public extension BKSec {
                 reason: .rsaEncryptFailure(errorDescription)
             ))
         }
-        return .success((data as Data).base64EncodedString())
+        return .success((data as Data))
+    }
+    #else
+    private static func encrypt(
+        _ stringData: Data, with publicKey: String
+    ) -> Result<Data, BKError> {
+        let key = _RSA.Signing.PublicKey(pemRepresentation: publicKey)
+        #error("RSA implementation cannot encrypt with public key")
+        return .failure(.encryptError(reason: .rsaEncryptFailure("NO ENCRYPTION BACKEND")))
     }
     #endif
 }

@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// All possible errors thrown by BilibiliKit.
 public enum BKError: Error {
@@ -24,7 +27,7 @@ public enum BKError: Error {
         case reason(String, code: Int? = nil)
         case emptyValue
     }
-    /// Either you or @ApolloZhu is making dumb mistakes.
+    /// @ApolloZhu is making dumb mistakes most likely.
     public enum ImplementationErrorReason {
         case invalidURL(String)
         case invalidRegex(Error)
@@ -33,7 +36,7 @@ public enum BKError: Error {
     }
     /// Security framework related errors.
     public enum EncryptionErrorReason {
-        case publicKeySecKeyGenerationFailure(String)
+        case publicKeyGenerationFailure(String)
         case rsaEncryptFailure(String)
     }
     

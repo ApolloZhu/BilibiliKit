@@ -31,19 +31,17 @@ extension BKSec {
             return .failure(.parseError(reason: .dataEncodeFailure))
         }
 
-
-        #if canImport(CryptoKit)
-        if #available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, watchOS 6.0,  *) {
-            return md5Hex_CK(data)
-        }
-        #elseif canImport(Crypto)
-        return md5Hex_SC(data)
-        #endif
-
         #if canImport(CommonCrypto)
-        return md5Hex_CC(data)
+            #if canImport(CryptoKit)
+            if #available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, watchOS 6.0, *) {
+                return md5Hex_CK(data)
+            }
+            #endif
+            return md5Hex_CC(data)
+        #elseif canImport(Crypto)
+            return md5Hex_SC(data)
         #else
-        #error("MD5: NO ENCRYPTION BACKEND")
+            #error("MD5: NO ENCRYPTION BACKEND")
         #endif
     }
 }

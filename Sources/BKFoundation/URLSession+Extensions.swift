@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// Generic result type for all requests.
 public typealias BKResult<T> = Result<T, BKError>

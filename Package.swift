@@ -20,7 +20,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-crypto",
-                 .upToNextMinor(from: "1.1.2")),
+                 .upToNextMinor(from: "2.0.4")),
     ],
     targets: [
         .target(
@@ -34,7 +34,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Crypto", package: "swift-crypto",
                          condition: .when(platforms: [.linux])),
-                "BKFoundation"
+                "BKFoundation",
         ]),
         .target(
             name: "BKFoundation"),

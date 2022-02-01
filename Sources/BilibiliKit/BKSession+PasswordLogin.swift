@@ -7,17 +7,20 @@
 //
 
 import Foundation
-#if canImport(BKSecurity)
-import BKSecurity
+#if canImport(FoundationNetworking)
+import FoundationNetworking
 #endif
+import BKSecurity
 
 extension CharacterSet {
     /// https://stackoverflow.com/questions/41561853/couldnt-encode-plus-character-in-url-swift
     static let rfc3986Unreserved = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~")
 }
 
-private func encode(_ string: String) -> String {
-    return string.addingPercentEncoding(withAllowedCharacters: .rfc3986Unreserved)!
+extension String {
+    fileprivate var rfc3986PercentEncoded: String {
+        return addingPercentEncoding(withAllowedCharacters: .rfc3986Unreserved)!
+    }
 }
 
 extension BKSession {
@@ -60,7 +63,7 @@ extension BKSession {
             guard let key = get($0),
                 let pwd = get(BKSec.rsaEncrypt("\(key.hash)\(password)", with: key.key))
                 else { return }
-            let params = "actionKey=appkey&appkey=\(BKApp.appkey)&password=\(encode(pwd))&username=\(encode(username))"
+            let params = "actionKey=appkey&appkey=\(BKApp.appkey)&password=\(pwd.rfc3986PercentEncoded)&username=\(username.rfc3986PercentEncoded)"
             guard let sign = get(BKSec.md5Hex(params)) else { return }
             let url = "https://passport.bilibili.com/api/v3/oauth2/login?\(params)&sign=\(sign)" as URL
             var request = URLRequest(url: url)
