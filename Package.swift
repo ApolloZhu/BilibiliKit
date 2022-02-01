@@ -20,9 +20,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-crypto",
-                 .upToNextMinor(from: "1.1.2")),
-        .package(url: "https://github.com/apple/swift-nio-ssh",
-                 .upToNextMinor(from: "0.0.2")),
+                 .upToNextMinor(from: "2.0.4")),
     ],
     targets: [
         .target(
@@ -35,8 +33,6 @@ let package = Package(
             name: "BKSecurity",
             dependencies: [
                 .product(name: "Crypto", package: "swift-crypto",
-                         condition: .when(platforms: [.linux])),
-                .product(name: "NIOSSH", package: "swift-nio-ssh",
                          condition: .when(platforms: [.linux])),
                 "BKFoundation",
         ]),

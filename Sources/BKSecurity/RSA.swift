@@ -14,7 +14,7 @@ import BKFoundation
 #if canImport(Security)
 import Security
 #else
-#warning("RSA: NO ENCRYPTION BACKEND")
+import _CryptoExtras
 #endif
 
 extension BKSec {
@@ -35,15 +35,8 @@ extension BKSec {
         guard let stringData = string.data(using: .utf8) else {
             return .failure(.implementationError(reason: .invalidDataEncoding))
         }
-        let publicKey = publicKey
-            .replacingOccurrences(of: publicKeyBegin, with: "")
-            .replacingOccurrences(of: publicKeyEnd, with: "")
-            .replacingOccurrences(of: "\n", with: "")
-        #if canImport(Security)
-        return encrypt_Sec(stringData, with: publicKey)
-        #else
-        return encrypt_NIOSSH(stringData, with: publicKey)
-        #endif
+        return encrypt(stringData, with: publicKey)
+            .map { $0.base64EncodedString() }
     }
 
     #if canImport(Security)
@@ -51,9 +44,13 @@ extension BKSec {
     /// - Parameters:
     ///   - stringData: string to find digest for.
     ///   - keyData: public key data.
-    private static func encrypt_Sec(
+    private static func encrypt(
         _ stringData: Data, with publicKey: String
-    ) -> Result<String, BKError> {
+    ) -> Result<Data, BKError> {
+        let publicKey = publicKey
+            .replacingOccurrences(of: publicKeyBegin, with: "")
+            .replacingOccurrences(of: publicKeyEnd, with: "")
+            .replacingOccurrences(of: "\n", with: "")
         guard let keyData = Data(base64Encoded: publicKey) else {
             return .failure(.parseError(reason: .dataEncodeFailure))
         }
@@ -85,19 +82,15 @@ extension BKSec {
                 reason: .rsaEncryptFailure(errorDescription)
             ))
         }
-        return .success((data as Data).base64EncodedString())
+        return .success((data as Data))
     }
     #else
-    private static func encrypt_NIOSSH(
+    private static func encrypt(
         _ stringData: Data, with publicKey: String
-    ) -> Result<String, BKError> {
-        do {
-            #warning("RSA encryption will always fail")
-        } catch {
-            return .failure(.encryptError(reason: .publicKeyGenerationFailure(error.localizedDescription)))
-        }
-        return .failure(.encryptError(reason: .rsaEncryptFailure("WTF")))
+    ) -> Result<Data, BKError> {
+        let key = _RSA.Signing.PublicKey(pemRepresentation: publicKey)
+        #error("RSA implementation cannot encrypt with public key")
+        return .failure(.encryptError(reason: .rsaEncryptFailure("NO ENCRYPTION BACKEND")))
     }
     #endif
-
 }
