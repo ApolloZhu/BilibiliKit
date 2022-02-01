@@ -33,7 +33,7 @@ extension BKSec {
 
         #if canImport(CommonCrypto)
             #if canImport(CryptoKit)
-            if #available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, watchOS 6.0,  *) {
+            if #available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, watchOS 6.0, *) {
                 return md5Hex_CK(data)
             }
             #endif
